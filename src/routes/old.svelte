@@ -1,6 +1,5 @@
 <script lang="ts">
 	import _ from 'lodash';
-	import { c } from '$lib';
 
 	//ls
 
@@ -53,7 +52,10 @@
 
 		for (let s of uniqueSymbols) {
 			if (!(s in syntax)) {
-				syntax[s] = { shape: undefined, props: { scale_x: 1, scale_y: 1, rotation: 0 } };
+				syntax[s] = {
+					shape: undefined,
+					props: { scale_x: 1, scale_y: 1, rotation: 0 }
+				};
 			}
 		}
 	}
