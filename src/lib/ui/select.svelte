@@ -1,0 +1,24 @@
+<script lang="ts" context="module">
+	export type SelectOption<T> = { label: string; value: T };
+	export type SelectOptions<T> = Array<SelectOption<T>>;
+</script>
+
+<script lang="ts">
+	import { nanoid } from 'nanoid';
+
+	export let options: SelectOptions<any>;
+	export let value: any;
+	export let name: string = nanoid(5);
+</script>
+
+<select
+	bind:value
+	on:change
+	class="p-2 bg-slate-200 font-mono"
+	{name}
+	id={name}
+>
+	{#each options as o (o.label)}
+		<option value={o.value}>{o.label}</option>
+	{/each}
+</select>
