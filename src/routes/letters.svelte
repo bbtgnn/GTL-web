@@ -1,17 +1,9 @@
 <script lang="ts">
 	import _ from 'lodash';
 
-	//ls
-
 	interface Glyph {
 		name: string;
 		structure: string;
-	}
-
-	interface Props {
-		scale_x: number;
-		scale_y: number;
-		rotation: number;
 	}
 
 	let glyphs: Array<Glyph> = [];
@@ -35,8 +27,6 @@
 
 	let selectedGlyph: number | null = null;
 
-	let syntax: Record<string, { shape: string | undefined; props: Props }> = {};
-
 	$: if (glyphs.length) {
 		//
 		const symbols = [];
@@ -49,33 +39,7 @@
 
 		// Unique symbols
 		const uniqueSymbols = _.uniq(symbols);
-
-		for (let s of uniqueSymbols) {
-			if (!(s in syntax)) {
-				syntax[s] = {
-					shape: undefined,
-					props: { scale_x: 1, scale_y: 1, rotation: 0 }
-				};
-			}
-		}
 	}
-
-	const functions: Record<string, Object> = {
-		void: {},
-		rectangle: {
-			scale_x: 1,
-			scale_y: 1,
-			rotation: 0
-		},
-		ellipse: {
-			scale_x: 1,
-			scale_y: 1,
-			rotation: 0,
-			squaring: 0.65
-		}
-	};
-
-	const f = Object.keys(functions);
 </script>
 
 <!--  -->
@@ -103,15 +67,13 @@
 	</div>
 
 	<!-- Glyph area -->
-	<!-- <div class="bg-red-300 flex-grow p-4 flex flex-col flex-nowrap gap-4">
+	<div class="bg-red-300 flex-grow p-4 flex flex-col flex-nowrap gap-4">
 		{#if selectedGlyph !== null}
-
+			ciao
 		{:else if glyphs.length}
 			<p>Select a glyph</p>
 		{:else}
 			<p>Aggiungi un glifo</p>
 		{/if}
-	</div> -->
+	</div>
 </div>
-
-<!--  -->
