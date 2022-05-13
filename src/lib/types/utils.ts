@@ -8,6 +8,8 @@ import type {
 	QuarterProps,
 	VoidProps
 } from './shapes';
+import { ShapeKind } from './shapes';
+import type { Rule, Syntax } from './syntax';
 
 /**
  * Props Creators
@@ -49,3 +51,21 @@ export const quarterProps: QuarterProps = {
 };
 
 export const voidProps: VoidProps = {};
+
+/**
+ * Rule creators
+ */
+
+export function createEmptyRule(s: string): Rule {
+	return {
+		symbol: s,
+		shape: {
+			kind: ShapeKind.Void,
+			props: {}
+		}
+	};
+}
+
+export function createEmptySyntax(symbols: Array<string>): Syntax {
+	return symbols.map((s) => createEmptyRule(s));
+}
