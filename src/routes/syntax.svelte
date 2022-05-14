@@ -8,7 +8,9 @@
 
 	let symbols = ['@', '#', 'a'];
 
-	$syntaxes['default'] = createEmptySyntax(symbols);
+	if (!('default' in $syntaxes)) {
+		$syntaxes['default'] = createEmptySyntax(symbols);
+	}
 
 	function addSyntax() {
 		$syntaxes[nanoid(5)] = createEmptySyntax(symbols);
