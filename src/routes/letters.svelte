@@ -1,79 +1,73 @@
 <script lang="ts">
-	import _ from 'lodash';
+	import type { Glyph } from '$lib/types';
+	import { glyphs } from '$lib/stores';
+	import { nanoid } from 'nanoid';
 
-	interface Glyph {
-		name: string;
-		structure: string;
-	}
+	import InputText from '$lib/ui/inputText.svelte';
 
-	let glyphs: Array<Glyph> = [];
-
-	function addGlyph() {
-		const newGlyph = {
-			name: '',
-			structure: ''
-		};
-		glyphs.push(newGlyph);
-		glyphs = glyphs;
-
-		if (!selectedGlyph) {
-			selectedGlyph = glyphs.length - 1;
-		}
-	}
-
-	function selectGlyph(g: Glyph) {
-		selectedGlyph = glyphs.indexOf(g);
-	}
+	//
 
 	let selectedGlyph: number | null = null;
 
-	$: if (glyphs.length) {
-		//
-		const symbols = [];
-		for (const g of glyphs) {
-			const txt = g.structure.replace(/(\r\n|\n|\r)/gm, '');
-			if (txt) {
-				symbols.push(...txt.split(''));
-			}
-		}
+	if (!$glyphs.length) {
+		addGlyph();
+	}
 
-		// Unique symbols
-		const uniqueSymbols = _.uniq(symbols);
+	$: if ($glyphs.length && selectedGlyph == null) {
+		selectedGlyph = 0;
+	}
+
+	function addGlyph() {
+		const newGlyph = {
+			name: nanoid(5),
+			structure: ''
+		};
+		$glyphs = [...$glyphs, newGlyph];
+
+		selectedGlyph = $glyphs.length - 1;
+	}
+
+	function selectGlyph(g: Glyph) {
+		selectedGlyph = $glyphs.indexOf(g);
 	}
 </script>
 
 <!--  -->
 
 <div class="flex flex-row flex-nowrap items-stretch w-screen h-screen">
-	<!-- Sidebar -->
-	<div class="bg-slate-200 p-4 flex gap-4 flex-col flex-nowrap">
-		<!-- Button -->
-		<div>
-			<button on:click={addGlyph}>+ Aggiungi glifo</button>
-		</div>
+	<!-- sidebar -->
+	<div class="flex basis-60 flex-col flex-nowrap gap-2 p-4 bg-slate-100">
+		<button
+			class="flex bg-slate-200 mb-4 p-3 hover:bg-slate-300"
+			on:click={() => {
+				addGlyph();
+			}}>+ Add Glyph</button
+		>
 
-		<!-- Glyph list -->
-		<div class="flex flex-col flex-grow flex-nowrap gap-2 overflow-scroll">
-			{#each glyphs as g, i (g)}
-				<div class="p-2 bg-gray-50">
-					{#if g.name}
-						{g.name}
-					{:else}
-						[no name]
-					{/if}
-				</div>
-			{/each}
-		</div>
+		{#each $glyphs as g, i (g.name)}
+			<div
+				class:bg-slate-300={i != selectedGlyph}
+				class:bg-slate-400={i == selectedGlyph}
+				class="px-3 py-1"
+				on:click={() => {
+					selectGlyph(g);
+				}}
+			>
+				{g.name}
+			</div>
+		{/each}
 	</div>
 
 	<!-- Glyph area -->
-	<div class="bg-red-300 flex-grow p-4 flex flex-col flex-nowrap gap-4">
-		{#if selectedGlyph !== null}
-			ciao
-		{:else if glyphs.length}
-			<p>Select a glyph</p>
-		{:else}
+	<div class="flex-grow p-4 flex flex-col flex-nowrap gap-4">
+		{#if !$glyphs.length}
 			<p>Aggiungi un glifo</p>
+		{:else if selectedGlyph !== null}
+			<InputText bind:value={$glyphs[selectedGlyph].name} />
+			<textarea
+				class="flex-grow p-2 bg-slate-200 font-mono"
+				bind:value={$glyphs[selectedGlyph].structure}
+			/>
 		{/if}
 	</div>
 </div>
