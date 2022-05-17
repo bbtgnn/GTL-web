@@ -51,3 +51,6 @@ export type OrientationData = Orientation | ValueDataChoice<Orientation>;
 export type OrientationValue =
 	| FixedValue<Orientation>
 	| ChoiceValue<Orientation>;
+
+export type BooleanData = boolean | ValueDataChoice<boolean>;
+export type BooleanValue = FixedValue<boolean> | ChoiceValue<boolean>;

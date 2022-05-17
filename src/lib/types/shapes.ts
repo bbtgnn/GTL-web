@@ -1,4 +1,9 @@
-import type { BaseProps, CurveProps, OrientationProp } from './props';
+import type {
+	BaseProps,
+	CurveProps,
+	OrientationProp,
+	BooleanProp
+} from './props';
 
 /**
  * Shapes
