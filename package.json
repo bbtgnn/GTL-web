@@ -34,8 +34,10 @@
   },
   "type": "module",
   "dependencies": {
+    "@types/opentype.js": "^1.3.3",
     "lodash": "^4.17.21",
     "nanoid": "^3.3.4",
+    "opentype.js": "^1.3.4",
     "svelte-local-storage-store": "^0.2.6"
   }
 }
