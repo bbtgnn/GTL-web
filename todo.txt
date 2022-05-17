@@ -1,0 +1,3 @@
+- finire inputProp
+- differenziare la gestione delle trasformazioni geometriche (scale_x, scale_y, rotation)
+    dalle proprietà specifiche della forma (squaring, orientation, etc)
