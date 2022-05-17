@@ -1,6 +1,6 @@
 <script lang="ts">
 	import SyntaxEditor from '$lib/components/syntax/syntax.svelte';
-	import { createEmptySyntax } from '$lib/types';
+	import { createEmptySyntax, createEmptyRule } from '$lib/types';
 	import { syntaxes, glyphs } from '$lib/stores';
 	import { nanoid } from 'nanoid';
 	import _ from 'lodash';
@@ -28,17 +28,23 @@
 
 	/**
 	 * Updating all the syntaxes if there are new symbols
-	 * TODO
 	 */
 
-	// for (let key of Object.keys($syntaxes)) {
-	// 	const syntax = $syntaxes[key]
+	for (let key of Object.keys($syntaxes)) {
+		const syntax = $syntaxes[key];
+		const syntaxSymbols = syntax.map((r) => r.symbol);
+		for (let symbol of getUniqueSymbols()) {
+			if (!syntaxSymbols.includes(symbol)) {
+				syntax.push(createEmptyRule(symbol));
+			}
+		}
+	}
 
 	/**
 	 * Creating default syntax
 	 */
 
-	if (!Object.keys($syntaxes).length) {
+	if (!$syntaxes.length) {
 		const name = 'Regular';
 		addSyntax(name);
 		current = name;
@@ -58,16 +64,9 @@
 		current = name;
 	}
 
-	//
-
-	// // Getting unique symbols
-	// $: if ($glyphs.length) {
-	// 	const symbols = getUniqueSymbols();
-	// 	symbols.forEach((s) => {
-	// 		if (!(s in $syntaxes)) {
-	// 		}
-	// 	});
-	// }
+	$: if (!current && $syntaxes.length) {
+		current = Object.keys($syntaxes)[0];
+	}
 </script>
 
 <!--  -->
