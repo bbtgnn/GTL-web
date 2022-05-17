@@ -4,7 +4,8 @@
 		ValueKind,
 		type Prop,
 		type NumberData,
-		type OrientationData
+		type OrientationData,
+		type BooleanData
 	} from '$lib/types';
 	import Select, { type SelectOptions } from '$lib/ui/select.svelte';
 	import InputNumber from '$lib/ui/inputNumber.svelte';
@@ -43,6 +44,12 @@
 					choice: { options: ['NE', 'NW'] }
 				};
 				prop.value.data = data[tempKind as ValueKind.Choice | ValueKind.Fixed];
+			} else if (prop.kind == PropKind.Boolean) {
+				const data: Record<ValueKind.Choice | ValueKind.Fixed, BooleanData> = {
+					fixed: false,
+					choice: { options: [true, false] }
+				};
+				prop.value.data = data[tempKind as ValueKind.Choice | ValueKind.Fixed];
 			}
 			prop.value.kind = tempKind;
 		}
@@ -73,12 +80,15 @@
 					<InputNumber bind:value={prop.value.data} />
 				{:else if prop.kind == 'orientation'}
 					<!-- Input select orientation -->
+				{:else if prop.kind == 'boolean'}
+					<!-- Input radio here -->
 				{/if}
 			{:else if prop.value.kind == 'range'}
 				<InputNumber bind:value={prop.value.data.min} />
 				<InputNumber bind:value={prop.value.data.max} />
 			{:else if prop.value.kind == 'choice'}
 				<InputArray bind:value={prop.value.data.options} />
+				<!-- Qui bisogna fare il parsing dei boolean o degli interi a seconda del caso -->
 			{/if}
 		</div>
 	</div>

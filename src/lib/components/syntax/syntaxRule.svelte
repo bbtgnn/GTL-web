@@ -72,6 +72,7 @@
 		<!--  -->
 		{#if rule.shape.kind == ShapeKind.Quarter || rule.shape.kind == ShapeKind.Ellipse}
 			<InputProp bind:prop={rule.shape.props.squaring} />
+			<InputProp bind:prop={rule.shape.props.negative} />
 		{/if}
 		<!--  -->
 		{#if rule.shape.kind == ShapeKind.Quarter}
