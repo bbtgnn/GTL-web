@@ -3,9 +3,12 @@
 
 	const links = [
 		{ href: '/letters', text: 'Lettere' },
-		{ href: '/syntax', text: 'Sintassi' }
+		{ href: '/syntax', text: 'Sintassi' },
+		{ href: '/output', text: 'Output' }
 	];
 </script>
+
+<!--  -->
 
 <div class="flex flex-row flex-nowrap p-2 bg-slate-900 gap-2">
 	{#each links as l}
