@@ -7,13 +7,13 @@
 
 	//
 
-	let selectedGlyph: number | null = null;
+	let selectedGlyph: number;
 
 	if (!$glyphs.length) {
 		addGlyph();
 	}
 
-	$: if ($glyphs.length && selectedGlyph == null) {
+	$: if (!selectedGlyph) {
 		selectedGlyph = 0;
 	}
 
@@ -34,9 +34,10 @@
 
 <!--  -->
 
-<div class="flex flex-row flex-nowrap items-stretch w-screen h-screen">
+<div class="flex flex-row flex-nowrap items-stretch">
 	<!-- sidebar -->
 	<div class="flex basis-60 flex-col flex-nowrap gap-2 p-4 bg-slate-100">
+		<!-- Add glyph -->
 		<button
 			class="flex bg-slate-200 mb-4 p-3 hover:bg-slate-300"
 			on:click={() => {
@@ -44,6 +45,7 @@
 			}}>+ Add Glyph</button
 		>
 
+		<!-- Glyph list -->
 		{#each $glyphs as g, i (g.name)}
 			<div
 				class:bg-slate-300={i != selectedGlyph}
@@ -60,12 +62,10 @@
 
 	<!-- Glyph area -->
 	<div class="flex-grow p-4 flex flex-col flex-nowrap gap-4">
-		{#if !$glyphs.length}
-			<p>Aggiungi un glifo</p>
-		{:else if selectedGlyph !== null}
+		{#if selectedGlyph !== null}
 			<InputText bind:value={$glyphs[selectedGlyph].name} />
 			<textarea
-				class="flex-grow p-2 bg-slate-200 font-mono"
+				class="flex-grow h-80 p-2 bg-slate-200 font-mono"
 				bind:value={$glyphs[selectedGlyph].structure}
 			/>
 		{/if}

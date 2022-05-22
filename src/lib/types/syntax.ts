@@ -9,4 +9,7 @@ export type Rule = {
 	shape: Shape;
 };
 
-export type Syntax = Array<Rule>;
+export type Syntax = {
+	name: string;
+	rules: Array<Rule>;
+};

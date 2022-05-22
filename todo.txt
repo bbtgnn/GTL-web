@@ -1,0 +1,9 @@
+ToDo
+- differenziare la gestione delle trasformazioni geometriche (scale_x, scale_y, rotation)
+    dalle proprietà specifiche della forma (squaring, orientation, etc)
+- aggiungere box layout e box width alla sintassi
+- uniformare (con componente) la gestione degli elementi selezionati
+
+Done
+- finire inputProp
+- rimuovere simbolo da sintassi quando questo sparisce dalle lettere

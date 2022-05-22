@@ -5,6 +5,8 @@
 	export let name: string = nanoid(5);
 </script>
 
+<!--  -->
+
 <input
 	type="text"
 	bind:value
