@@ -104,90 +104,108 @@ export function ellipse(
 export const PathLetters = ['C', 'M', 'Z', 'L'] as const;
 export type PathLetter = typeof PathLetters[number];
 
-export function getAbsoluteSVGPath(path: paper.Path): string {
+type ArrayDirective =
+	| ['Z']
+	| ['M' | 'L', number, number]
+	| ['C', number, number, number, number, number, number];
+
+export function getAbsoluteSVGPath(
+	path: paper.PathItem,
+	round = false
+): Array<ArrayDirective> {
 	// Getting SVG path
 	const svg = path.exportSVG({ asString: false }) as SVGElement;
 	// Getting path attribute
 	const d = svg.getAttribute('d');
-	// Making path in absolute coordinates
-	const absPath: string = new SVGPathCommander(d).toAbsolute();
 
-	return absPath;
+	if (d) {
+		// Making path in absolute coordinates
+		const absPath: Array<ArrayDirective> = new SVGPathCommander(d, {
+			round: 0
+		})
+			.optimize()
+			.toAbsolute().segments;
+
+		return absPath;
+	} else {
+		return [];
+	}
 }
 
-// export function pathToDirectives(path: paper.Path): opentype.Path {
-// 	const sequence = absPath
-// 		.replace(/C/g, ' C ')
-// 		.replace(/M/g, ' M ')
-// 		.replace(/Z/g, ' Z ')
-// 		.replace(/L/g, ' L ')
-// 		.split(' ')
-// 		.filter((s) => s);
+type OpentypeDirective =
+	| { type: 'Z' }
+	| { type: 'M' | 'L'; x: number; y: number }
+	| {
+			type: 'C';
+			x1: number;
+			y1: number;
+			x2: number;
+			y2: number;
+			x: number;
+			y: number;
+	  };
 
-// 	const sequences: Array<Array<string>> = [];
-// 	let tempArr: Array<string> = [];
-// 	for (let s of sequence) {
-// 		if (['C', 'M', 'Z', 'L'].includes(s)) {
-// 			if (tempArr.length) {
-// 				sequences.push(tempArr);
-// 			}
-// 			tempArr = [];
-// 		}
-// 		tempArr.push(s);
-// 	}
-// 	console.log(sequences);
+//
 
-// 	const instr: Array<
-// 		| { type: 'Z' }
-// 		| { type: 'M'; x: number; y: number }
-// 		| { type: 'L'; x: number; y: number }
-// 		| {
-// 				type: 'C';
-// 				x1: number;
-// 				y1: number;
-// 				x2: number;
-// 				y2: number;
-// 				x: number;
-// 				y: number;
-// 		  }
-// 	> = [];
+export function arrayToDirectives(
+	directives: Array<ArrayDirective>
+): Array<OpentypeDirective> {
+	const dirs: Array<OpentypeDirective> = [];
 
-// 	for (let item of sequences) {
-// 		if (item[0] == 'Z') {
-// 			instr.push({ type: 'Z' });
-// 		}
-// 		if (item[0] == 'L' || item[0] == 'M') {
-// 			instr.push({
-// 				type: item[0],
-// 				x: parseFloat(item[1]),
-// 				y: parseFloat(item[2])
-// 			});
-// 		}
-// 		if (item[0] == 'C') {
-// 			instr.push({
-// 				type: item[0],
-// 				x1: parseFloat(item[1]),
-// 				y1: parseFloat(item[2]),
-// 				x2: parseFloat(item[3]),
-// 				y2: parseFloat(item[4]),
-// 				x: parseFloat(item[5]),
-// 				y: parseFloat(item[6])
-// 			});
-// 		}
-// 	}
-// 	console.log(instr);
+	if (!directives.length) {
+		return [];
+	}
 
-// 	const p = new opentype.Path();
-// 	for (let i of instr) {
-// 		if (i.type == 'M') {
-// 			p.moveTo(i.x, i.y);
-// 		} else if (i.type == 'L') {
-// 			p.lineTo(i.x, i.y);
-// 		} else if (i.type == 'Z') {
-// 			p.close();
-// 		} else if (i.type == 'C') {
-// 			p.bezierCurveTo(i.x1, i.y1, i.x2, i.y2, i.x, i.y);
-// 		}
-// 	}
-// 	return p;
-// }
+	for (let item of directives) {
+		if (item[0] == 'Z') {
+			dirs.push({ type: item[0] });
+		}
+		if (item[0] == 'L' || item[0] == 'M') {
+			dirs.push({
+				type: item[0],
+				x: item[1],
+				y: item[2]
+			});
+		}
+		if (item[0] == 'C') {
+			dirs.push({
+				type: item[0],
+				x1: item[1],
+				y1: item[2],
+				x2: item[3],
+				y2: item[4],
+				x: item[5],
+				y: item[6]
+			});
+		}
+	}
+
+	return dirs;
+}
+
+//
+
+export function pathFromDirectives(d: Array<OpentypeDirective>): opentype.Path {
+	const p = new opentype.Path();
+	for (let i of d) {
+		if (i.type == 'M') {
+			p.moveTo(i.x, i.y);
+		} else if (i.type == 'L') {
+			p.lineTo(i.x, i.y);
+		} else if (i.type == 'Z') {
+			p.close();
+		} else if (i.type == 'C') {
+			p.bezierCurveTo(i.x1, i.y1, i.x2, i.y2, i.x, i.y);
+		}
+	}
+	return p;
+}
+
+//
+
+export function paperToOpentype(path: paper.PathItem): opentype.Path {
+	const svgpath = getAbsoluteSVGPath(path);
+	const directives = arrayToDirectives(svgpath);
+	const otpath = pathFromDirectives(directives);
+	return otpath;
+}
