@@ -3,6 +3,7 @@
 
 	export let value: Array<any> = [];
 	export let parseNumbers = false;
+	export let parseBooleans = false;
 	export let separator = ';';
 
 	let string = '';
@@ -18,10 +19,20 @@
 			.map((s) => s.trim())
 			.filter((s) => s);
 
-		if (!parseNumbers) {
+		if (!parseNumbers && !parseBooleans) {
 			value = [...tempValue];
-		} else {
+		} else if (parseNumbers) {
 			value = [...tempValue.map((s) => parseFloat(s)).filter((n) => !isNaN(n))];
+		} else if (parseBooleans) {
+			value = [
+				...tempValue
+					.map((s) => {
+						if (s == 'true') return true;
+						else if (s == 'false') return false;
+						else return null;
+					})
+					.filter((n) => n !== null)
+			];
 		}
 	}
 
