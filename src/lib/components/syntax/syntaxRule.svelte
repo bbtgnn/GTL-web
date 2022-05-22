@@ -12,6 +12,7 @@
 
 	import InputProp from './inputProp.svelte';
 	import Select, { type SelectOptions } from '$lib/ui/select.svelte';
+	import Label from '$lib/ui/label.svelte';
 
 	//
 
@@ -39,8 +40,8 @@
 	const shapeOptions: SelectOptions<ShapeKind> = [
 		{ label: 'rectangle', value: ShapeKind.Rectangle },
 		{ label: 'ellipse', value: ShapeKind.Ellipse },
-		{ label: 'void', value: ShapeKind.Void },
-		{ label: 'quarter', value: ShapeKind.Quarter }
+		{ label: 'quarter', value: ShapeKind.Quarter },
+		{ label: 'void', value: ShapeKind.Void }
 	];
 </script>
 
@@ -53,7 +54,8 @@
 	</div>
 
 	<!-- Shape -->
-	<div>
+	<div class="flex flex-col">
+		<Label target="shape">Forma</Label>
 		<Select
 			options={shapeOptions}
 			bind:value={tempShape}
@@ -65,18 +67,50 @@
 	<div class="flex flex-col flex-nowrap gap-4">
 		<!--  -->
 		{#if rule.shape.kind != ShapeKind.Void}
-			<InputProp bind:prop={rule.shape.props.scale_x} />
-			<InputProp bind:prop={rule.shape.props.scale_y} />
-			<InputProp bind:prop={rule.shape.props.rotation} />
+			<div>
+				<Label target="scale_x">Scala orizzontale</Label>
+				<InputProp bind:prop={rule.shape.props.scale_x} />
+			</div>
+			<div>
+				<Label target="scale_y">Scala verticale</Label>
+				<InputProp bind:prop={rule.shape.props.scale_y} />
+			</div>
+			<div>
+				<Label target="rotation">Rotazione</Label>
+				<InputProp
+					numberDefaults={{
+						fixed: 0,
+						choice: { options: [0, 45] },
+						range: { min: 0, max: 90 }
+					}}
+					bind:prop={rule.shape.props.rotation}
+				/>
+			</div>
 		{/if}
 		<!--  -->
 		{#if rule.shape.kind == ShapeKind.Quarter || rule.shape.kind == ShapeKind.Ellipse}
-			<InputProp bind:prop={rule.shape.props.squaring} />
-			<InputProp bind:prop={rule.shape.props.negative} />
+			<div>
+				<Label target="squaring">Squadratura</Label>
+				<InputProp
+					numberDefaults={{
+						fixed: 0.56,
+						choice: { options: [0, 0.56, 1] },
+						range: { min: 0, max: 1 }
+					}}
+					bind:prop={rule.shape.props.squaring}
+				/>
+			</div>
+			<div>
+				<Label target="negative">Negativo</Label>
+				<InputProp bind:prop={rule.shape.props.negative} />
+			</div>
 		{/if}
 		<!--  -->
 		{#if rule.shape.kind == ShapeKind.Quarter}
-			<InputProp bind:prop={rule.shape.props.orientation} />
+			<div>
+				<Label target="orientamento">Orientamento</Label>
+				<InputProp bind:prop={rule.shape.props.orientation} />
+			</div>
 		{/if}
 	</div>
 </div>
