@@ -8,7 +8,7 @@
 <!--  -->
 
 <div class="flex flex-col flex-nowrap gap-4">
-	{#each syntax as rule (rule.symbol)}
+	{#each syntax.rules as rule (rule.symbol)}
 		<div class="flex flex-row flex-nowrap gap-4">
 			<SyntaxRule bind:rule />
 		</div>

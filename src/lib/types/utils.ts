@@ -83,8 +83,11 @@ export function createEmptyRule(s: string): Rule {
 	};
 }
 
-export function createEmptySyntax(symbols: Array<string>): Syntax {
-	return symbols.map((s) => createEmptyRule(s));
+export function createEmptySyntax(
+	name: string,
+	symbols: Array<string>
+): Syntax {
+	return { name, rules: symbols.map((s) => createEmptyRule(s)) };
 }
 
 /**
