@@ -4,6 +4,8 @@ ToDo
 - aggiungere box layout e box width alla sintassi
 - uniformare (con componente) la gestione degli elementi selezionati
 - aggiungere id a lettere e sintassi in modo da poterlo utilizzare nel keyed each
+- separare la logica del gtl dalla UI
+- aggiungere come subtree aglfn https://gist.github.com/SKempin/b7857a6ff6bddb05717cc17a44091202
 
 Done
 - finire inputProp

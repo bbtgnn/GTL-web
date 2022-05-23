@@ -9,6 +9,7 @@
 		editPathFromDirectives,
 		arrayToDirectives
 	} from '$lib/GTL/paperToOpentype';
+	import { unicode } from '$lib/unicode';
 
 	import {
 		structureToArray,
@@ -95,7 +96,7 @@
 				glyphs_.push(
 					new opentype.Glyph({
 						name,
-						unicode: 65,
+						unicode: parseInt(unicode[name], 16),
 						advanceWidth,
 						path: oPath
 					})
