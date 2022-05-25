@@ -19,9 +19,9 @@ const config = {
 			precompress: false
 		}),
 
-		// paths: {
-		// 	base: dev ? '' : '/GTL-web'
-		// },
+		paths: {
+			base: dev ? '' : '/GTL-web'
+		},
 
 		prerender: {
 			// This can be false if you're using a fallback (i.e. SPA mode)

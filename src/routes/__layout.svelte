@@ -1,11 +1,12 @@
 <script>
 	import '../app.css';
+	import { base, assets } from '$app/paths';
 
 	const links = [
-		{ href: '/letters', text: 'Lettere' },
-		{ href: '/syntax', text: 'Sintassi' },
-		{ href: '/metrics', text: 'Metriche' },
-		{ href: '/output', text: 'Output' }
+		{ href: `${base}/letters`, text: 'Lettere' },
+		{ href: `${base}/syntax`, text: 'Sintassi' },
+		{ href: `${base}/metrics`, text: 'Metriche' },
+		{ href: `${base}/output`, text: 'Output' }
 	];
 </script>
 
