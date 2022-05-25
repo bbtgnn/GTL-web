@@ -7,10 +7,9 @@
 
 	function renderFont(el: HTMLCanvasElement) {
 		const ctx = el.getContext('2d') as CanvasRenderingContext2D;
-		console.log(font);
-		font.draw(ctx, text, 0, 200, size, {
-			kerning: false
-		});
+		// font.draw(ctx, text, 0, 200, size, {
+		// 	kerning: false
+		// });
 	}
 
 	function download() {
@@ -21,4 +20,6 @@
 <!--  -->
 
 <canvas use:renderFont width="600" height="300" class="border-2" />
-<button on:click={download}>Scarica font!</button>
+<button class="p-4 bg-slate-200 hover:bg-slate-300" on:click={download}
+	>Scarica font!</button
+>
