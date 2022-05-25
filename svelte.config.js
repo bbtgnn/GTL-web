@@ -20,7 +20,7 @@ const config = {
 		}),
 
 		paths: {
-			base: dev ? '' : '/GTL-web'
+			base: dev ? '' : '/GTL-web/docs'
 			// assets: dev ? '' : '/GTL-web/docs'
 		},
 
