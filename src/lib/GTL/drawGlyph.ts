@@ -61,39 +61,43 @@ export function structureToArray(s: string): Array<Cell> {
 
 //
 
-export function drawPath(box: paper.Rectangle, rule: Rule): paper.PathItem {
-	let path: paper.PathItem;
+export function drawPath(box: paper.Rectangle, rule: Rule): Array<paper.Path> {
+	let paths: Array<paper.Path> = [];
 
 	if (rule.shape.kind == ShapeKind.Rectangle) {
-		path = rectangle(box);
+		paths.push(rectangle(box));
 	}
 	//
 	else if (rule.shape.kind == ShapeKind.Ellipse) {
-		path = ellipse(
-			box,
-			calcNumberProp(rule.shape.props.squaring),
-			calcBooleanProp(rule.shape.props.negative)
+		paths.push(
+			...ellipse(
+				box,
+				calcNumberProp(rule.shape.props.squaring),
+				calcBooleanProp(rule.shape.props.negative)
+			)
 		);
 	}
 	//
 	else if (rule.shape.kind == ShapeKind.Quarter) {
-		path = quarter(
-			box,
-			calcNumberProp(rule.shape.props.squaring),
-			calcBooleanProp(rule.shape.props.negative),
-			calcOrientationProp(rule.shape.props.orientation)
+		paths.push(
+			quarter(
+				box,
+				calcNumberProp(rule.shape.props.squaring),
+				calcBooleanProp(rule.shape.props.negative),
+				calcOrientationProp(rule.shape.props.orientation)
+			)
 		);
 	}
 	//
 	else if (rule.shape.kind == ShapeKind.Void) {
-		path = new paper.Path();
+		paths.push(new paper.Path());
 	}
 	//
 	else {
 		throw new Error('unknownShape');
 	}
 
-	return path;
+	return paths;
 }
 
 //

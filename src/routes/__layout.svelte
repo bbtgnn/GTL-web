@@ -4,6 +4,7 @@
 	const links = [
 		{ href: '/letters', text: 'Lettere' },
 		{ href: '/syntax', text: 'Sintassi' },
+		{ href: '/metrics', text: 'Metriche' },
 		{ href: '/output', text: 'Output' }
 	];
 </script>

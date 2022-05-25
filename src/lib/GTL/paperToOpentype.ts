@@ -19,8 +19,6 @@ export function getAbsoluteSVGPath(
 	// Getting path attribute
 	const d = svg.getAttribute('d');
 
-	console.log(d);
-
 	if (d) {
 		// Making path in absolute coordinates
 		const absPath: Array<ArrayDirective> = new SVGPathCommander(d, {

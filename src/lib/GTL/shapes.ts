@@ -76,7 +76,7 @@ export function ellipse(
 	box: paper.Rectangle,
 	squaring: number = 0.56,
 	negative: boolean = false
-): paper.PathItem {
+): Array<paper.Path> {
 	// Base information
 	const size = new paper.Size(box.width / 2, box.height / 2);
 	const basePoints: Record<Orientation, paper.Point> = {
@@ -95,6 +95,5 @@ export function ellipse(
 		paths.push(quarter(quarterBox, squaring, negative, o));
 	}
 
-	// Creating final path
-	return paths[0].unite(paths[1]).unite(paths[2]).unite(paths[3]);
+	return paths;
 }

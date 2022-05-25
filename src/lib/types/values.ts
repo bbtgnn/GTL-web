@@ -1,5 +1,5 @@
 /**
- * Adding a base value type (the other one is 'number')
+ * Adding a base value type (the others are: number, boolean)
  */
 
 export const orientations = ['NW', 'SW', 'NE', 'SE'] as const;
@@ -25,6 +25,7 @@ export interface ValueTemplate<K, T> {
 export interface ValueDataChoice<T> {
 	options: Array<T>;
 }
+
 export interface ValueDataRange {
 	min: number;
 	max: number;

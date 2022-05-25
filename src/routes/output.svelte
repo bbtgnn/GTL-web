@@ -1,139 +1,44 @@
 <script lang="ts">
-	import { glyphs, syntaxes } from '$lib/stores';
+	import { glyphs, syntaxes, metrics } from '$lib/stores';
 
-	import opentype from 'opentype.js';
-	import paper from 'paper';
-	import { onMount } from 'svelte';
-	import {
-		getAbsoluteSVGPath,
-		editPathFromDirectives,
-		arrayToDirectives
-	} from '$lib/GTL/paperToOpentype';
-	import { unicode } from '$lib/unicode';
+	import type opentype from 'opentype.js';
+	import { generateFont } from '$lib/GTL/createFont';
 
-	import {
-		structureToArray,
-		drawPath,
-		getRule,
-		createBox,
-		getGlyphWidth
-	} from '$lib/GTL/drawGlyph';
+	import FontDisplay from '$lib/components/fontDisplay.svelte';
 
-	const canvas_h = 1000;
-	const canvas_w = 1000;
-
-	const baseSquare = 100;
+	import InputText from '$lib/ui/inputText.svelte';
+	import InputNumber from '$lib/ui/inputNumber.svelte';
+	import Label from '$lib/ui/label.svelte';
 
 	//
 
-	// function doStuff(node: HTMLCanvasElement) {
-	// 	const ctx = node.getContext('2d');
+	let fonts: Array<opentype.Font> = [];
 
-	// 	if (ctx) {
-	// 		aGlyph.draw(ctx, 0, canvas_h, 200);
-	// 		aGlyph.drawMetrics(ctx, 0, canvas_h, 200);
-	// 	}
-	// }
+	let text: string = 'a';
+	let size: number = 72;
 
-	onMount(() => {
-		/**
-		 * Iterating over syntaxes
-		 */
-
-		for (let syntax of $syntaxes) {
-			// Setup paper.js
-			paper.setup(syntax.name);
-			const size = new paper.Size(baseSquare, baseSquare); // Qui bisogna aggiungere la width presa dalla sintassi
-
-			/**
-			 * Iterating over glyphs
-			 */
-
-			const glyphs_: Array<opentype.Glyph> = [];
-
-			// Notdef is required
-			const notdefGlyph = new opentype.Glyph({
-				name: '.notdef',
-				unicode: 0,
-				advanceWidth: 600,
-				path: new opentype.Path()
-			});
-			glyphs_.push(notdefGlyph);
-
-			//
-
-			for (let g of $glyphs) {
-				// Listing all the paths
-				const paths: Array<paper.PathItem> = [];
-
-				const cells = structureToArray(g.structure);
-				const baseSize = 100;
-				const widthRatio = 1;
-				for (let c of cells) {
-					const box = createBox(c, baseSize, widthRatio);
-					const rule = getRule(syntax, c.symbol);
-					const path = drawPath(box, rule);
-
-					path.fillColor = new paper.Color('black');
-
-					// Saving path
-					paths.push(path);
-				}
-
-				// Drawing opentype paths
-				const oPath = new opentype.Path();
-
-				for (let p of paths) {
-					const svgpath = getAbsoluteSVGPath(p);
-					const directives = arrayToDirectives(svgpath);
-					editPathFromDirectives(oPath, directives, -100);
-				}
-
-				// const path = paperToOpentype(joinedPath);
-				const name = g.name;
-				const advanceWidth = getGlyphWidth(g.structure, baseSize * widthRatio);
-
-				glyphs_.push(
-					new opentype.Glyph({
-						name,
-						unicode: parseInt(unicode[name], 16),
-						advanceWidth,
-						path: oPath
-					})
-				);
-			}
-
-			const font = new opentype.Font({
-				familyName: 'GTL',
-				styleName: syntax.name,
-				unitsPerEm: 600,
-				ascender: 600,
-				descender: 0,
-				glyphs: glyphs_
-			});
-
-			font.download();
+	for (let syntax of $syntaxes) {
+		if (syntax) {
+			const font = generateFont(syntax, $glyphs, $metrics);
+			fonts.push(font);
+			fonts = fonts;
 		}
-	});
+	}
 </script>
 
 <!--  -->
 
 <div class="p-4">
-	{#each $syntaxes as syntax}
-		<canvas
-			class="border-2 border-slate-400"
-			width={canvas_w}
-			height={canvas_h}
-			id={syntax.name}
-		/>
-	{/each}
+	{#if fonts.length}
+		<div class="flex flex-col">
+			<Label target="text">Scrivi qui :D</Label>
+			<InputText name="text" bind:value={text} />
+		</div>
 
-	<!-- <canvas
-		class="border-2 border-slate-400"
-		use:usePaper
-		width={canvas_w}
-		height={canvas_h}
-		id="A"
-	/> -->
+		{#each fonts as font}
+			<div class="mt-4">
+				<FontDisplay {font} bind:text {size} />
+			</div>
+		{/each}
+	{/if}
 </div>

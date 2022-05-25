@@ -1,4 +1,14 @@
-export const unicode: Record<string, string> = {
+export function getUnicodeNumber(name: string) {
+	if (UNICODE[name]) {
+		return parseInt(UNICODE[name], 16);
+	} else {
+		throw new Error('glyphNameNotCorrect');
+	}
+}
+
+//
+
+export const UNICODE: Record<string, string> = {
 	A: '0041',
 	AE: '00C6',
 	AEacute: '01FC',
