@@ -21,7 +21,9 @@ const config = {
 
 		paths: {
 			base: dev ? '' : '/GTL-web',
-			assets: dev ? '' : 'https://bbtgnn.github.io/GTL-web/docs'
+			assets: dev
+				? ''
+				: 'https://raw.githubusercontent.com/bbtgnn/GTL-web/main/docs'
 		},
 
 		prerender: {
