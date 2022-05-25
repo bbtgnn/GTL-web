@@ -20,10 +20,8 @@ const config = {
 		}),
 
 		paths: {
-			base: dev ? '' : '/GTL-web',
-			assets: dev
-				? ''
-				: 'https://raw.githubusercontent.com/bbtgnn/GTL-web/main/docs'
+			base: dev ? '' : '/GTL-web'
+			// assets: dev ? '' : '/GTL-web/docs'
 		},
 
 		prerender: {
