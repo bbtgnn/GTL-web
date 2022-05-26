@@ -8,7 +8,7 @@
 <!--  -->
 
 <p class="text-small font-mono text-slate-900 mb-2 text-sm">Regole sintassi</p>
-<div class="block space-y-8">
+<div class="block space-y-12">
 	{#if syntax.rules.length}
 		<!-- Rule -->
 		{#each syntax.rules as rule (rule.symbol)}

@@ -83,14 +83,14 @@
 <!--  -->
 
 {#if prop}
-	<div class="flex flex-row gap-2">
+	<div class="flex flex-row space-x-4">
 		<Select
 			options={modesOptions}
 			bind:value={tempKind}
 			on:change={changeProp}
 		/>
 
-		<div class="flex flex-row gap-2">
+		<div class="flex flex-row space-x-2">
 			{#if prop.value.kind == 'fixed'}
 				{#if prop.kind == 'number'}
 					<InputNumber bind:value={prop.value.data} />

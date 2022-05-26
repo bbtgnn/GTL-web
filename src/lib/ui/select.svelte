@@ -14,7 +14,7 @@
 <select
 	bind:value
 	on:change
-	class="p-2 bg-slate-200 font-mono"
+	class="block h-10 bg-slate-200 font-mono rounded-none"
 	{name}
 	id={name}
 >

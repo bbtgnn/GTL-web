@@ -47,69 +47,71 @@
 
 <!--  -->
 
-<div class="flex flex-row flex-nowrap space-x-8">
+<div class="flex flex-row flex-nowrap border-2 border-slate-800">
 	<!-- Symbol -->
 	<div class="text-xl p-4 bg-slate-800 text-white font-mono">
 		{rule.symbol}
 	</div>
 
-	<!-- Shape -->
-	<div class="flex flex-col">
-		<Label target="shape">Forma</Label>
-		<Select
-			options={shapeOptions}
-			bind:value={tempShape}
-			on:change={changeShape}
-		/>
-	</div>
+	<div class="space-y-8 p-8">
+		<!-- Shape -->
+		<div class="space-y-1">
+			<Label target="shape">Forma</Label>
+			<Select
+				options={shapeOptions}
+				bind:value={tempShape}
+				on:change={changeShape}
+			/>
+		</div>
 
-	<!-- Props -->
-	<div class="flex flex-col flex-nowrap gap-4">
-		<!--  -->
+		<!-- Props -->
 		{#if rule.shape.kind != ShapeKind.Void}
-			<div>
-				<Label target="scale_x">Scala orizzontale</Label>
-				<InputProp bind:prop={rule.shape.props.scale_x} />
-			</div>
-			<div>
-				<Label target="scale_y">Scala verticale</Label>
-				<InputProp bind:prop={rule.shape.props.scale_y} />
-			</div>
-			<div>
-				<Label target="rotation">Rotazione</Label>
-				<InputProp
-					numberDefaults={{
-						fixed: 0,
-						choice: { options: [0, 45] },
-						range: { min: 0, max: 90 }
-					}}
-					bind:prop={rule.shape.props.rotation}
-				/>
-			</div>
-		{/if}
-		<!--  -->
-		{#if rule.shape.kind == ShapeKind.Quarter || rule.shape.kind == ShapeKind.Ellipse}
-			<div>
-				<Label target="squaring">Squadratura</Label>
-				<InputProp
-					numberDefaults={{
-						fixed: 0.56,
-						choice: { options: [0, 0.56, 1] },
-						range: { min: 0, max: 1 }
-					}}
-					bind:prop={rule.shape.props.squaring}
-				/>
-			</div>
-			<div>
-				<Label target="negative">Negativo</Label>
-				<InputProp bind:prop={rule.shape.props.negative} />
-			</div>
-		{/if}
-		<!--  -->
-		{#if rule.shape.kind == ShapeKind.Quarter}
-			<div>
-				<Label target="orientamento">Orientamento</Label>
-				<InputProp bind:prop={rule.shape.props.orientation} />
+			<div class="space-y-4 pl-8">
+				<!--  -->
+				<div class="block">
+					<Label target="scale_x">Scala orizzontale</Label>
+					<InputProp bind:prop={rule.shape.props.scale_x} />
+				</div>
+				<div class="block">
+					<Label target="scale_y">Scala verticale</Label>
+					<InputProp bind:prop={rule.shape.props.scale_y} />
+				</div>
+				<div class="block">
+					<Label target="rotation">Rotazione</Label>
+					<InputProp
+						numberDefaults={{
+							fixed: 0,
+							choice: { options: [0, 45] },
+							range: { min: 0, max: 90 }
+						}}
+						bind:prop={rule.shape.props.rotation}
+					/>
+				</div>
+				<!--  -->
+				{#if rule.shape.kind == ShapeKind.Quarter || rule.shape.kind == ShapeKind.Ellipse}
+					<div class="block">
+						<Label target="squaring">Squadratura</Label>
+						<InputProp
+							numberDefaults={{
+								fixed: 0.56,
+								choice: { options: [0, 0.56, 1] },
+								range: { min: 0, max: 1 }
+							}}
+							bind:prop={rule.shape.props.squaring}
+						/>
+					</div>
+					<div class="block">
+						<Label target="negative">Negativo</Label>
+						<InputProp bind:prop={rule.shape.props.negative} />
+					</div>
+				{/if}
+				<!--  -->
+				{#if rule.shape.kind == ShapeKind.Quarter}
+					<div class="block">
+						<Label target="orientamento">Orientamento</Label>
+						<InputProp bind:prop={rule.shape.props.orientation} />
+					</div>
+				{/if}
 			</div>
 		{/if}
 	</div>
