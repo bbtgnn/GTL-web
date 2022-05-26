@@ -1,23 +1,38 @@
-<script>
+<script lang="ts">
 	import '$lib/app.css';
-	import { base, assets } from '$app/paths';
+	import { base } from '$app/paths';
+
+	import NavLink from '$lib/ui/navLink.svelte';
 
 	const links = [
-		{ href: `${base}/letters`, text: 'Lettere' },
+		{ href: `${base}/letters`, text: 'Glifi' },
 		{ href: `${base}/syntax`, text: 'Sintassi' },
 		{ href: `${base}/metrics`, text: 'Metriche' },
 		{ href: `${base}/output`, text: 'Output' }
 	];
+
+	let navHgt: number = 0;
 </script>
 
 <!--  -->
+<div class="block h-screen w-screen">
+	<nav
+		bind:clientHeight={navHgt}
+		class="flex flex-row flex-nowrap py-2 px-4 bg-slate-900 space-x-2"
+	>
+		{#each links as l}
+			<NavLink href={l.href}>{l.text}</NavLink>
+		{/each}
+	</nav>
 
-<div class="flex flex-row flex-nowrap p-2 bg-slate-900 gap-2">
-	{#each links as l}
-		<a
-			class="font-mono text-white px-3 py-1 bg-slate-700 hover:bg-slate-600"
-			href={l.href}>{l.text}</a
-		>
-	{/each}
+	<main style:--h="{navHgt}px" class="block w-full">
+		<slot />
+	</main>
 </div>
-<slot />
+
+<!--  -->
+<style>
+	main {
+		height: calc(100% - var(--h));
+	}
+</style>

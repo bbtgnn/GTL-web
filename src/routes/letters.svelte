@@ -34,40 +34,59 @@
 
 <!--  -->
 
-<div class="flex flex-row flex-nowrap items-stretch">
+<div class="h-full flex flex-row flex-nowrap items-stretch">
 	<!-- sidebar -->
-	<div class="flex basis-60 flex-col flex-nowrap gap-2 p-4 bg-slate-100">
+	<div class="space-y-6 flex w-60 flex-col flex-nowrap p-6 bg-slate-100">
 		<!-- Add glyph -->
 		<button
-			class="flex bg-slate-200 mb-4 p-3 hover:bg-slate-300"
+			class="flex bg-slate-300 p-3 hover:bg-slate-400 font-mono text-slate-900"
 			on:click={() => {
 				addGlyph();
-			}}>+ Add Glyph</button
+			}}>+ Aggiungi glifo</button
 		>
 
+		<hr class="border-b-1 border-slate-300" />
+
 		<!-- Glyph list -->
-		{#each $glyphs as g, i (g.name)}
-			<div
-				class:bg-slate-300={i != selectedGlyph}
-				class:bg-slate-400={i == selectedGlyph}
-				class="px-3 py-1"
-				on:click={() => {
-					selectGlyph(g);
-				}}
-			>
-				{g.name}
-			</div>
-		{/each}
+		<p class="text-small font-mono text-slate-900 mb-4 text-sm">Lista glifi</p>
+		<div class="flex-grow scroll-auto space-y-1">
+			{#each $glyphs as g, i (g.name)}
+				{@const sel = i == selectedGlyph}
+				<div
+					class:text-white={sel}
+					class:bg-slate-800={sel}
+					class:text-slate-900={!sel}
+					class:bg-slate-300={!sel}
+					class="px-3 py-1 {!sel ? 'hover:bg-slate-400' : ''}"
+					on:click={() => {
+						selectGlyph(g);
+					}}
+				>
+					{g.name}
+				</div>
+			{/each}
+		</div>
 	</div>
 
 	<!-- Glyph area -->
-	<div class="flex-grow p-4 flex flex-col flex-nowrap gap-4">
+	<div class="p-8 space-y-8">
 		{#if selectedGlyph !== null}
-			<InputText bind:value={$glyphs[selectedGlyph].name} />
-			<textarea
-				class="flex-grow h-80 p-2 bg-slate-200 font-mono"
-				bind:value={$glyphs[selectedGlyph].structure}
-			/>
+			<div>
+				<p class="text-small font-mono text-slate-900 mb-2 text-sm">
+					Nome glifo
+				</p>
+				<InputText bind:value={$glyphs[selectedGlyph].name} />
+			</div>
+			<hr />
+			<div>
+				<p class="text-small font-mono text-slate-900 mb-2 text-sm">
+					Struttura glifo
+				</p>
+				<textarea
+					class=" h-80 p-2 bg-slate-200 tracking-[0.75em] hover:bg-slate-300 font-mono focus:ring-4"
+					bind:value={$glyphs[selectedGlyph].structure}
+				/>
+			</div>
 		{/if}
 	</div>
 </div>
