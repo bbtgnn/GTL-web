@@ -11,6 +11,8 @@ ToDo
 - aggiungere traduzione
 - migliorare logiche di binding
 - gestire unificazione di inputProp
+- fare due layout, uno per sidebar, uno senza
+- tutorial su cosa è baseline e cosa è height
 
 Done
 - finire inputProp

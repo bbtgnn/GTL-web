@@ -10,9 +10,11 @@
 	 */
 </script>
 
-{#each Object.keys($metrics) as metric}
-	<div class="flex flex-col mb-2">
-		<Label target={metric}>{metric}</Label>
-		<InputNumber name={metric} bind:value={$metrics[metric]} />
-	</div>
-{/each}
+<div class="p-8 flex flex-row flex-nowrap space-x-8">
+	{#each Object.keys($metrics) as metric}
+		<div class="flex flex-col">
+			<Label target={metric}>{metric}</Label>
+			<InputNumber name={metric} bind:value={$metrics[metric]} />
+		</div>
+	{/each}
+</div>
