@@ -13,7 +13,6 @@
 
 	//
 
-	let current: number;
 	let selectedSyntax: string;
 
 	/**
@@ -66,37 +65,29 @@
 	}
 
 	/**
-	 * Creating default syntax
+	 * Adding syntaxes
 	 */
 
-	if (!$syntaxes.length) {
-		const name = 'Regular';
-		addSyntax(name);
-	}
-
 	function addSyntax(name: string | null = null) {
-		if (!name) {
-			name = nanoid(5);
-		}
-		$syntaxes = [
-			...$syntaxes,
-			createEmptySyntax(name, nanoid(5), getUniqueSymbols())
-		];
-		current = $syntaxes.length - 1;
+		const newSyntax = createEmptySyntax(
+			name ? name : nanoid(5),
+			nanoid(5),
+			getUniqueSymbols()
+		);
+
+		$syntaxes = [...$syntaxes, newSyntax];
+
+		selectedSyntax = newSyntax.id;
 	}
 
+	// Shorthand function for the button
 	function addSyntaxBtn() {
 		addSyntax();
 	}
 
-	//
-
-	function changeSyntax(syntax: Syntax) {
-		current = $syntaxes.indexOf(syntax);
-	}
-
-	$: if (!current && $syntaxes.length) {
-		current = 0;
+	// Creating default syntax (if missing)
+	if (!$syntaxes.length) {
+		addSyntax('Regular');
 	}
 </script>
 
@@ -122,7 +113,7 @@
 	</Sidebar>
 
 	<!-- syntax editor -->
-	<div class="p-8 space-y-8">
+	<div class="p-8 space-y-8 overflow-y-auto">
 		{#each $syntaxes as s (s.id)}
 			{#if s.id == selectedSyntax}
 				<div class="flex flex-col mb-8">

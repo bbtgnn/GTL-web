@@ -10,6 +10,7 @@ ToDo
 - auto-calc height metric from txt
 - aggiungere traduzione
 - migliorare logiche di binding
+- gestire unificazione di inputProp
 
 Done
 - finire inputProp
