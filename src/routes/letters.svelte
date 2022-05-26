@@ -4,6 +4,8 @@
 	import { nanoid } from 'nanoid';
 
 	import InputText from '$lib/ui/inputText.svelte';
+	import Sidebar from '$lib/ui/sidebar.svelte';
+	import SidebarTile from '$lib/ui/sidebarTile.svelte';
 
 	//
 
