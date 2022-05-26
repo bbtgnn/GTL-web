@@ -27,7 +27,9 @@
 <!--  -->
 
 <!-- sidebar -->
-<div class="space-y-6 flex w-60 flex-col flex-nowrap p-6 bg-slate-100">
+<div
+	class="space-y-6 flex w-60 flex-col flex-nowrap p-6 bg-slate-100 flex-shrink-0"
+>
 	<!-- Slot 1 -->
 	<slot name="topArea" />
 

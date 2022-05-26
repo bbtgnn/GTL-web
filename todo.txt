@@ -9,6 +9,7 @@ ToDo
 - gestire paperjs con scope
 - auto-calc height metric from txt
 - aggiungere traduzione
+- migliorare logiche di binding
 
 Done
 - finire inputProp

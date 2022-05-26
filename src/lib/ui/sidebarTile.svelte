@@ -25,7 +25,7 @@
 	class:bg-slate-800={active}
 	class:text-slate-900={!active}
 	class:bg-slate-300={!active}
-	class="px-3 py-1 {!active ? 'hover:bg-slate-400' : ''}"
+	class="font-mono px-3 py-1 {!active ? 'hover:bg-slate-400' : ''}"
 	on:click={select}
 >
 	<slot />

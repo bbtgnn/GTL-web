@@ -1,4 +1,5 @@
-export interface Glyph {
+export interface GlyphInput {
+	id: string;
 	name: string;
 	structure: string;
 }

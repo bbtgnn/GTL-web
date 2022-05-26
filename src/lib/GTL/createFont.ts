@@ -1,4 +1,4 @@
-import type { Syntax, Glyph } from '../types';
+import type { Syntax, GlyphInput } from '../types';
 import {
 	structureToArray,
 	type Cell,
@@ -19,7 +19,7 @@ import { UNICODE } from './unicode';
 //
 
 export function generateGlyph(
-	glyph: Glyph,
+	glyph: GlyphInput,
 	syntax: Syntax,
 	baseSize = 100,
 	widthRatio = 1,
@@ -89,7 +89,7 @@ export interface FontMetrics {
 
 export function generateFont(
 	syntax: Syntax,
-	glyphs: Array<Glyph>,
+	glyphs: Array<GlyphInput>,
 	metrics: FontMetrics
 ): opentype.Font {
 	// Qui bisogna aggiungere la width presa dalla sintassi

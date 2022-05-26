@@ -47,9 +47,9 @@
 
 <!--  -->
 
-<div class="flex flex-row flex-nowrap gap-4">
+<div class="flex flex-row flex-nowrap space-x-8">
 	<!-- Symbol -->
-	<div class="text-xl p-4 bg-slate-400 font-mono">
+	<div class="text-xl p-4 bg-slate-800 text-white font-mono">
 		{rule.symbol}
 	</div>
 
