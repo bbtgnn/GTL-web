@@ -13,8 +13,6 @@
 <!--  -->
 
 <a
-	class="font-mono text-white px-3 py-1 {active
-		? activeClasses
-		: inactiveClasses} "
+	class="font-mono px-3 py-1 {active ? activeClasses : inactiveClasses} "
 	{href}><slot /></a
 >
