@@ -9,7 +9,7 @@
 <input
 	type="number"
 	bind:value
-	class="p-2 bg-slate-200 font-mono"
+	class="w-20 p-2 bg-slate-200 font-mono"
 	id={name}
 	{name}
 	{step}
