@@ -22,13 +22,15 @@
 
 	// Questa variabile serve per evitare che
 	// l'HTML si aggiorni prima che si cambi la proprietà data dentro prop
-	let tempKind = prop.value.kind;
+	let tempKind: ValueKind;
 
-	//
+	// Setup
+	if (prop) {
+		tempKind = prop.value.kind;
 
-	// Just for setup
-	if (tempKind != prop.value.kind) {
-		changePropKind(tempKind);
+		if (tempKind != prop.value.kind) {
+			changePropKind(tempKind);
+		}
 	}
 
 	function changePropKind(k: OrientationValueKind) {
