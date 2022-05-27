@@ -1,4 +1,5 @@
 import type { Syntax, GlyphInput } from '../types';
+import { ShapeKind } from '../types';
 import {
 	structureToArray,
 	type Cell,
@@ -7,6 +8,7 @@ import {
 	drawPath,
 	getGlyphWidth
 } from './drawGlyph';
+import { transform } from './shapes';
 import {
 	getAbsoluteSVGPath,
 	arrayToDirectives,
@@ -44,6 +46,12 @@ export function generateGlyph(
 		const box = createBox(c, baseSize, widthRatio);
 		const rule = getRule(syntax, c.symbol);
 		const boxPaths = drawPath(box, rule);
+
+		// Transforming
+		for (let p of boxPaths) {
+			if (rule.shape.kind != ShapeKind.Void)
+				transform(p, rule.shape.props, box.center);
+		}
 
 		// Saving path
 		paths.push(...boxPaths);
