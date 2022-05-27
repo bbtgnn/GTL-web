@@ -1,44 +1,81 @@
 <script lang="ts">
 	import { glyphs, syntaxes, metrics } from '$lib/stores';
+	import type { Syntax } from '$lib/types';
 
 	import type opentype from 'opentype.js';
 	import { generateFont } from '$lib/GTL/createFont';
+	import { getUnicodeNumber } from '$lib/GTL/unicode';
 
 	import FontDisplay from '$lib/components/fontDisplay.svelte';
 
-	import InputText from '$lib/ui/inputText.svelte';
-	import InputNumber from '$lib/ui/inputNumber.svelte';
-	import Label from '$lib/ui/label.svelte';
+	import { onMount } from 'svelte';
+	import { load } from 'opentype.js';
 
 	//
 
-	let fonts: Array<opentype.Font> = [];
+	let previewFonts: Array<opentype.Font> = [];
+	let previewText = '';
 
-	let text: string = 'a';
-	let size: number = 72;
+	/**
+	 * Generating font previews
+	 */
 
-	for (let syntax of $syntaxes) {
-		if (syntax) {
-			const font = generateFont(syntax, $glyphs, $metrics);
-			fonts.push(font);
-			fonts = fonts;
+	onMount(() => {
+		// Selecting glyphs to preview
+		const previewGlyphs = [];
+		for (let i = 0; i < 3; i++) {
+			if ($glyphs[i]) {
+				previewGlyphs.push($glyphs[i]);
+			} else {
+				break;
+			}
 		}
+
+		// Generating text to write
+		// Getting unicode from table
+		for (let g of previewGlyphs) {
+			const uni = getUnicodeNumber(g.name);
+			previewText += String.fromCharCode(uni);
+		}
+
+		for (let syntax of $syntaxes) {
+			if (syntax) {
+				// Generating previews
+				const previewFont = generateFont(syntax, previewGlyphs, $metrics);
+				previewFonts = [...previewFonts, previewFont];
+			}
+		}
+	});
+
+	//
+
+	let loading = false;
+
+	function downloadFont(s: Syntax) {
+		loading = true;
+		const font = generateFont(s, $glyphs, $metrics);
+		font.download();
+		loading = false;
 	}
 </script>
 
 <!--  -->
 
-<div class="p-4">
-	{#if fonts.length}
-		<div class="flex flex-col">
-			<Label target="text">Scrivi qui :D</Label>
-			<InputText name="text" bind:value={text} />
-		</div>
+{#if loading}
+	loading
+{/if}
 
-		{#each fonts as font}
-			<div class="mt-4">
-				<FontDisplay {font} bind:text {size} />
-			</div>
+<div class="p-8">
+	{#if previewFonts.length}
+		{#each previewFonts as previewFont, i}
+			<FontDisplay
+				font={previewFont}
+				text={previewText}
+				on:click={() => {
+					downloadFont($syntaxes[i]);
+				}}
+			/>
+			<hr class="my-8" />
 		{/each}
 	{/if}
 </div>
