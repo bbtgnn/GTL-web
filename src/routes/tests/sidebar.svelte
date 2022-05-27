@@ -2,6 +2,7 @@
 	import Sidebar from '$lib/ui/sidebar.svelte';
 	import SidebarTile from '$lib/ui/sidebarTile.svelte';
 	import { nanoid } from 'nanoid';
+	import Button from '$lib/ui/button.svelte';
 
 	let items = [
 		{ id: nanoid(5), label: 'ciao' },
@@ -15,8 +16,6 @@
 
 	let selection: string = '';
 
-	// $: console.log(selection);
-
 	function click() {
 		console.log('clicked!');
 	}
@@ -26,10 +25,7 @@
 
 <Sidebar bind:selection>
 	<svelte:fragment slot="topArea">
-		<button
-			class="flex bg-slate-300 p-3 hover:bg-slate-400 font-mono text-slate-900"
-			on:click={click}>Click!</button
-		>
+		<Button on:click={click}>Click!</Button>
 	</svelte:fragment>
 	<svelte:fragment slot="listTitle">Lista glifi</svelte:fragment>
 	<svelte:fragment slot="items">

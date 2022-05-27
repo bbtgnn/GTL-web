@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { syntaxes, metrics, glyphs } from '$lib/stores';
 	import Upload from '$lib/ui/upload.svelte';
+	import Button from '$lib/ui/button.svelte';
 
 	/**
 	 * Clear project
@@ -53,8 +54,17 @@
 	}
 </script>
 
-<div class="p-8">
-	<button on:click={clear}>Clear</button>
-	<button on:click={exportFont}>Esporta</button>
-	<Upload bind:json />
+<div class="p-8 space-y-8">
+	<div>
+		<p class="mb-2">Elimina progetto</p>
+		<Button on:click={clear}>Clear</Button>
+	</div>
+	<div>
+		<p class="mb-2">Esporta progetto</p>
+		<Button on:click={exportFont}>Esporta</Button>
+	</div>
+	<div>
+		<p class="mb-2">Importa progetto</p>
+		<Upload bind:json />
+	</div>
 </div>

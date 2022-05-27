@@ -6,6 +6,7 @@
 	import InputText from '$lib/ui/inputText.svelte';
 	import Sidebar from '$lib/ui/sidebar.svelte';
 	import SidebarTile from '$lib/ui/sidebarTile.svelte';
+	import Button from '$lib/ui/button.svelte';
 
 	//
 
@@ -32,10 +33,7 @@
 	<!-- sidebar -->
 	<Sidebar bind:selection={selectedGlyph}>
 		<svelte:fragment slot="topArea">
-			<button
-				class="flex bg-slate-300 p-3 hover:bg-slate-400 font-mono text-slate-900"
-				on:click={addGlyph}>+ Aggiungi glifo</button
-			>
+			<Button on:click={addGlyph}>+ Aggiungi glifo</Button>
 		</svelte:fragment>
 		<svelte:fragment slot="listTitle">Lista glifi</svelte:fragment>
 		<svelte:fragment slot="items">

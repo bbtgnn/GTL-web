@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type opentype from 'opentype.js';
 	import { metrics } from '$lib/stores';
-	import { stringify } from 'postcss';
+	import Button from '$lib/ui/button.svelte';
 
 	export let font: opentype.Font;
 	export let text: string;
@@ -25,9 +25,7 @@
 <div>
 	<div class="flex flex-row flex-nowrap items-center space-x-8">
 		<h2 class="text-lg font-mono">{font.names.fullName.en}</h2>
-		<button class="p-2 bg-slate-200 hover:bg-slate-300 font-mono" on:click
-			>↓ Download</button
-		>
+		<Button on:click>↓ Download</Button>
 	</div>
 	<canvas use:renderFont width={canvasWidth} height={canvasHeight} />
 </div>

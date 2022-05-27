@@ -10,6 +10,7 @@
 	import Label from '$lib/ui/label.svelte';
 	import Sidebar from '$lib/ui/sidebar.svelte';
 	import SidebarTile from '$lib/ui/sidebarTile.svelte';
+	import Button from '$lib/ui/button.svelte';
 
 	//
 
@@ -97,10 +98,7 @@
 	<!-- sidebar -->
 	<Sidebar bind:selection={selectedSyntax}>
 		<svelte:fragment slot="topArea">
-			<button
-				class="flex bg-slate-300 p-3 hover:bg-slate-400 font-mono text-slate-900"
-				on:click={addSyntaxBtn}>+ Aggiungi stile</button
-			>
+			<Button on:click={addSyntaxBtn}>+ Aggiungi stile</Button>
 		</svelte:fragment>
 		<svelte:fragment slot="listTitle">Lista stili</svelte:fragment>
 		<svelte:fragment slot="items">
