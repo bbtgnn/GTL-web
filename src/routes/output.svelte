@@ -21,6 +21,11 @@
 	 */
 
 	onMount(() => {
+		// Exit if glyphs missing
+		if (!$glyphs.length) {
+			return;
+		}
+
 		// Selecting glyphs to preview
 		const previewGlyphs = [];
 		for (let i = 0; i < 3; i++) {
@@ -34,12 +39,16 @@
 		// Generating text to write
 		// Getting unicode from table
 		for (let g of previewGlyphs) {
-			const uni = getUnicodeNumber(g.name);
-			previewText += String.fromCharCode(uni);
+			try {
+				const uni = getUnicodeNumber(g.name);
+				previewText += String.fromCharCode(uni);
+			} catch (e) {
+				console.log(e);
+			}
 		}
 
 		for (let syntax of $syntaxes) {
-			if (syntax) {
+			if (syntax && syntax.rules.length) {
 				// Generating previews
 				const previewFont = generateFont(syntax, previewGlyphs, $metrics);
 				previewFonts = [...previewFonts, previewFont];
@@ -77,5 +86,10 @@
 			/>
 			<hr class="my-8" />
 		{/each}
+	{:else}
+		<!-- Placeholder -->
+		<p class="font-mono w-full border-2 border-slate-200 text-slate-300 p-12">
+			Crea glifi e sintassi per vedere qui i risultati!
+		</p>
 	{/if}
 </div>

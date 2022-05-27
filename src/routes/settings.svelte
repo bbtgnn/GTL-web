@@ -2,16 +2,23 @@
 	import { syntaxes, metrics, glyphs } from '$lib/stores';
 	import Upload from '$lib/ui/upload.svelte';
 
+	/**
+	 * Clear project
+	 */
+
 	function clear() {
 		exportFont();
 		$syntaxes = [];
 		$glyphs = [];
 		$metrics = {
-			height: 1,
-			ascender: 1,
-			descender: 1
+			height: 7,
+			baseline: 1
 		};
 	}
+
+	/**
+	 * Export
+	 */
 
 	function exportFont() {
 		let dataStr =
@@ -25,9 +32,13 @@
 			);
 		let dlAnchorElem = document.createElement('a');
 		dlAnchorElem.setAttribute('href', dataStr);
-		dlAnchorElem.setAttribute('download', 'scene.json');
+		dlAnchorElem.setAttribute('download', 'GTL.json');
 		dlAnchorElem.click();
 	}
+
+	/**
+	 * Import font
+	 */
 
 	let json = '';
 
@@ -42,6 +53,8 @@
 	}
 </script>
 
-<button on:click={clear}>Clear</button>
-<button on:click={exportFont}>Esporta</button>
-<Upload bind:json />
+<div class="p-8">
+	<button on:click={clear}>Clear</button>
+	<button on:click={exportFont}>Esporta</button>
+	<Upload bind:json />
+</div>

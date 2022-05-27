@@ -8,7 +8,8 @@
 		{ href: `${base}/letters`, text: 'Glifi' },
 		{ href: `${base}/syntax`, text: 'Sintassi' },
 		{ href: `${base}/metrics`, text: 'Metriche' },
-		{ href: `${base}/output`, text: 'Output' }
+		{ href: `${base}/output`, text: 'Output' },
+		{ href: `${base}/settings`, text: 'Impostazioni' }
 	];
 
 	let navHgt: number = 0;
