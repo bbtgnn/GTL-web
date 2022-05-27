@@ -5,57 +5,78 @@
 		<link rel="icon" href="/GTL-web/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta http-equiv="content-security-policy" content="">
-	<link rel="stylesheet" href="/GTL-web/_app/immutable/assets/pages/__layout.svelte-b566dbcf.css">
-	<link rel="modulepreload" href="/GTL-web/_app/immutable/start-80e38613.js">
-	<link rel="modulepreload" href="/GTL-web/_app/immutable/chunks/index-4836a415.js">
-	<link rel="modulepreload" href="/GTL-web/_app/immutable/chunks/index-29b3c992.js">
+	<link rel="stylesheet" href="/GTL-web/_app/immutable/assets/pages/__layout.svelte-ea891df8.css">
+	<link rel="modulepreload" href="/GTL-web/_app/immutable/start-6064d961.js">
+	<link rel="modulepreload" href="/GTL-web/_app/immutable/chunks/index-95fb9bf0.js">
+	<link rel="modulepreload" href="/GTL-web/_app/immutable/chunks/index-19ccdd16.js">
 	<link rel="modulepreload" href="/GTL-web/_app/immutable/chunks/paths-396f020f.js">
-	<link rel="modulepreload" href="/GTL-web/_app/immutable/pages/__layout.svelte-de041480.js">
-	<link rel="modulepreload" href="/GTL-web/_app/immutable/pages/syntax.svelte-a5d07d37.js">
-	<link rel="modulepreload" href="/GTL-web/_app/immutable/chunks/lodash-03e4d38b.js">
-	<link rel="modulepreload" href="/GTL-web/_app/immutable/chunks/index-3ea4535f.js">
+	<link rel="modulepreload" href="/GTL-web/_app/immutable/pages/__layout.svelte-a7b30da7.js">
+	<link rel="modulepreload" href="/GTL-web/_app/immutable/pages/syntax.svelte-3062ea93.js">
+	<link rel="modulepreload" href="/GTL-web/_app/immutable/chunks/lodash-26b3c147.js">
+	<link rel="modulepreload" href="/GTL-web/_app/immutable/chunks/index-cef5641d.js">
 	<link rel="modulepreload" href="/GTL-web/_app/immutable/chunks/index.browser-85ea5a5b.js">
-	<link rel="modulepreload" href="/GTL-web/_app/immutable/chunks/inputNumber-5bd3a4ed.js">
-	<link rel="modulepreload" href="/GTL-web/_app/immutable/chunks/inputText-47b36108.js">
-	<link rel="modulepreload" href="/GTL-web/_app/immutable/chunks/label-05302541.js">
+	<link rel="modulepreload" href="/GTL-web/_app/immutable/chunks/inputText-2d31c270.js">
+	<link rel="modulepreload" href="/GTL-web/_app/immutable/chunks/label-7ace5b01.js">
+	<link rel="modulepreload" href="/GTL-web/_app/immutable/chunks/sidebarTile-895ed734.js">
+	<link rel="modulepreload" href="/GTL-web/_app/immutable/chunks/button-4eba3675.js">
 	</head>
 	<body>
 		<div>
 
 
 
+<div class="block h-screen w-screen"><nav class="flex flex-row flex-nowrap py-2 px-4 bg-slate-900 space-x-2">
 
-<div class="flex flex-row flex-nowrap p-2 bg-slate-900 gap-2"><a class="font-mono text-white px-3 py-1 bg-slate-700 hover:bg-slate-600" href="/GTL-web/letters">Lettere</a><a class="font-mono text-white px-3 py-1 bg-slate-700 hover:bg-slate-600" href="/GTL-web/syntax">Sintassi</a><a class="font-mono text-white px-3 py-1 bg-slate-700 hover:bg-slate-600" href="/GTL-web/metrics">Metriche</a><a class="font-mono text-white px-3 py-1 bg-slate-700 hover:bg-slate-600" href="/GTL-web/output">Output</a></div>
+<a class="font-mono px-3 py-1 text-white bg-slate-700 hover:bg-slate-600" href="/GTL-web/letters">Glifi</a>
+
+<a class="font-mono px-3 py-1 text-slate-900 bg-slate-100" href="/GTL-web/syntax">Sintassi</a>
+
+<a class="font-mono px-3 py-1 text-white bg-slate-700 hover:bg-slate-600" href="/GTL-web/metrics">Metriche</a>
+
+<a class="font-mono px-3 py-1 text-white bg-slate-700 hover:bg-slate-600" href="/GTL-web/output">Output</a>
+
+<a class="font-mono px-3 py-1 text-white bg-slate-700 hover:bg-slate-600" href="/GTL-web/settings">Impostazioni</a></nav>
+
+	<main class="block w-full svelte-aqzhnj" style="--h: 0px;">
+
+<div class="h-full flex flex-row flex-nowrap items-stretch">
+	
 
 
-<div class="flex flex-row flex-nowrap">
-	<div class="flex basis-60 flex-col flex-nowrap gap-2 p-4 bg-slate-100"><button class="flex bg-slate-200 mb-4 p-3 hover:bg-slate-300">+ Add syntax</button>
+<div class="space-y-6 flex w-60 flex-col flex-nowrap p-6 bg-slate-100 flex-shrink-0">
+	<button class="flex bg-slate-300 p-3 hover:bg-slate-400 font-mono text-slate-900">+ Aggiungi stile</button>
 
-		<div class="px-3 py-1  bg-slate-400">Regular
-			</div></div>
+	<hr class="border-b-1 border-slate-300">
 
 	
-	<div class="p-8"><div class="flex flex-col mb-8"><div class="mb-2">
+	<p class="text-small font-mono text-slate-900 mb-4 text-sm">Lista stili</p>
+	<div class="flex-grow scroll-auto space-y-1">
 
-<label class="font-mono text-slate-700 text-sm" for="SyntaxName">Nome sintassi</label></div>
+<div class="font-mono px-3 py-1  text-white bg-slate-800">Regular
+				</div>
+		</div></div>
+
+	
+	<div class="p-8 space-y-8 overflow-y-auto"><div class="flex flex-col mb-8"><p class="text-small font-mono text-slate-900 mb-2 text-sm">Nome stile
+					</p>
 					
 
-<input type="text" class="p-2 bg-slate-200 font-mono" id="SyntaxName" name="SyntaxName" value="Regular"></div>
-				<hr class="mb-8">
+<input type="text" class="p-2 bg-slate-200 font-mono hover:bg-slate-300 focus:ring-4" id="styleName" name="styleName" value="Regular"></div>
+				<hr>
 				
 
-<div class="flex flex-col flex-nowrap gap-4"></div>
-
-				<pre>{
-  &quot;name&quot;: &quot;Regular&quot;,
-  &quot;rules&quot;: []
-}</pre></div></div>
+<p class="text-small font-mono text-slate-900 mb-2 text-sm">Regole sintassi</p>
+<div class="block space-y-12">
+		<p class="font-mono w-full border-2 border-slate-200 text-slate-300 p-12">Inizia a disegnare un glifo per modificare la sintassi!
+		</p></div></div></div></main></div>
 
 
-		<script type="module" data-sveltekit-hydrate="1urjlnp">
-		import { start } from "/GTL-web/_app/immutable/start-80e38613.js";
+
+
+		<script type="module" data-sveltekit-hydrate="nzfwuc">
+		import { start } from "/GTL-web/_app/immutable/start-6064d961.js";
 		start({
-			target: document.querySelector('[data-sveltekit-hydrate="1urjlnp"]').parentNode,
+			target: document.querySelector('[data-sveltekit-hydrate="nzfwuc"]').parentNode,
 			paths: {"base":"/GTL-web","assets":"/GTL-web"},
 			session: {},
 			route: true,
@@ -65,8 +86,8 @@
 				status: 200,
 				error: null,
 				nodes: [
-					import("/GTL-web/_app/immutable/pages/__layout.svelte-de041480.js"),
-						import("/GTL-web/_app/immutable/pages/syntax.svelte-a5d07d37.js")
+					import("/GTL-web/_app/immutable/pages/__layout.svelte-a7b30da7.js"),
+						import("/GTL-web/_app/immutable/pages/syntax.svelte-3062ea93.js")
 				],
 				params: {},
 				routeId: "syntax"
