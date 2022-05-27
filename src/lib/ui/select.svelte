@@ -5,16 +5,23 @@
 
 <script lang="ts">
 	import { nanoid } from 'nanoid';
+	import { createEventDispatcher } from 'svelte';
 
 	export let options: SelectOptions<any>;
 	export let value: any;
 	export let name: string = nanoid(5);
+
+	const dispatch = createEventDispatcher();
+
+	function changed() {
+		dispatch('changed', value);
+	}
 </script>
 
 <select
 	bind:value
-	on:change
-	class="p-2 bg-slate-200 font-mono"
+	on:change={changed}
+	class="block h-10 bg-slate-200 font-mono rounded-none"
 	{name}
 	id={name}
 >

@@ -47,11 +47,14 @@ export interface RangeValue
 
 export type NumberData = number | ValueDataChoice<number> | ValueDataRange;
 export type NumberValue = FixedValue<number> | ChoiceValue<number> | RangeValue;
+export type NumberValueKind = ValueKind;
 
 export type OrientationData = Orientation | ValueDataChoice<Orientation>;
 export type OrientationValue =
 	| FixedValue<Orientation>
 	| ChoiceValue<Orientation>;
+export type OrientationValueKind = ValueKind.Fixed | ValueKind.Choice;
 
 export type BooleanData = boolean | ValueDataChoice<boolean>;
 export type BooleanValue = FixedValue<boolean> | ChoiceValue<boolean>;
+export type BooleanValueKind = ValueKind.Fixed | ValueKind.Choice;

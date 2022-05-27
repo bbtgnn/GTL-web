@@ -10,6 +10,7 @@ export type Rule = {
 };
 
 export type Syntax = {
+	id: string;
 	name: string;
 	rules: Array<Rule>;
 };

@@ -4,6 +4,6 @@
 
 <!--  -->
 
-<label class="font-mono text-slate-700 text-sm" for={target}>
+<label class="block font-mono text-slate-700 text-sm" for={target}>
 	<slot />
 </label>

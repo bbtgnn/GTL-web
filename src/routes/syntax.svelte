@@ -5,13 +5,15 @@
 	import { nanoid } from 'nanoid';
 	import _ from 'lodash';
 
-	import SyntaxEditor from '$lib/components/syntax/syntax.svelte';
+	import SyntaxEditor from '$lib/components/syntax/syntaxEditor.svelte';
 	import InputText from '$lib/ui/inputText.svelte';
 	import Label from '$lib/ui/label.svelte';
+	import Sidebar from '$lib/ui/sidebar.svelte';
+	import SidebarTile from '$lib/ui/sidebarTile.svelte';
 
 	//
 
-	let current: number;
+	let selectedSyntax: string;
 
 	/**
 	 * Getting unique symbols
@@ -63,73 +65,65 @@
 	}
 
 	/**
-	 * Creating default syntax
+	 * Adding syntaxes
 	 */
 
-	if (!$syntaxes.length) {
-		const name = 'Regular';
-		addSyntax(name);
-	}
-
 	function addSyntax(name: string | null = null) {
-		if (!name) {
-			name = nanoid(5);
-		}
-		$syntaxes = [...$syntaxes, createEmptySyntax(name, getUniqueSymbols())];
-		current = $syntaxes.length - 1;
+		const newSyntax = createEmptySyntax(
+			name ? name : nanoid(5),
+			nanoid(5),
+			getUniqueSymbols()
+		);
+
+		$syntaxes = [...$syntaxes, newSyntax];
+
+		selectedSyntax = newSyntax.id;
 	}
 
-	//
-
-	function changeSyntax(syntax: Syntax) {
-		current = $syntaxes.indexOf(syntax);
+	// Shorthand function for the button
+	function addSyntaxBtn() {
+		addSyntax();
 	}
 
-	$: if (!current && $syntaxes.length) {
-		current = 0;
+	// Creating default syntax (if missing)
+	if (!$syntaxes.length) {
+		addSyntax('Regular');
 	}
 </script>
 
 <!--  -->
 
-<div class="flex flex-row flex-nowrap">
+<div class="h-full flex flex-row flex-nowrap items-stretch">
 	<!-- sidebar -->
-	<div class="flex basis-60 flex-col flex-nowrap gap-2 p-4 bg-slate-100">
-		<button
-			class="flex bg-slate-200 mb-4 p-3 hover:bg-slate-300"
-			on:click={() => {
-				addSyntax();
-			}}>+ Add syntax</button
-		>
-
-		{#each $syntaxes as syntax, i (syntax.name)}
-			<div
-				class:bg-slate-300={i != current}
-				class:bg-slate-400={i == current}
-				class="px-3 py-1"
-				on:click={() => {
-					changeSyntax(syntax);
-				}}
+	<Sidebar bind:selection={selectedSyntax}>
+		<svelte:fragment slot="topArea">
+			<button
+				class="flex bg-slate-300 p-3 hover:bg-slate-400 font-mono text-slate-900"
+				on:click={addSyntaxBtn}>+ Aggiungi stile</button
 			>
-				{syntax.name}
-			</div>
-		{/each}
-	</div>
+		</svelte:fragment>
+		<svelte:fragment slot="listTitle">Lista stili</svelte:fragment>
+		<svelte:fragment slot="items">
+			{#each $syntaxes as s (s.id)}
+				<SidebarTile id={s.id}>
+					{s.name}
+				</SidebarTile>
+			{/each}
+		</svelte:fragment>
+	</Sidebar>
 
 	<!-- syntax editor -->
-	<div class="p-8">
-		{#each $syntaxes as syntax, i}
-			{#if i == current}
+	<div class="p-8 space-y-8 overflow-y-auto">
+		{#each $syntaxes as s (s.id)}
+			{#if s.id == selectedSyntax}
 				<div class="flex flex-col mb-8">
-					<div class="mb-2">
-						<Label target="SyntaxName">Nome sintassi</Label>
-					</div>
-					<InputText name="SyntaxName" bind:value={syntax.name} />
+					<p class="text-small font-mono text-slate-900 mb-2 text-sm">
+						Nome stile
+					</p>
+					<InputText name="styleName" bind:value={s.name} />
 				</div>
-				<hr class="mb-8" />
-				<SyntaxEditor bind:syntax />
-
-				<pre>{JSON.stringify(syntax, null, 2)}</pre>
+				<hr />
+				<SyntaxEditor bind:syntax={s} />
 			{/if}
 		{/each}
 	</div>
