@@ -1,20 +1,19 @@
 <script lang="ts">
-	import { getCtx } from './sidebar.svelte';
+	import type { Writable } from 'svelte/store';
 
 	export let id: string;
+	export let selection: Writable<string>;
 
 	let active = false;
 
-	const ctx = getCtx();
-
-	$: active = $ctx == id;
+	$: active = $selection == id;
 
 	function select() {
-		$ctx = id;
+		$selection = id;
 	}
 
-	if (!$ctx) {
-		$ctx = id;
+	if (!$selection) {
+		$selection = id;
 	}
 </script>
 
