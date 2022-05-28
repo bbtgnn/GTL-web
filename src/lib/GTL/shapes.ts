@@ -8,6 +8,29 @@ import { calcNumberProp, calcBooleanProp } from '../types';
 
 //
 
+export type TransformData = {
+	scale_x: number;
+	scale_y: number;
+	rotation: number;
+};
+
+export function calcTransform(props: BaseProps): TransformData {
+	return {
+		scale_x: calcNumberProp(props.scale_x),
+		scale_y: calcNumberProp(props.scale_y),
+		rotation: calcNumberProp(props.rotation)
+	};
+}
+
+export function applyTransform(
+	path: paper.Path,
+	data: TransformData,
+	center = new paper.Point(0, 0)
+) {
+	path.scale(data.scale_x, data.scale_y, center);
+	path.rotate(data.rotation, center);
+}
+
 export function transform(
 	path: paper.Path,
 	props: BaseProps,

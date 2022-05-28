@@ -8,7 +8,7 @@ import {
 	drawPath,
 	getGlyphWidth
 } from './drawGlyph';
-import { transform } from './shapes';
+import { transform, calcTransform, applyTransform } from './shapes';
 import {
 	getAbsoluteSVGPath,
 	arrayToDirectives,
@@ -43,18 +43,24 @@ export function generateGlyph(
 
 	// Iterating over cells (saving all the paths)
 	for (let c of cells) {
-		const box = createBox(c, baseSize, widthRatio);
+		// Getting rule
 		const rule = getRule(syntax, c.symbol);
-		const boxPaths = drawPath(box, rule);
 
-		// Transforming
-		for (let p of boxPaths) {
-			if (rule.shape.kind != ShapeKind.Void)
-				transform(p, rule.shape.props, box.center);
+		// If rule is not void
+		if (rule.shape.kind != ShapeKind.Void) {
+			// Getting box and creating paths
+			const box = createBox(c, baseSize, widthRatio);
+			const boxPaths = drawPath(box, rule);
+
+			// Transforming
+			const transform = calcTransform(rule.shape.props);
+			for (let p of boxPaths) {
+				applyTransform(p, transform, box.center);
+			}
+
+			// Saving path
+			paths.push(...boxPaths);
 		}
-
-		// Saving path
-		paths.push(...boxPaths);
 	}
 
 	/**
