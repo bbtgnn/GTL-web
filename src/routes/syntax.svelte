@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { writable } from 'svelte/store';
-
 	import { createEmptySyntax, createEmptyRule } from '$lib/types';
 	import type { Syntax, Rule } from '$lib/types';
 	import { syntaxes, glyphs, selectedStyle } from '$lib/stores';
@@ -9,7 +7,6 @@
 
 	import SyntaxEditor from '$lib/components/syntax/syntaxEditor.svelte';
 	import InputText from '$lib/ui/inputText.svelte';
-	import Label from '$lib/ui/label.svelte';
 	import Sidebar from '$lib/ui/sidebar.svelte';
 	import SidebarTile from '$lib/ui/sidebarTile.svelte';
 	import Button from '$lib/ui/button.svelte';
