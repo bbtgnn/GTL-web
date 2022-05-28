@@ -58,6 +58,11 @@ export function generateGlyph(
 				applyTransform(p, transform, box.center);
 			}
 
+			// Reorienting paths
+			for (let p of boxPaths) {
+				p.reorient(true, true);
+			}
+
 			// Saving path
 			paths.push(...boxPaths);
 		}
