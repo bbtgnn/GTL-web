@@ -1,11 +1,11 @@
 <script lang="ts" context="module">
-	import { base, assets } from '$app/paths';
+	import { base } from '$app/paths';
 
 	/** @type {import('@sveltejs/kit').Load} */
 	export async function load() {
 		return {
 			status: 302,
-			redirect: `${base}/letters`
+			redirect: `${base}/glyphs`
 		};
 	}
 </script>
