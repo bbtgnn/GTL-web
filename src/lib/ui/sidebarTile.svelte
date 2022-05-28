@@ -12,7 +12,7 @@
 		$selection = id;
 	}
 
-	if (!$selection) {
+	$: if (!$selection) {
 		$selection = id;
 	}
 </script>
