@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { GlyphInput } from '$lib/types';
-	import { glyphs } from '$lib/stores';
+	import { glyphs, selectedGlyph } from '$lib/stores';
 	import { nanoid } from 'nanoid';
 
 	import InputText from '$lib/ui/inputText.svelte';
@@ -9,8 +9,6 @@
 	import Button from '$lib/ui/button.svelte';
 
 	//
-
-	let selectedGlyph: string;
 
 	if (!$glyphs.length) {
 		addGlyph();
@@ -23,7 +21,7 @@
 			structure: ''
 		};
 		$glyphs = [...$glyphs, newGlyph];
-		selectedGlyph = newGlyph.id;
+		$selectedGlyph = newGlyph.id;
 	}
 </script>
 
@@ -31,14 +29,14 @@
 
 <div class="h-full flex flex-row flex-nowrap items-stretch">
 	<!-- sidebar -->
-	<Sidebar bind:selection={selectedGlyph}>
+	<Sidebar>
 		<svelte:fragment slot="topArea">
 			<Button on:click={addGlyph}>+ Aggiungi glifo</Button>
 		</svelte:fragment>
 		<svelte:fragment slot="listTitle">Lista glifi</svelte:fragment>
 		<svelte:fragment slot="items">
 			{#each $glyphs as g (g.id)}
-				<SidebarTile id={g.id}>
+				<SidebarTile selection={selectedGlyph} id={g.id}>
 					{g.name}
 				</SidebarTile>
 			{/each}
@@ -48,7 +46,7 @@
 	<!-- Glyph area -->
 	<div class="p-8 space-y-8">
 		{#each $glyphs as g}
-			{#if g.id == selectedGlyph}
+			{#if g.id == $selectedGlyph}
 				<div>
 					<p class="text-small font-mono text-slate-900 mb-2 text-sm">
 						Nome glifo

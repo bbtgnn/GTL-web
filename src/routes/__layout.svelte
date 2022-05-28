@@ -5,7 +5,7 @@
 	import NavLink from '$lib/ui/navLink.svelte';
 
 	const links = [
-		{ href: `${base}/letters`, text: 'Glifi' },
+		{ href: `${base}/glyphs`, text: 'Glifi' },
 		{ href: `${base}/syntax`, text: 'Sintassi' },
 		{ href: `${base}/metrics`, text: 'Metriche' },
 		{ href: `${base}/output`, text: 'Output' },

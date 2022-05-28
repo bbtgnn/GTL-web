@@ -1,10 +1,14 @@
-import { writable } from 'svelte-local-storage-store';
+import { writable as lsWritable } from 'svelte-local-storage-store';
+import { writable } from 'svelte/store';
 import type { Syntax, GlyphInput } from '$lib/types';
 import type { FontMetrics } from '$lib/GTL/createFont';
 
-export const syntaxes = writable<Array<Syntax>>('syntaxes', []);
-export const glyphs = writable<Array<GlyphInput>>('glyphs', []);
-export const metrics = writable<FontMetrics>('metrics', {
+export const syntaxes = lsWritable<Array<Syntax>>('syntaxes', []);
+export const glyphs = lsWritable<Array<GlyphInput>>('glyphs', []);
+export const metrics = lsWritable<FontMetrics>('metrics', {
 	baseline: 1,
 	height: 5
 });
+
+export const selectedGlyph = writable('');
+export const selectedStyle = writable('');

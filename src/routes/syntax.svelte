@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { writable } from 'svelte/store';
+
 	import { createEmptySyntax, createEmptyRule } from '$lib/types';
 	import type { Syntax, Rule } from '$lib/types';
-	import { syntaxes, glyphs } from '$lib/stores';
+	import { syntaxes, glyphs, selectedStyle } from '$lib/stores';
 	import { nanoid } from 'nanoid';
 	import _ from 'lodash';
 
@@ -11,10 +13,6 @@
 	import Sidebar from '$lib/ui/sidebar.svelte';
 	import SidebarTile from '$lib/ui/sidebarTile.svelte';
 	import Button from '$lib/ui/button.svelte';
-
-	//
-
-	let selectedSyntax: string;
 
 	/**
 	 * Getting unique symbols
@@ -78,7 +76,7 @@
 
 		$syntaxes = [...$syntaxes, newSyntax];
 
-		selectedSyntax = newSyntax.id;
+		$selectedStyle = newSyntax.id;
 	}
 
 	// Shorthand function for the button
@@ -96,14 +94,14 @@
 
 <div class="h-full flex flex-row flex-nowrap items-stretch">
 	<!-- sidebar -->
-	<Sidebar bind:selection={selectedSyntax}>
+	<Sidebar>
 		<svelte:fragment slot="topArea">
 			<Button on:click={addSyntaxBtn}>+ Aggiungi stile</Button>
 		</svelte:fragment>
 		<svelte:fragment slot="listTitle">Lista stili</svelte:fragment>
 		<svelte:fragment slot="items">
 			{#each $syntaxes as s (s.id)}
-				<SidebarTile id={s.id}>
+				<SidebarTile selection={selectedStyle} id={s.id}>
 					{s.name}
 				</SidebarTile>
 			{/each}
@@ -113,7 +111,7 @@
 	<!-- syntax editor -->
 	<div class="p-8 space-y-8 overflow-y-auto">
 		{#each $syntaxes as s (s.id)}
-			{#if s.id == selectedSyntax}
+			{#if s.id == $selectedStyle}
 				<div class="flex flex-col mb-8">
 					<p class="text-small font-mono text-slate-900 mb-2 text-sm">
 						Nome stile
