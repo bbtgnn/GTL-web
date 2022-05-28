@@ -1,10 +1,8 @@
-import opentype from 'opentype.js';
 import paper from 'paper';
-import SVGPathCommander from 'svg-path-commander';
 import _ from 'lodash';
 import { orientations } from '../types';
-import type { BaseProps, Orientation, QuarterProps } from '../types';
-import { calcNumberProp, calcBooleanProp } from '../types';
+import type { BaseProps, Orientation } from '../types';
+import { calcNumberProp } from '../types';
 
 //
 
@@ -56,7 +54,7 @@ export function quarter(
 	box: paper.Rectangle,
 	squaring: number = 0.56,
 	negative: boolean = false,
-	orientation: Orientation = 'NE'
+	orientation: Orientation = 'SE'
 ): paper.Path {
 	// Handles max point
 	const M: paper.Point = box.topRight;
@@ -82,8 +80,8 @@ export function quarter(
 	path.lineTo(C);
 	path.closePath();
 
-	// Transforming according to orientation
-	if (orientation == 'SE' || orientation == 'SW') {
+	// // Transforming according to orientation
+	if (orientation == 'NE' || orientation == 'NW') {
 		path.scale(1, -1, box.center);
 	}
 	if (orientation == 'NW' || orientation == 'SW') {
