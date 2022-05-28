@@ -1,23 +1,39 @@
 <script lang="ts">
-	export let json: string = '';
+	import { createEventDispatcher } from 'svelte';
+	import Button from './button.svelte';
+
+	//
+
+	const dispatch = createEventDispatcher();
+
 	let fileinput: HTMLInputElement;
 
-	const onFileSelected = (ev: any) => {
-		let file = ev.target.files[0];
-		let reader = new FileReader();
+	const onFileSelected = (event: any) => {
+		const file = event.target.files[0];
+		const reader = new FileReader();
 		reader.readAsText(file);
 		reader.onload = (e: ProgressEvent) => {
-			json = (e.target as any).result as string;
+			const json = (e.target as any).result as string;
+			dispatch('upload', {
+				json
+			});
 		};
 	};
+
+	function startUpload() {
+		fileinput.click();
+	}
 </script>
 
 <div>
-	<!-- <div class="chan" on:click={()=>{fileinput.click();}}>Choose Image</div> -->
+	<Button on:click={startUpload}>
+		<slot /></Button
+	>
 	<input
+		class="hidden"
 		type="file"
 		accept=".json"
-		on:change={(e) => onFileSelected(e)}
+		on:change={onFileSelected}
 		bind:this={fileinput}
 	/>
 </div>
