@@ -101,10 +101,10 @@ export function ellipse(
 	// Base information
 	const size = new paper.Size(box.width / 2, box.height / 2);
 	const basePoints: Record<Orientation, paper.Point> = {
-		NE: box.topCenter,
-		NW: box.topLeft,
-		SE: box.center,
-		SW: box.leftCenter
+		SE: box.topCenter,
+		SW: box.topLeft,
+		NE: box.center,
+		NW: box.leftCenter
 	};
 
 	// Storing all the quarters
