@@ -3,7 +3,7 @@ import SVGPathCommander from 'svg-path-commander';
 //
 
 export const PathLetters = ['C', 'M', 'Z', 'L'] as const;
-export type PathLetter = typeof PathLetters[number];
+export type PathLetter = (typeof PathLetters)[number];
 
 type ArrayDirective =
 	| ['Z']
@@ -11,8 +11,7 @@ type ArrayDirective =
 	| ['C', number, number, number, number, number, number];
 
 export function getAbsoluteSVGPath(
-	path: paper.PathItem,
-	round = false
+	path: paper.PathItem
 ): Array<ArrayDirective> {
 	// Getting SVG path
 	const svg = path.exportSVG({ asString: false }) as SVGElement;
@@ -58,7 +57,7 @@ export function arrayToDirectives(
 		return [];
 	}
 
-	for (let item of directives) {
+	for (const item of directives) {
 		if (item[0] == 'Z') {
 			dirs.push({ type: item[0] });
 		}
@@ -90,9 +89,9 @@ export function arrayToDirectives(
 export function editPathFromDirectives(
 	p: opentype.Path,
 	d: Array<OpentypeDirective>,
-	ty: number = 0
+	ty = 0
 ): opentype.Path {
-	for (let i of d) {
+	for (const i of d) {
 		if (i.type == 'M') {
 			p.moveTo(i.x, i.y + ty);
 		} else if (i.type == 'L') {

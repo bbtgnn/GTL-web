@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { glyphs, syntaxes, metrics } from '$lib/stores';
+	import { metrics } from '$lib/stores';
 
-	import InputText from '$lib/ui/inputText.svelte';
 	import InputNumber from '$lib/ui/inputNumber.svelte';
 	import Label from '$lib/ui/label.svelte';
 

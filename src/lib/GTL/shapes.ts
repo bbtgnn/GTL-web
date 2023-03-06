@@ -1,5 +1,4 @@
 import paper from 'paper';
-import _ from 'lodash';
 import { orientations } from '../types';
 import type { BaseProps, Orientation } from '../types';
 import { calcNumberProp } from '../types';
@@ -34,9 +33,9 @@ export function transform(
 	props: BaseProps,
 	center = new paper.Point(0, 0)
 ) {
-	let scale_x = calcNumberProp(props.scale_x);
-	let scale_y = calcNumberProp(props.scale_y);
-	let rotation = calcNumberProp(props.rotation);
+	const scale_x = calcNumberProp(props.scale_x);
+	const scale_y = calcNumberProp(props.scale_y);
+	const rotation = calcNumberProp(props.rotation);
 
 	path.scale(scale_x, scale_y, center);
 	path.rotate(rotation, center);
@@ -52,8 +51,8 @@ export function rectangle(box: paper.Rectangle): paper.Path {
 
 export function quarter(
 	box: paper.Rectangle,
-	squaring: number = 0.56,
-	negative: boolean = false,
+	squaring = 0.56,
+	negative = false,
 	orientation: Orientation = 'SE'
 ): paper.Path {
 	// Handles max point
@@ -68,10 +67,10 @@ export function quarter(
 	}
 
 	// Points and handles
-	let A = box.topLeft;
-	let AH = A.add(M.subtract(A).multiply(squaring));
-	let B = box.bottomRight;
-	let BH = B.add(M.subtract(B).multiply(squaring));
+	const A = box.topLeft;
+	const AH = A.add(M.subtract(A).multiply(squaring));
+	const B = box.bottomRight;
+	const BH = B.add(M.subtract(B).multiply(squaring));
 
 	// Drawing path
 	const path = new paper.Path();
@@ -95,8 +94,8 @@ export function quarter(
 
 export function ellipse(
 	box: paper.Rectangle,
-	squaring: number = 0.56,
-	negative: boolean = false
+	squaring = 0.56,
+	negative = false
 ): Array<paper.Path> {
 	// Base information
 	const size = new paper.Size(box.width / 2, box.height / 2);
@@ -111,7 +110,7 @@ export function ellipse(
 	const paths: Array<paper.Path> = [];
 
 	// Looping over orientations
-	for (let o of orientations) {
+	for (const o of orientations) {
 		const quarterBox = new paper.Rectangle(basePoints[o], size);
 		paths.push(quarter(quarterBox, squaring, negative, o));
 	}

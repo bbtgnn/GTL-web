@@ -2,8 +2,8 @@
 	import { nanoid } from 'nanoid';
 
 	export let value: number;
-	export let name: string = nanoid(5);
-	export let step: number = 1;
+	export let name = nanoid(5);
+	export let step = 1;
 </script>
 
 <input

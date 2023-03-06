@@ -3,7 +3,7 @@
  */
 
 export const orientations = ['NW', 'SW', 'NE', 'SE'] as const;
-export type Orientation = typeof orientations[number];
+export type Orientation = (typeof orientations)[number];
 
 /**
  * Value kind (modes)
@@ -33,13 +33,14 @@ export interface ValueDataRange {
 
 //
 
-export interface FixedValue<T> extends ValueTemplate<ValueKind.Fixed, T> {}
+export type FixedValue<T> = ValueTemplate<ValueKind.Fixed, T>;
 
-export interface ChoiceValue<T>
-	extends ValueTemplate<ValueKind.Choice, ValueDataChoice<T>> {}
+export type ChoiceValue<T> = ValueTemplate<
+	ValueKind.Choice,
+	ValueDataChoice<T>
+>;
 
-export interface RangeValue
-	extends ValueTemplate<ValueKind.Range, ValueDataRange> {}
+export type RangeValue = ValueTemplate<ValueKind.Range, ValueDataRange>;
 
 /**
  * Values and modes they can have
