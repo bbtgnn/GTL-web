@@ -11,7 +11,8 @@ import type {
 	RectangleProps,
 	EllipseProps,
 	QuarterProps,
-	VoidProps
+	VoidProps,
+	SVGProps
 } from './shapes';
 import { ShapeKind } from './shapes';
 import type { Rule, Syntax } from './syntax';
@@ -45,6 +46,10 @@ export function booleanPropFixed(b: boolean): BooleanProp {
 	};
 }
 
+export function stringPropFixed(v: string): StringProp {
+	return { kind: PropKind.String, value: { kind: ValueKind.Fixed, data: v } };
+}
+
 /**
  * Ready-made props
  */
@@ -70,6 +75,13 @@ export const quarterProps: QuarterProps = {
 	squaring: numberPropFixed(0.56),
 	orientation: orientationPropFixed('NE'),
 	negative: booleanPropFixed(false)
+};
+
+export const svgProps: SVGProps = {
+	scale_x: numberPropFixed(1),
+	scale_y: numberPropFixed(1),
+	rotation: numberPropFixed(0),
+	path: stringPropFixed('')
 };
 
 export const voidProps: VoidProps = {};
