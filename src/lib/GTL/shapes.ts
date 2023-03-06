@@ -43,18 +43,18 @@ export function transform(
 
 //
 
-export function rectangle(box: paper.Rectangle): paper.Path {
+export async function rectangle(box: paper.Rectangle): Promise<paper.Path> {
 	return new paper.Path.Rectangle(box);
 }
 
 //
 
-export function quarter(
+export async function quarter(
 	box: paper.Rectangle,
 	squaring = 0.56,
 	negative = false,
 	orientation: Orientation = 'SE'
-): paper.Path {
+): Promise<paper.Path> {
 	// Handles max point
 	const M: paper.Point = box.topRight;
 
@@ -92,11 +92,11 @@ export function quarter(
 
 //
 
-export function ellipse(
+export async function ellipse(
 	box: paper.Rectangle,
 	squaring = 0.56,
 	negative = false
-): Array<paper.Path> {
+): Promise<Array<paper.Path>> {
 	// Base information
 	const size = new paper.Size(box.width / 2, box.height / 2);
 	const basePoints: Record<Orientation, paper.Point> = {
@@ -112,7 +112,7 @@ export function ellipse(
 	// Looping over orientations
 	for (const o of orientations) {
 		const quarterBox = new paper.Rectangle(basePoints[o], size);
-		paths.push(quarter(quarterBox, squaring, negative, o));
+		paths.push(await quarter(quarterBox, squaring, negative, o));
 	}
 
 	return paths;
