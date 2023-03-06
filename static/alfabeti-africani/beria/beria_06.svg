@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
+<rect x="110" y="70" width="10" height="10"/>
+<rect x="100" y="120" width="20" height="10"/>
+<rect x="120" y="80" width="10" height="40"/>
+<rect x="30" y="120" width="20" height="10"/>
+<rect x="20" y="80" width="10" height="40"/>
+<rect x="30" y="70" width="10" height="10"/>
+<polygon points="110,70 110,60 80,60 80,20 100,20 100,10 50,10 50,20 70,20 70,60 40,60 40,70 70,70 70,130 50,130 50,140 100,140 
+	100,130 80,130 80,70 "/>
+</svg>
