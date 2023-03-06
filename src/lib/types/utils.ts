@@ -1,4 +1,9 @@
-import type { BooleanProp, NumberProp, OrientationProp } from './props';
+import type {
+	BooleanProp,
+	NumberProp,
+	OrientationProp,
+	StringProp
+} from './props';
 import { PropKind } from './props';
 import { ValueKind } from './values';
 import type { Orientation } from './values';
@@ -6,7 +11,8 @@ import type {
 	RectangleProps,
 	EllipseProps,
 	QuarterProps,
-	VoidProps
+	VoidProps,
+	SVGProps
 } from './shapes';
 import { ShapeKind } from './shapes';
 import type { Rule, Syntax } from './syntax';
@@ -40,6 +46,10 @@ export function booleanPropFixed(b: boolean): BooleanProp {
 	};
 }
 
+export function stringPropFixed(v: string): StringProp {
+	return { kind: PropKind.String, value: { kind: ValueKind.Fixed, data: v } };
+}
+
 /**
  * Ready-made props
  */
@@ -65,6 +75,13 @@ export const quarterProps: QuarterProps = {
 	squaring: numberPropFixed(0.56),
 	orientation: orientationPropFixed('NE'),
 	negative: booleanPropFixed(false)
+};
+
+export const svgProps: SVGProps = {
+	scale_x: numberPropFixed(1),
+	scale_y: numberPropFixed(1),
+	rotation: numberPropFixed(0),
+	path: stringPropFixed('')
 };
 
 export const voidProps: VoidProps = {};
@@ -123,6 +140,16 @@ export function calcBooleanProp(prop: BooleanProp): boolean {
 		return prop.value.data;
 	} else if (prop.value.kind == ValueKind.Choice) {
 		return randomChoice<boolean>(prop.value.data.options);
+	} else {
+		throw new Error('WrongValueKind');
+	}
+}
+
+export function calcStringProp(prop: StringProp): string {
+	if (prop.value.kind == ValueKind.Fixed) {
+		return prop.value.data;
+	} else if (prop.value.kind == ValueKind.Choice) {
+		return randomChoice<string>(prop.value.data.options);
 	} else {
 		throw new Error('WrongValueKind');
 	}

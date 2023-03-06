@@ -2,10 +2,11 @@ import {
 	ShapeKind,
 	calcOrientationProp,
 	calcNumberProp,
-	calcBooleanProp
+	calcBooleanProp,
+	calcStringProp
 } from '../types';
 import type { Rule, Syntax } from '../types';
-import { rectangle, ellipse, quarter } from './shapes';
+import { rectangle, ellipse, quarter, svg } from './shapes';
 
 import paper from 'paper';
 
@@ -94,6 +95,12 @@ export async function drawPath(
 	//
 	else if (rule.shape.kind == ShapeKind.Void) {
 		paths.push(new paper.Path());
+	}
+	//
+	else if (rule.shape.kind == ShapeKind.SVG) {
+		paths.push(
+			...(await svg(box, `/${calcStringProp(rule.shape.props.path)}`))
+		);
 	}
 	//
 	else {

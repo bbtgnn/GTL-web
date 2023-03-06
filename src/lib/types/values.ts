@@ -59,3 +59,7 @@ export type OrientationValueKind = ValueKind.Fixed | ValueKind.Choice;
 export type BooleanData = boolean | ValueDataChoice<boolean>;
 export type BooleanValue = FixedValue<boolean> | ChoiceValue<boolean>;
 export type BooleanValueKind = ValueKind.Fixed | ValueKind.Choice;
+
+export type StringData = string | ValueDataChoice<string>;
+export type StringValue = FixedValue<string> | ChoiceValue<string>;
+export type StringValueKind = ValueKind.Fixed | ValueKind.Choice;

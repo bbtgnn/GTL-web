@@ -1,4 +1,9 @@
-import type { NumberValue, OrientationValue, BooleanValue } from './values';
+import type {
+	NumberValue,
+	OrientationValue,
+	BooleanValue,
+	StringValue
+} from './values';
 
 /**
  * Prop types
@@ -7,7 +12,8 @@ import type { NumberValue, OrientationValue, BooleanValue } from './values';
 export enum PropKind {
 	Number = 'number',
 	Orientation = 'orientation',
-	Boolean = 'boolean'
+	Boolean = 'boolean',
+	String = 'string'
 }
 
 export interface PropTemplate<K, V> {
@@ -25,6 +31,8 @@ export type OrientationProp = PropTemplate<
 >;
 
 export type BooleanProp = PropTemplate<PropKind.Boolean, BooleanValue>;
+
+export type StringProp = PropTemplate<PropKind.String, StringValue>;
 
 // Utility union type
 export type Prop = NumberProp | OrientationProp | BooleanProp;
