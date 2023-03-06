@@ -51,7 +51,7 @@
 	function importFont(e: any) {
 		try {
 			//
-			const json = e.detail.json;
+			const json = (e as any).detail.json;
 			const res = JSON.parse(json);
 			//
 			$syntaxes = res['syntaxes'];

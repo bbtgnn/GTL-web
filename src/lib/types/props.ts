@@ -17,14 +17,14 @@ export interface PropTemplate<K, V> {
 
 //
 
-export interface NumberProp
-	extends PropTemplate<PropKind.Number, NumberValue> {}
+export type NumberProp = PropTemplate<PropKind.Number, NumberValue>;
 
-export interface OrientationProp
-	extends PropTemplate<PropKind.Orientation, OrientationValue> {}
+export type OrientationProp = PropTemplate<
+	PropKind.Orientation,
+	OrientationValue
+>;
 
-export interface BooleanProp
-	extends PropTemplate<PropKind.Boolean, BooleanValue> {}
+export type BooleanProp = PropTemplate<PropKind.Boolean, BooleanValue>;
 
 // Utility union type
 export type Prop = NumberProp | OrientationProp | BooleanProp;

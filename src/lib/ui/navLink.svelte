@@ -3,7 +3,7 @@
 
 	export let href: string;
 
-	let active: boolean = false;
+	let active = false;
 	$: active = $page.url.pathname == `${href}/`;
 
 	const inactiveClasses = 'text-white bg-slate-700 hover:bg-slate-600';

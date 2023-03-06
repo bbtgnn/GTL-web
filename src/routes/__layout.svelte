@@ -12,7 +12,7 @@
 		{ href: `${base}/settings`, text: 'Impostazioni' }
 	];
 
-	let navHgt: number = 0;
+	let navHgt = 0;
 </script>
 
 <!--  -->

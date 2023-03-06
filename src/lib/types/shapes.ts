@@ -18,32 +18,27 @@ export interface ShapeTemplate<K, P> {
 
 // Void
 
-export interface VoidProps {}
-
-export interface VoidShape extends ShapeTemplate<ShapeKind.Void, VoidProps> {}
+export type VoidProps = Record<string, unknown>;
+export type VoidShape = ShapeTemplate<ShapeKind.Void, VoidProps>;
 
 // Rectangle
 
-export interface RectangleProps extends BaseProps {}
-
-export interface RectangleShape
-	extends ShapeTemplate<ShapeKind.Rectangle, RectangleProps> {}
+export type RectangleProps = BaseProps;
+export type RectangleShape = ShapeTemplate<ShapeKind.Rectangle, RectangleProps>;
 
 // Ellipse
 
-export interface EllipseProps extends BaseProps, CurveProps {}
-
-export interface EllipseShape
-	extends ShapeTemplate<ShapeKind.Ellipse, EllipseProps> {}
+export type EllipseProps = BaseProps & CurveProps;
+export type EllipseShape = ShapeTemplate<ShapeKind.Ellipse, EllipseProps>;
 
 // Quarter
 
-export interface QuarterProps extends BaseProps, CurveProps {
-	orientation: OrientationProp;
-}
+export type QuarterProps = BaseProps &
+	CurveProps & {
+		orientation: OrientationProp;
+	};
 
-export interface QuarterShape
-	extends ShapeTemplate<ShapeKind.Quarter, QuarterProps> {}
+export type QuarterShape = ShapeTemplate<ShapeKind.Quarter, QuarterProps>;
 
 /**
  * Utility union types

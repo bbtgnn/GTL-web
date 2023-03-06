@@ -8,7 +8,7 @@ import {
 	drawPath,
 	getGlyphWidth
 } from './drawGlyph';
-import { transform, calcTransform, applyTransform } from './shapes';
+import { calcTransform, applyTransform } from './shapes';
 import {
 	getAbsoluteSVGPath,
 	arrayToDirectives,
@@ -42,7 +42,7 @@ export function generateGlyph(
 	const cells: Array<Cell> = structureToArray(glyph.structure);
 
 	// Iterating over cells (saving all the paths)
-	for (let c of cells) {
+	for (const c of cells) {
 		// Getting rule
 		const rule = getRule(syntax, c.symbol);
 
@@ -54,12 +54,12 @@ export function generateGlyph(
 
 			// Transforming
 			const transform = calcTransform(rule.shape.props);
-			for (let p of boxPaths) {
+			for (const p of boxPaths) {
 				applyTransform(p, transform, box.center);
 			}
 
 			// Reorienting paths
-			for (let p of boxPaths) {
+			for (const p of boxPaths) {
 				p.reorient(true, true);
 			}
 
@@ -76,7 +76,7 @@ export function generateGlyph(
 	const oPath = new opentype.Path();
 
 	// Converting paths to opentype
-	for (let p of paths) {
+	for (const p of paths) {
 		const svgpath = getAbsoluteSVGPath(p);
 		const directives = arrayToDirectives(svgpath);
 		editPathFromDirectives(oPath, directives, -baseSize * baseline);
@@ -99,7 +99,7 @@ export function generateGlyph(
 
 //
 
-export interface FontMetrics {
+export interface FontMetrics extends Record<string, number> {
 	baseline: number;
 	height: number;
 }
@@ -118,7 +118,7 @@ export function generateFont(
 	// Listing all the glyphs
 	const opentypeGlyphs = [];
 
-	// Adding Notdef – It's required
+	// Adding Notdef - is required
 	const notdefGlyph = new opentype.Glyph({
 		name: '.notdef',
 		unicode: 0,
@@ -127,7 +127,7 @@ export function generateFont(
 	});
 	opentypeGlyphs.push(notdefGlyph);
 
-	for (let g of glyphs) {
+	for (const g of glyphs) {
 		opentypeGlyphs.push(
 			generateGlyph(g, syntax, BASESQUARE, 1, metrics.baseline)
 		);

@@ -39,12 +39,12 @@ export function structureToArray(s: string): Array<Cell> {
 	rows.reverse();
 
 	// Iterating over rows
-	for (let [i, row] of rows.entries()) {
+	for (const [i, row] of rows.entries()) {
 		// Getting columns
 		const chars = row.split('');
 
 		// Iterating over columns
-		for (let [j, c] of chars.entries()) {
+		for (const [j, c] of chars.entries()) {
 			// Adding to array
 			array.push({
 				symbol: c,
@@ -62,7 +62,7 @@ export function structureToArray(s: string): Array<Cell> {
 //
 
 export function drawPath(box: paper.Rectangle, rule: Rule): Array<paper.Path> {
-	let paths: Array<paper.Path> = [];
+	const paths: Array<paper.Path> = [];
 
 	if (rule.shape.kind == ShapeKind.Rectangle) {
 		paths.push(rectangle(box));
@@ -103,7 +103,7 @@ export function drawPath(box: paper.Rectangle, rule: Rule): Array<paper.Path> {
 //
 
 export function getRule(syntax: Syntax, symbol: string): Rule {
-	for (let rule of syntax.rules) {
+	for (const rule of syntax.rules) {
 		if (rule.symbol == symbol) return rule;
 	}
 	throw new Error('missingSymbol');

@@ -9,7 +9,6 @@
 	import FontDisplay from '$lib/components/fontDisplay.svelte';
 
 	import { onMount } from 'svelte';
-	import { load } from 'opentype.js';
 
 	//
 
