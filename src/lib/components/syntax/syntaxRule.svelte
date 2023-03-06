@@ -6,7 +6,8 @@
 		voidProps,
 		rectangleProps,
 		ellipseProps,
-		quarterProps
+		quarterProps,
+		svgProps
 	} from '$lib/types';
 
 	import InputPropBoolean from './inputPropBoolean.svelte';
@@ -14,6 +15,7 @@
 	import InputPropOrientation from './inputPropOrientation.svelte';
 	import Select, { type SelectOptions } from '$lib/ui/select.svelte';
 	import Label from '$lib/ui/label.svelte';
+	import InputPropString from './inputPropString.svelte';
 
 	//
 
@@ -32,7 +34,8 @@
 			void: voidProps,
 			rectangle: rectangleProps,
 			ellipse: ellipseProps,
-			quarter: quarterProps
+			quarter: quarterProps,
+			svg: svgProps
 		};
 		rule.shape.props = data[tempShape];
 		rule.shape.kind = tempShape;
@@ -44,7 +47,8 @@
 		{ label: 'rectangle', value: ShapeKind.Rectangle },
 		{ label: 'ellipse', value: ShapeKind.Ellipse },
 		{ label: 'quarter', value: ShapeKind.Quarter },
-		{ label: 'void', value: ShapeKind.Void }
+		{ label: 'void', value: ShapeKind.Void },
+		{ label: 'svg', value: ShapeKind.SVG }
 	];
 
 	const angleDefaults = {
@@ -118,6 +122,13 @@
 					<div class="block">
 						<Label target="orientamento">Orientamento</Label>
 						<InputPropOrientation bind:prop={rule.shape.props.orientation} />
+					</div>
+				{/if}
+				<!--  -->
+				{#if rule.shape.kind == ShapeKind.SVG}
+					<div class="block">
+						<Label target="">SVG Path</Label>
+						<InputPropString bind:prop={rule.shape.props.path} />
 					</div>
 				{/if}
 			</div>
