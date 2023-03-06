@@ -98,9 +98,9 @@ export async function drawPath(
 	}
 	//
 	else if (rule.shape.kind == ShapeKind.SVG) {
-		const svgItem = await svg(box, calcStringProp(rule.shape.props.path));
-		console.log(svgItem);
-		// paths.push(  )
+		paths.push(
+			...(await svg(box, `/${calcStringProp(rule.shape.props.path)}`))
+		);
 	}
 	//
 	else {

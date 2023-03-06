@@ -123,12 +123,28 @@ export async function ellipse(
 export async function svg(
 	box: paper.Rectangle,
 	svgPath: string
-): Promise<paper.Item> {
+): Promise<Array<paper.Path>> {
 	const path = await new Promise<paper.Item>((resolve) => {
-		paper.project.importSVG(svgPath, (item: paper.Item) => {
-			resolve(item);
+		paper.project.importSVG(svgPath, {
+			expandShapes: true, // <- Guarantee that children are paths
+			onLoad: (item: paper.Item) => {
+				resolve(item);
+			}
 		});
 	});
+
+	path.scale(1, -1, box.center);
 	path.fitBounds(box);
-	return path;
+
+	const paths = path.children
+		.filter((c) => c.className == 'Path')
+		.map((c) => {
+			const p = new paper.Path((c as paper.Path).segments);
+			p.closed = true;
+			return p;
+		});
+
+	path.remove();
+
+	return paths;
 }
