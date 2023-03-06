@@ -20,13 +20,13 @@ import { UNICODE } from './unicode';
 
 //
 
-export function generateGlyph(
+export async function generateGlyph(
 	glyph: GlyphInput,
 	syntax: Syntax,
 	baseSize = 100,
 	widthRatio = 1,
 	baseline = 1
-): opentype.Glyph {
+): Promise<opentype.Glyph> {
 	/**
 	 * Paperjs part
 	 */
@@ -50,7 +50,7 @@ export function generateGlyph(
 		if (rule.shape.kind != ShapeKind.Void) {
 			// Getting box and creating paths
 			const box = createBox(c, baseSize, widthRatio);
-			const boxPaths = drawPath(box, rule);
+			const boxPaths = await drawPath(box, rule);
 
 			// Transforming
 			const transform = calcTransform(rule.shape.props);
@@ -106,11 +106,11 @@ export interface FontMetrics extends Record<string, number> {
 
 //
 
-export function generateFont(
+export async function generateFont(
 	syntax: Syntax,
 	glyphs: Array<GlyphInput>,
 	metrics: FontMetrics
-): opentype.Font {
+): Promise<opentype.Font> {
 	// Qui bisogna aggiungere la width presa dalla sintassi
 	const UPM = 1000;
 	const BASESQUARE = Math.round(UPM / metrics.height);
@@ -129,7 +129,7 @@ export function generateFont(
 
 	for (const g of glyphs) {
 		opentypeGlyphs.push(
-			generateGlyph(g, syntax, BASESQUARE, 1, metrics.baseline)
+			await generateGlyph(g, syntax, BASESQUARE, 1, metrics.baseline)
 		);
 	}
 

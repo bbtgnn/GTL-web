@@ -61,26 +61,29 @@ export function structureToArray(s: string): Array<Cell> {
 
 //
 
-export function drawPath(box: paper.Rectangle, rule: Rule): Array<paper.Path> {
+export async function drawPath(
+	box: paper.Rectangle,
+	rule: Rule
+): Promise<Array<paper.Path>> {
 	const paths: Array<paper.Path> = [];
 
 	if (rule.shape.kind == ShapeKind.Rectangle) {
-		paths.push(rectangle(box));
+		paths.push(await rectangle(box));
 	}
 	//
 	else if (rule.shape.kind == ShapeKind.Ellipse) {
 		paths.push(
-			...ellipse(
+			...(await ellipse(
 				box,
 				calcNumberProp(rule.shape.props.squaring),
 				calcBooleanProp(rule.shape.props.negative)
-			)
+			))
 		);
 	}
 	//
 	else if (rule.shape.kind == ShapeKind.Quarter) {
 		paths.push(
-			quarter(
+			await quarter(
 				box,
 				calcNumberProp(rule.shape.props.squaring),
 				calcBooleanProp(rule.shape.props.negative),
