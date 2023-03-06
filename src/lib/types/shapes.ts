@@ -1,4 +1,9 @@
-import type { BaseProps, CurveProps, OrientationProp } from './props';
+import type {
+	BaseProps,
+	CurveProps,
+	OrientationProp,
+	StringProp
+} from './props';
 
 /**
  * Shapes
@@ -8,7 +13,8 @@ export enum ShapeKind {
 	Void = 'void',
 	Rectangle = 'rectangle',
 	Ellipse = 'ellipse',
-	Quarter = 'quarter'
+	Quarter = 'quarter',
+	SVG = 'svg'
 }
 
 export interface ShapeTemplate<K, P> {
@@ -40,9 +46,26 @@ export type QuarterProps = BaseProps &
 
 export type QuarterShape = ShapeTemplate<ShapeKind.Quarter, QuarterProps>;
 
+// SVG
+
+export type SVGProps = BaseProps & {
+	path: StringProp;
+};
+export type SVGShape = ShapeTemplate<ShapeKind.SVG, SVGProps>;
+
 /**
  * Utility union types
  */
 
-export type Props = VoidProps | RectangleProps | EllipseProps | QuarterProps;
-export type Shape = VoidShape | RectangleShape | EllipseShape | QuarterShape;
+export type Props =
+	| VoidProps
+	| RectangleProps
+	| EllipseProps
+	| QuarterProps
+	| SVGProps;
+export type Shape =
+	| VoidShape
+	| RectangleShape
+	| EllipseShape
+	| QuarterShape
+	| SVGShape;
