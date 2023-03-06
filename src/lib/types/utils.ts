@@ -1,4 +1,9 @@
-import type { BooleanProp, NumberProp, OrientationProp } from './props';
+import type {
+	BooleanProp,
+	NumberProp,
+	OrientationProp,
+	StringProp
+} from './props';
 import { PropKind } from './props';
 import { ValueKind } from './values';
 import type { Orientation } from './values';
@@ -123,6 +128,16 @@ export function calcBooleanProp(prop: BooleanProp): boolean {
 		return prop.value.data;
 	} else if (prop.value.kind == ValueKind.Choice) {
 		return randomChoice<boolean>(prop.value.data.options);
+	} else {
+		throw new Error('WrongValueKind');
+	}
+}
+
+export function calcStringProp(prop: StringProp): string {
+	if (prop.value.kind == ValueKind.Fixed) {
+		return prop.value.data;
+	} else if (prop.value.kind == ValueKind.Choice) {
+		return randomChoice<string>(prop.value.data.options);
 	} else {
 		throw new Error('WrongValueKind');
 	}
