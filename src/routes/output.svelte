@@ -49,8 +49,9 @@
 		for (let syntax of $syntaxes) {
 			if (syntax && syntax.rules.length) {
 				// Generating previews
-				const previewFont = generateFont(syntax, previewGlyphs, $metrics);
-				previewFonts = [...previewFonts, previewFont];
+				generateFont(syntax, previewGlyphs, $metrics).then((res) => {
+					previewFonts = [...previewFonts, res];
+				});
 			}
 		}
 	});
@@ -59,9 +60,9 @@
 
 	let loading = false;
 
-	function downloadFont(s: Syntax) {
+	async function downloadFont(s: Syntax) {
 		loading = true;
-		const font = generateFont(s, $glyphs, $metrics);
+		const font = await generateFont(s, $glyphs, $metrics);
 		font.download();
 		loading = false;
 	}
