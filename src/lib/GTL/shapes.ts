@@ -120,10 +120,15 @@ export async function ellipse(
 
 //
 
-export async function svg(path: string): Promise<paper.Item> {
-	return await new Promise<paper.Item>((resolve) => {
-		paper.project.importSVG(path, (item: paper.Item) => {
+export async function svg(
+	box: paper.Rectangle,
+	svgPath: string
+): Promise<paper.Item> {
+	const path = await new Promise<paper.Item>((resolve) => {
+		paper.project.importSVG(svgPath, (item: paper.Item) => {
 			resolve(item);
 		});
 	});
+	path.fitBounds(box);
+	return path;
 }
