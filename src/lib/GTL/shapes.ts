@@ -117,3 +117,13 @@ export async function ellipse(
 
 	return paths;
 }
+
+//
+
+export async function svg(path: string): Promise<paper.Item> {
+	return await new Promise<paper.Item>((resolve) => {
+		paper.project.importSVG(path, (item: paper.Item) => {
+			resolve(item);
+		});
+	});
+}
