@@ -34,9 +34,6 @@ export type BooleanProp = PropTemplate<PropKind.Boolean, BooleanValue>;
 
 export type StringProp = PropTemplate<PropKind.String, StringValue>;
 
-// Utility union type
-export type Prop = NumberProp | OrientationProp | BooleanProp;
-
 /**
  * Extendable props
  */
