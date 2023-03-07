@@ -23,7 +23,7 @@ export function calcTransform(props: BaseProps): TransformData {
 }
 
 export function applyTransform(
-	path: paper.Path,
+	path: paper.Item,
 	data: TransformData,
 	center = new paper.Point(0, 0)
 ) {
