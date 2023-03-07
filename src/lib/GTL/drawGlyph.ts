@@ -65,8 +65,8 @@ export function structureToArray(s: string): Array<Cell> {
 export async function drawPath(
 	box: paper.Rectangle,
 	rule: Rule
-): Promise<Array<paper.Path>> {
-	const paths: Array<paper.Path> = [];
+): Promise<Array<paper.Item>> {
+	const paths: Array<paper.Item> = [];
 
 	if (rule.shape.kind == ShapeKind.Rectangle) {
 		paths.push(await rectangle(box));

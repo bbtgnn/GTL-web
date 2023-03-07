@@ -10,9 +10,7 @@ type ArrayDirective =
 	| ['M' | 'L', number, number]
 	| ['C', number, number, number, number, number, number];
 
-export function getAbsoluteSVGPath(
-	path: paper.PathItem
-): Array<ArrayDirective> {
+export function getAbsoluteSVGPath(path: paper.Item): Array<ArrayDirective> {
 	// Getting SVG path
 	const svg = path.exportSVG({ asString: false }) as SVGElement;
 	// Getting path attribute

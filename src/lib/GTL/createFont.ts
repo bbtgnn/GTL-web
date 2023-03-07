@@ -36,7 +36,7 @@ export async function generateGlyph(
 	paper.setup(size);
 
 	// Listing all the paths
-	const paths: Array<paper.Path> = [];
+	const paths: Array<paper.Item> = [];
 
 	// Converting structure to array
 	const cells: Array<Cell> = structureToArray(glyph.structure);
@@ -58,10 +58,10 @@ export async function generateGlyph(
 				applyTransform(p, transform, box.center);
 			}
 
-			// Reorienting paths
-			for (const p of boxPaths) {
-				p.reorient(true, true);
-			}
+			// // Reorienting paths
+			// for (const p of boxPaths) {
+			// 	p.reorient(true, true);
+			// }
 
 			// Saving path
 			paths.push(...boxPaths);
