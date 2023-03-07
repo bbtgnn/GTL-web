@@ -104,7 +104,13 @@ export async function drawPath(
 	}
 	//
 	else if (rule.shape.kind == ShapeKind.AlfabetiAfricani) {
-		paths.push(...(await alfabetiAfricani(box, rule.shape.props.alphabets)));
+		paths.push(
+			...(await alfabetiAfricani(
+				box,
+				rule.shape.props.alphabets,
+				calcBooleanProp(rule.shape.props.negative)
+			))
+		);
 	}
 	//
 	else {

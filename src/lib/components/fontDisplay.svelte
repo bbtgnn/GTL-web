@@ -10,7 +10,6 @@
 
 	function renderFont(el: HTMLCanvasElement) {
 		const ctx = el.getContext('2d') as CanvasRenderingContext2D;
-		console.log(font.descender);
 		const fontSize = (canvasHeight / 5) * 3;
 		const unit = fontSize / $metrics.height;
 		const y = canvasHeight - unit * $metrics.baseline;

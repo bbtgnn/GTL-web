@@ -123,12 +123,12 @@ export async function ellipse(
 
 //
 
-function itemToPaths(item: paper.Item): Array<paper.Path> {
-	const paths: Array<paper.Path> = [];
+function itemToPaths(item: paper.Item): Array<paper.PathItem> {
+	const paths: Array<paper.PathItem> = [];
 	if (item.className == 'Path') {
-		const p = new paper.Path((item as paper.Path).segments);
-		p.closed = true;
-		paths.push(p);
+		// const p = new paper.Path((item as paper.Path).segments);
+		// p.closed = true;
+		paths.push(item as paper.Path);
 	} else if (item.className == 'Shape') {
 		const s = item as paper.Shape;
 		if (!s.clipMask) {
@@ -136,7 +136,9 @@ function itemToPaths(item: paper.Item): Array<paper.Path> {
 			p.closed = true;
 			paths.push(p);
 		}
-	} else if (item.className == 'Group' || item.className == 'CompoundPath') {
+	} else if (item.className == 'CompoundPath') {
+		paths.push(item as paper.CompoundPath);
+	} else if (item.className == 'Group') {
 		for (const child of item.children) {
 			paths.push(...itemToPaths(child));
 		}
@@ -146,37 +148,57 @@ function itemToPaths(item: paper.Item): Array<paper.Path> {
 
 export async function svg(
 	box: paper.Rectangle,
-	svgPath: string
-): Promise<Array<paper.Path>> {
+	svgPath: string,
+	negative = false
+): Promise<Array<paper.Item>> {
 	const path = await new Promise<paper.Item>((resolve) => {
 		paper.project.importSVG(svgPath, {
-			expandShapes: true, // <- Guarantee that children are paths
+			expandShapes: true,
 			onLoad: (item: paper.Item) => {
 				resolve(item);
 			}
 		});
 	});
 
-	console.log(path);
-
 	path.scale(1, -1, box.center);
 	path.fitBounds(box);
 
-	const paths = itemToPaths(path);
+	if (negative) {
+		let rect = new paper.Path.Rectangle(box) as paper.PathItem;
+		for (const p of path.children) {
+			let subtracts = [];
+			if (p.className == 'Group') subtracts = p.children;
+			else subtracts = [p];
+			for (const s of subtracts) {
+				if (!p.clipMask) {
+					try {
+						rect = rect.subtract(s as paper.PathItem);
+					} catch (e) {
+						console.log(e);
+					}
+				}
+			}
+		}
+		path.remove();
+		return [rect];
+	}
 
-	path.remove();
+	for (const p of path.children) {
+		if (p.clipMask) p.remove();
+	}
 
-	return paths;
+	return path.children;
 }
 
 //
 
 export async function alfabetiAfricani(
 	box: paper.Rectangle,
-	alphabets: Array<string>
-): Promise<Array<paper.Path>> {
+	alphabets: Array<string>,
+	negative = false
+): Promise<Array<paper.Item>> {
 	const alphabet = randomChoice<string>(alphabets);
 	const letters = (lettersJSON as Record<string, string[]>)[alphabet];
 	const letter = randomChoice<string>(letters);
-	return svg(box, letter);
+	return svg(box, letter, negative);
 }

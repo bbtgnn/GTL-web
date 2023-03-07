@@ -1,5 +1,6 @@
 import type {
 	BaseProps,
+	BooleanProp,
 	CurveProps,
 	OrientationProp,
 	StringProp
@@ -51,6 +52,7 @@ export type QuarterShape = ShapeTemplate<ShapeKind.Quarter, QuarterProps>;
 
 export type SVGProps = BaseProps & {
 	path: StringProp;
+	negative: BooleanProp;
 };
 export type SVGShape = ShapeTemplate<ShapeKind.SVG, SVGProps>;
 
@@ -58,6 +60,7 @@ export type SVGShape = ShapeTemplate<ShapeKind.SVG, SVGProps>;
 
 export type AlfabetiAfricaniProps = BaseProps & {
 	alphabets: string[];
+	negative: BooleanProp;
 };
 export type AlfabetiAfricaniShape = ShapeTemplate<
 	ShapeKind.AlfabetiAfricani,

@@ -93,10 +93,14 @@
 			<div class="space-y-4 pl-8">
 				{#if rule.shape.kind == ShapeKind.AlfabetiAfricani}
 					<div class="block">
-						<Label target="scale_x">Seleziona alfabeti</Label>
+						<Label target="alfabeti">Seleziona alfabeti</Label>
 						<InputPropAlfabetiAfricani
 							bind:alfabeti={rule.shape.props.alphabets}
 						/>
+					</div>
+					<div class="block">
+						<Label target="inverti">Inverti</Label>
+						<InputPropBoolean bind:prop={rule.shape.props.negative} />
 					</div>
 				{/if}
 				<!--  -->

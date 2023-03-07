@@ -15,11 +15,10 @@
 		const path = '/alfabeti-africani/mandombe/mandombe_04.svg';
 		const rect = new paper.Rectangle(0, 0, 150, 150);
 
-		const paths = await svg(rect, path);
-		for (const p of paths) {
-			p.strokeWidth = 2;
-			p.strokeColor = new paper.Color('red');
-		}
+		const item = await svg(rect, path, false);
+		console.log(item);
+		// for (const [i, item] of items.entries()) {
+		// }
 	}
 
 	$: if (isPaperReady) {
