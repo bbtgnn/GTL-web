@@ -14,7 +14,8 @@ export enum ShapeKind {
 	Rectangle = 'rectangle',
 	Ellipse = 'ellipse',
 	Quarter = 'quarter',
-	SVG = 'svg'
+	SVG = 'svg',
+	AlfabetiAfricani = 'alfabetiAfricani'
 }
 
 export interface ShapeTemplate<K, P> {
@@ -53,6 +54,16 @@ export type SVGProps = BaseProps & {
 };
 export type SVGShape = ShapeTemplate<ShapeKind.SVG, SVGProps>;
 
+// Alfabeti Africani
+
+export type AlfabetiAfricaniProps = BaseProps & {
+	alphabets: string[];
+};
+export type AlfabetiAfricaniShape = ShapeTemplate<
+	ShapeKind.AlfabetiAfricani,
+	AlfabetiAfricaniProps
+>;
+
 /**
  * Utility union types
  */
@@ -62,10 +73,12 @@ export type Props =
 	| RectangleProps
 	| EllipseProps
 	| QuarterProps
-	| SVGProps;
+	| SVGProps
+	| AlfabetiAfricaniProps;
 export type Shape =
 	| VoidShape
 	| RectangleShape
 	| EllipseShape
 	| QuarterShape
-	| SVGShape;
+	| SVGShape
+	| AlfabetiAfricaniShape;

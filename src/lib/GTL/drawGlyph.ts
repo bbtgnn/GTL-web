@@ -6,7 +6,7 @@ import {
 	calcStringProp
 } from '../types';
 import type { Rule, Syntax } from '../types';
-import { rectangle, ellipse, quarter, svg } from './shapes';
+import { rectangle, ellipse, quarter, svg, alfabetiAfricani } from './shapes';
 
 import paper from 'paper';
 
@@ -101,6 +101,10 @@ export async function drawPath(
 		paths.push(
 			...(await svg(box, `/${calcStringProp(rule.shape.props.path)}`))
 		);
+	}
+	//
+	else if (rule.shape.kind == ShapeKind.AlfabetiAfricani) {
+		paths.push(...(await alfabetiAfricani(box, rule.shape.props.alphabets)));
 	}
 	//
 	else {

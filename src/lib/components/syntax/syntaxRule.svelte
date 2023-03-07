@@ -7,7 +7,8 @@
 		rectangleProps,
 		ellipseProps,
 		quarterProps,
-		svgProps
+		svgProps,
+		alfabetiAfricaniProps
 	} from '$lib/types';
 
 	import InputPropBoolean from './inputPropBoolean.svelte';
@@ -16,6 +17,7 @@
 	import Select, { type SelectOptions } from '$lib/ui/select.svelte';
 	import Label from '$lib/ui/label.svelte';
 	import InputPropString from './inputPropString.svelte';
+	import InputPropAlfabetiAfricani from './inputPropAlfabetiAfricani.svelte';
 
 	//
 
@@ -35,7 +37,8 @@
 			rectangle: rectangleProps,
 			ellipse: ellipseProps,
 			quarter: quarterProps,
-			svg: svgProps
+			svg: svgProps,
+			alfabetiAfricani: alfabetiAfricaniProps
 		};
 		rule.shape.props = data[tempShape];
 		rule.shape.kind = tempShape;
@@ -48,7 +51,8 @@
 		{ label: 'ellipse', value: ShapeKind.Ellipse },
 		{ label: 'quarter', value: ShapeKind.Quarter },
 		{ label: 'void', value: ShapeKind.Void },
-		{ label: 'svg', value: ShapeKind.SVG }
+		{ label: 'svg', value: ShapeKind.SVG },
+		{ label: 'alfabeti africani', value: ShapeKind.AlfabetiAfricani }
 	];
 
 	const angleDefaults = {
@@ -87,6 +91,14 @@
 		<!-- Props -->
 		{#if rule.shape.kind != ShapeKind.Void}
 			<div class="space-y-4 pl-8">
+				{#if rule.shape.kind == ShapeKind.AlfabetiAfricani}
+					<div class="block">
+						<Label target="scale_x">Seleziona alfabeti</Label>
+						<InputPropAlfabetiAfricani
+							bind:alfabeti={rule.shape.props.alphabets}
+						/>
+					</div>
+				{/if}
 				<!--  -->
 				<div class="block">
 					<Label target="scale_x">Scala orizzontale</Label>

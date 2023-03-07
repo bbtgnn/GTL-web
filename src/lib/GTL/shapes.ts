@@ -3,6 +3,9 @@ import { orientations } from '../types';
 import type { BaseProps, Orientation } from '../types';
 import { calcNumberProp } from '../types';
 
+import lettersJSON from '$lib/letters.json';
+import { randomChoice } from '../types';
+
 //
 
 export type TransformData = {
@@ -120,6 +123,27 @@ export async function ellipse(
 
 //
 
+function itemToPaths(item: paper.Item): Array<paper.Path> {
+	const paths: Array<paper.Path> = [];
+	if (item.className == 'Path') {
+		const p = new paper.Path((item as paper.Path).segments);
+		p.closed = true;
+		paths.push(p);
+	} else if (item.className == 'Shape') {
+		const s = item as paper.Shape;
+		if (!s.clipMask) {
+			const p = new paper.Path((item as paper.Shape).toPath().segments);
+			p.closed = true;
+			paths.push(p);
+		}
+	} else if (item.className == 'Group' || item.className == 'CompoundPath') {
+		for (const child of item.children) {
+			paths.push(...itemToPaths(child));
+		}
+	}
+	return paths;
+}
+
 export async function svg(
 	box: paper.Rectangle,
 	svgPath: string
@@ -133,18 +157,26 @@ export async function svg(
 		});
 	});
 
+	console.log(path);
+
 	path.scale(1, -1, box.center);
 	path.fitBounds(box);
 
-	const paths = path.children
-		.filter((c) => c.className == 'Path')
-		.map((c) => {
-			const p = new paper.Path((c as paper.Path).segments);
-			p.closed = true;
-			return p;
-		});
+	const paths = itemToPaths(path);
 
 	path.remove();
 
 	return paths;
+}
+
+//
+
+export async function alfabetiAfricani(
+	box: paper.Rectangle,
+	alphabets: Array<string>
+): Promise<Array<paper.Path>> {
+	const alphabet = randomChoice<string>(alphabets);
+	const letters = (lettersJSON as Record<string, string[]>)[alphabet];
+	const letter = randomChoice<string>(letters);
+	return svg(box, letter);
 }

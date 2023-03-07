@@ -12,7 +12,8 @@ import type {
 	EllipseProps,
 	QuarterProps,
 	VoidProps,
-	SVGProps
+	SVGProps,
+	AlfabetiAfricaniProps
 } from './shapes';
 import { ShapeKind } from './shapes';
 import type { Rule, Syntax } from './syntax';
@@ -82,6 +83,13 @@ export const svgProps: SVGProps = {
 	scale_y: numberPropFixed(1),
 	rotation: numberPropFixed(0),
 	path: stringPropFixed('')
+};
+
+export const alfabetiAfricaniProps: AlfabetiAfricaniProps = {
+	scale_x: numberPropFixed(1),
+	scale_y: numberPropFixed(1),
+	rotation: numberPropFixed(0),
+	alphabets: []
 };
 
 export const voidProps: VoidProps = {};
