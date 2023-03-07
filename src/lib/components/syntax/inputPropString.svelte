@@ -66,7 +66,7 @@
 			{#if prop.value.kind == 'fixed'}
 				<InputText bind:value={prop.value.data} />
 			{:else if prop.value.kind == 'choice'}
-				<InputArray bind:value={prop.value.data.options} parseNumbers />
+				<InputArray bind:value={prop.value.data.options} />
 			{/if}
 		</div>
 	</div>
