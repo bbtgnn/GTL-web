@@ -2,8 +2,14 @@
  * Adding a base value type (the others are: number, boolean)
  */
 
-export const orientations = ['NW', 'SW', 'NE', 'SE'] as const;
-export type Orientation = (typeof orientations)[number];
+export enum Orientation {
+	NW = 'NW',
+	SW = 'SW',
+	NE = 'NE',
+	SE = 'SE'
+}
+
+export const orientations = Object.values(Orientation);
 
 /**
  * Value kind (modes)

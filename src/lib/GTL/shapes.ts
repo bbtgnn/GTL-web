@@ -1,6 +1,6 @@
 import paper from 'paper';
 import { orientations } from '../types';
-import type { BaseProps, Orientation } from '../types';
+import { Orientation, type BaseProps } from '../types';
 import { calcNumberProp } from '../types';
 
 //
@@ -20,7 +20,7 @@ export function calcTransform(props: BaseProps): TransformData {
 }
 
 export function applyTransform(
-	path: paper.Path,
+	path: paper.PathItem,
 	data: TransformData,
 	center = new paper.Point(0, 0)
 ) {
@@ -41,20 +41,49 @@ export function transform(
 	path.rotate(rotation, center);
 }
 
-//
+/* Shape drawing */
 
-export async function rectangle(box: paper.Rectangle): Promise<paper.Path> {
-	return new paper.Path.Rectangle(box);
-}
+export type BaseShapeProps = Record<string, unknown>;
 
-//
-
-export async function quarter(
+export type Shape<P = BaseShapeProps> = (
 	box: paper.Rectangle,
-	squaring = 0.56,
-	negative = false,
-	orientation: Orientation = 'SE'
-): Promise<paper.Path> {
+	props: P
+) => Promise<Array<paper.PathItem>>;
+
+//
+
+export const blank: Shape = async () => {
+	return [];
+};
+
+export const rectangle: Shape = async (box) => {
+	return [new paper.Path.Rectangle(box)];
+};
+
+//
+
+export type SquaringProp = {
+	squaring: number;
+};
+
+export type NegativeProp = {
+	negative: boolean;
+};
+
+export type OrientationProp = {
+	orientation: Orientation;
+};
+
+export type QuarterProps = Partial<
+	SquaringProp & NegativeProp & OrientationProp
+>;
+
+export const quarter: Shape<QuarterProps> = async (box, props) => {
+	const {
+		negative = false,
+		squaring = 0.56,
+		orientation = Orientation.NE
+	} = props;
 	// Handles max point
 	const M: paper.Point = box.topRight;
 
@@ -87,16 +116,16 @@ export async function quarter(
 		path.scale(-1, 1, box.center);
 	}
 
-	return path;
-}
+	return [path];
+};
 
 //
 
-export async function ellipse(
-	box: paper.Rectangle,
-	squaring = 0.56,
-	negative = false
-): Promise<Array<paper.Path>> {
+export type EllipseProps = Partial<SquaringProp & NegativeProp>;
+
+export const ellipse: Shape<EllipseProps> = async (box, props) => {
+	const { squaring = 0.56, negative = false } = props;
+
 	// Base information
 	const size = new paper.Size(box.width / 2, box.height / 2);
 	const basePoints: Record<Orientation, paper.Point> = {
@@ -107,44 +136,65 @@ export async function ellipse(
 	};
 
 	// Storing all the quarters
-	const paths: Array<paper.Path> = [];
+	const paths: Array<paper.PathItem> = [];
 
 	// Looping over orientations
-	for (const o of orientations) {
-		const quarterBox = new paper.Rectangle(basePoints[o], size);
-		paths.push(await quarter(quarterBox, squaring, negative, o));
+	for (const orientation of orientations) {
+		const quarterBox = new paper.Rectangle(basePoints[orientation], size);
+		const q = await quarter(quarterBox, { squaring, negative, orientation });
+		paths.push(...q);
 	}
 
 	return paths;
-}
+};
 
 //
 
-export async function svg(
-	box: paper.Rectangle,
-	svgPath: string
-): Promise<Array<paper.Path>> {
-	const path = await new Promise<paper.Item>((resolve) => {
-		paper.project.importSVG(svgPath, {
+export type SVGProps = {
+	url: string;
+};
+
+export const svg: Shape<SVGProps> = async (box, props) => {
+	const svgItem = await new Promise<paper.Item>((resolve) => {
+		paper.project.importSVG(props.url, {
 			expandShapes: true, // <- Guarantee that children are paths
 			onLoad: (item: paper.Item) => {
 				resolve(item);
 			}
 		});
 	});
+	svgItem.fitBounds(box);
+	return SVGItemToPathItems(svgItem);
+};
 
-	path.scale(1, -1, box.center);
-	path.fitBounds(box);
+enum PaperJSClass {
+	Group = 'Group',
+	Layer = 'Layer',
+	Item = 'Item',
+	Path = 'Path',
+	CompoundPath = 'CompoundPath',
+	PathItem = 'PathItem',
+	Shape = 'Shape',
+	Raster = 'Raster',
+	SymbolItem = 'SymbolItem',
+	PointText = 'PointText'
+}
 
-	const paths = path.children
-		.filter((c) => c.className == 'Path')
-		.map((c) => {
-			const p = new paper.Path((c as paper.Path).segments);
-			p.closed = true;
-			return p;
-		});
-
-	path.remove();
-
-	return paths;
+function SVGItemToPathItems(item: paper.Item): Array<paper.PathItem> {
+	const pathItems: Array<paper.PathItem> = [];
+	if (item.clipMask) 'pass';
+	else if (
+		item.className == PaperJSClass.Path ||
+		item.className == PaperJSClass.CompoundPath
+	) {
+		pathItems.push(item as paper.PathItem);
+	} else if (
+		item.className == PaperJSClass.Group ||
+		item.className == PaperJSClass.Layer
+	) {
+		for (const child of item.children) {
+			pathItems.push(...SVGItemToPathItems(child));
+		}
+	}
+	return pathItems;
 }

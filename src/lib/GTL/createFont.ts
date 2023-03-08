@@ -36,7 +36,7 @@ export async function generateGlyph(
 	paper.setup(size);
 
 	// Listing all the paths
-	const paths: Array<paper.Path> = [];
+	const paths: Array<paper.PathItem> = [];
 
 	// Converting structure to array
 	const cells: Array<Cell> = structureToArray(glyph.structure);

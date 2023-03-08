@@ -6,7 +6,15 @@ import {
 	calcStringProp
 } from '../types';
 import type { Rule, Syntax } from '../types';
-import { rectangle, ellipse, quarter, svg } from './shapes';
+import {
+	rectangle,
+	ellipse,
+	quarter,
+	svg,
+	type EllipseProps,
+	type QuarterProps,
+	type SVGProps
+} from './shapes';
 
 import paper from 'paper';
 
@@ -65,42 +73,39 @@ export function structureToArray(s: string): Array<Cell> {
 export async function drawPath(
 	box: paper.Rectangle,
 	rule: Rule
-): Promise<Array<paper.Path>> {
-	const paths: Array<paper.Path> = [];
+): Promise<Array<paper.PathItem>> {
+	const paths: Array<paper.PathItem> = [];
 
 	if (rule.shape.kind == ShapeKind.Rectangle) {
-		paths.push(await rectangle(box));
+		paths.push(...(await rectangle(box, {})));
 	}
 	//
 	else if (rule.shape.kind == ShapeKind.Ellipse) {
-		paths.push(
-			...(await ellipse(
-				box,
-				calcNumberProp(rule.shape.props.squaring),
-				calcBooleanProp(rule.shape.props.negative)
-			))
-		);
+		const props: EllipseProps = {
+			squaring: calcNumberProp(rule.shape.props.squaring),
+			negative: calcBooleanProp(rule.shape.props.negative)
+		};
+		paths.push(...(await ellipse(box, props)));
 	}
 	//
 	else if (rule.shape.kind == ShapeKind.Quarter) {
-		paths.push(
-			await quarter(
-				box,
-				calcNumberProp(rule.shape.props.squaring),
-				calcBooleanProp(rule.shape.props.negative),
-				calcOrientationProp(rule.shape.props.orientation)
-			)
-		);
+		const props: QuarterProps = {
+			squaring: calcNumberProp(rule.shape.props.squaring),
+			negative: calcBooleanProp(rule.shape.props.negative),
+			orientation: calcOrientationProp(rule.shape.props.orientation)
+		};
+		paths.push(...(await quarter(box, props)));
 	}
 	//
 	else if (rule.shape.kind == ShapeKind.Void) {
-		paths.push(new paper.Path());
+		('pass');
 	}
 	//
 	else if (rule.shape.kind == ShapeKind.SVG) {
-		paths.push(
-			...(await svg(box, `/${calcStringProp(rule.shape.props.path)}`))
-		);
+		const props: SVGProps = {
+			url: calcStringProp(rule.shape.props.path)
+		};
+		paths.push(...(await svg(box, props)));
 	}
 	//
 	else {
