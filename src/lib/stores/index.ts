@@ -8,7 +8,9 @@ export const glyphs = lsWritable<Array<GlyphInput>>('glyphs', []);
 export const metrics = lsWritable<FontMetrics>('metrics', {
 	baseline: 1,
 	height: 5,
-	UPM: 100 * 5 * 2 * 2 * 2 * 5
+	UPM: 10240,
+	boxCols: 1,
+	boxRows: 1
 });
 
 export const selectedGlyph = writable('');

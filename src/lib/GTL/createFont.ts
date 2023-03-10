@@ -23,9 +23,9 @@ import { UNICODE } from './unicode';
 export async function generateGlyph(
 	glyph: GlyphInput,
 	syntax: Syntax,
+	metrics: FontMetrics,
 	baseSize = 100,
-	widthRatio = 1,
-	baseline = 1
+	widthRatio = 1
 ): Promise<opentype.Glyph> {
 	/**
 	 * Paperjs part
@@ -79,7 +79,7 @@ export async function generateGlyph(
 	for (const p of paths) {
 		const svgpath = getAbsoluteSVGPath(p);
 		const directives = arrayToDirectives(svgpath);
-		editPathFromDirectives(oPath, directives, -baseSize * baseline);
+		editPathFromDirectives(oPath, directives, -baseSize * metrics.baseline);
 	}
 
 	// Adding glyph metadata
@@ -103,6 +103,8 @@ export interface FontMetrics extends Record<string, number> {
 	baseline: number;
 	height: number;
 	UPM: number;
+	boxRows: number;
+	boxCols: number;
 }
 
 //
@@ -129,9 +131,7 @@ export async function generateFont(
 	opentypeGlyphs.push(notdefGlyph);
 
 	for (const g of glyphs) {
-		opentypeGlyphs.push(
-			await generateGlyph(g, syntax, BASESQUARE, 1, metrics.baseline)
-		);
+		opentypeGlyphs.push(await generateGlyph(g, syntax, metrics, BASESQUARE, 1));
 	}
 
 	// Creating font
