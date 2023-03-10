@@ -17,3 +17,7 @@
 		</div>
 	{/each}
 </div>
+<p class="font-mono px-8 pb-8 flex flex-col">
+	<span class="font-bold">! IMPORTANT !</span>
+	<span>UPM value MUST be a multiple of 2 and / or 5.</span>
+</p>

@@ -7,7 +7,8 @@ export const syntaxes = lsWritable<Array<Syntax>>('syntaxes', []);
 export const glyphs = lsWritable<Array<GlyphInput>>('glyphs', []);
 export const metrics = lsWritable<FontMetrics>('metrics', {
 	baseline: 1,
-	height: 5
+	height: 5,
+	UPM: 100 * 5 * 2 * 2 * 2 * 5
 });
 
 export const selectedGlyph = writable('');
