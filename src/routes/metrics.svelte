@@ -17,7 +17,16 @@
 		</div>
 	{/each}
 </div>
-<p class="font-mono px-8 pb-8 flex flex-col">
-	<span class="font-bold">! IMPORTANT !</span>
-	<span>UPM value MUST be a multiple of 2 and / or 5.</span>
-</p>
+<div class="font-mono px-8 pb-8 flex flex-col space-y-2">
+	<p class="font-bold">! IMPORTANT !</p>
+	<ul class="list-disc pl-4 space-y-2">
+		<li>UPM value MUST be a multiple of 2 and / or 5.</li>
+		<li>
+			High UPM values are recommendend for fonts with:
+			<ul class="list-disc pl-4">
+				<li>a lot of small details</li>
+				<li>more than 1 boxRow and / or more than 1 boxCol.</li>
+			</ul>
+		</li>
+	</ul>
+</div>
