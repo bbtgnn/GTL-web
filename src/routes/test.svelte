@@ -1,6 +1,6 @@
 <script lang="ts">
 	import paper from 'paper';
-	import { svg } from '$lib/GTL/shapes';
+	import { svg } from '$lib/GTL/shapes_old';
 
 	//
 
