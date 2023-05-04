@@ -88,10 +88,6 @@
 	<p>loading</p>
 {:else}
 	<div class="p-8 space-y-8">
-		<div class="space-y-2">
-			<Label target="previewText">Preview text</Label>
-			<InputText name="previewText" bind:value={previewText} />
-		</div>
 		{#if previewFonts.length}
 			{#each previewFonts as previewFont, i}
 				<hr />
