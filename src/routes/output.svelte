@@ -49,7 +49,7 @@
 	}
 
 	async function updatePreviewFonts(previewGlyphs: Array<GlyphInput>) {
-		if (previewGlyphs.length) return;
+		if (!previewGlyphs.length) return;
 		loading = true;
 		previewFonts = [];
 		try {
