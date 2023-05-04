@@ -79,6 +79,11 @@
 
 <!--  -->
 
+<div class="p-8 space-y-2">
+	<Label target="previewText">Preview text</Label>
+	<InputText name="previewText" bind:value={previewText} />
+</div>
+
 {#if loading}
 	<p>loading</p>
 {:else}
