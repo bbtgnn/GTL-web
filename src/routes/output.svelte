@@ -7,9 +7,7 @@
 	import { getUnicodeNumber } from '$lib/GTL/unicode';
 
 	import FontDisplay from '$lib/components/fontDisplay.svelte';
-	import FontPreviewDynamic from '$lib/components/fontPreviewDynamic.svelte';
 
-	import { onMount } from 'svelte';
 	import InputText from '$lib/ui/inputText.svelte';
 	import Label from '$lib/ui/label.svelte';
 
