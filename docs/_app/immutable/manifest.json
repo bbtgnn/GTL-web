@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-84a2b8c1.js",
+    "file": "start-c045b647.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -16,7 +16,8 @@
       "src/routes/metrics.svelte",
       "src/routes/output.svelte",
       "src/routes/settings.svelte",
-      "src/routes/syntax.svelte"
+      "src/routes/syntax.svelte",
+      "src/routes/test.svelte"
     ]
   },
   "src/routes/__layout.svelte": {
@@ -29,7 +30,7 @@
       "_paths-396f020f.js"
     ],
     "css": [
-      "assets/pages/__layout.svelte-e43419f0.css"
+      "assets/pages/__layout.svelte-7f64da7b.css"
     ]
   },
   ".svelte-kit/runtime/components/error.svelte": {
@@ -42,7 +43,7 @@
     ]
   },
   "src/routes/glyphs.svelte": {
-    "file": "pages/glyphs.svelte-8577706b.js",
+    "file": "pages/glyphs.svelte-4bc85eda.js",
     "src": "src/routes/glyphs.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -50,7 +51,8 @@
       "_index-643b3d06.js",
       "_index-87f617dd.js",
       "_index.browser-85ea5a5b.js",
-      "_sidebarTile-2c366239.js",
+      "_inputText-79e6cc13.js",
+      "_sidebarTile-3a8d6eff.js",
       "_button-fea341c8.js",
       "_index-56f024cf.js"
     ]
@@ -66,29 +68,34 @@
     ]
   },
   "src/routes/metrics.svelte": {
-    "file": "pages/metrics.svelte-113878ef.js",
+    "file": "pages/metrics.svelte-f067b63d.js",
     "src": "src/routes/metrics.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-643b3d06.js",
       "_index-87f617dd.js",
-      "_label-cfb71124.js",
+      "_inputNumber-de600de3.js",
+      "_label-96ca931c.js",
       "_index-56f024cf.js",
       "_index.browser-85ea5a5b.js"
     ]
   },
   "src/routes/output.svelte": {
-    "file": "pages/output.svelte-2ef5c2dd.js",
+    "file": "pages/output.svelte-cbac3221.js",
     "src": "src/routes/output.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-643b3d06.js",
       "_index-87f617dd.js",
-      "_lodash-26b3c147.js",
+      "__commonjsHelpers-bc7114ed.js",
+      "_shapes-08d68f77.js",
       "_button-fea341c8.js",
-      "_index-56f024cf.js"
+      "_inputText-79e6cc13.js",
+      "_label-96ca931c.js",
+      "_index-56f024cf.js",
+      "_index.browser-85ea5a5b.js"
     ]
   },
   "src/routes/settings.svelte": {
@@ -104,19 +111,35 @@
     ]
   },
   "src/routes/syntax.svelte": {
-    "file": "pages/syntax.svelte-947af122.js",
+    "file": "pages/syntax.svelte-a67c8dba.js",
     "src": "src/routes/syntax.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-643b3d06.js",
-      "_lodash-26b3c147.js",
+      "__commonjsHelpers-bc7114ed.js",
       "_index-87f617dd.js",
       "_index.browser-85ea5a5b.js",
-      "_sidebarTile-2c366239.js",
-      "_label-cfb71124.js",
+      "_inputText-79e6cc13.js",
+      "_inputNumber-de600de3.js",
+      "_label-96ca931c.js",
+      "_sidebarTile-3a8d6eff.js",
       "_button-fea341c8.js",
       "_index-56f024cf.js"
+    ]
+  },
+  "src/routes/test.svelte": {
+    "file": "pages/test.svelte-3ca5501b.js",
+    "src": "src/routes/test.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-643b3d06.js",
+      "_shapes-08d68f77.js",
+      "__commonjsHelpers-bc7114ed.js"
+    ],
+    "css": [
+      "assets/pages/test.svelte-6d33d239.css"
     ]
   },
   "_index-643b3d06.js": {
@@ -141,11 +164,17 @@
   "_index.browser-85ea5a5b.js": {
     "file": "chunks/index.browser-85ea5a5b.js"
   },
-  "_sidebarTile-2c366239.js": {
-    "file": "chunks/sidebarTile-2c366239.js",
+  "_inputText-79e6cc13.js": {
+    "file": "chunks/inputText-79e6cc13.js",
     "imports": [
       "_index-643b3d06.js",
       "_index.browser-85ea5a5b.js"
+    ]
+  },
+  "_sidebarTile-3a8d6eff.js": {
+    "file": "chunks/sidebarTile-3a8d6eff.js",
+    "imports": [
+      "_index-643b3d06.js"
     ]
   },
   "_button-fea341c8.js": {
@@ -154,14 +183,26 @@
       "_index-643b3d06.js"
     ]
   },
-  "_label-cfb71124.js": {
-    "file": "chunks/label-cfb71124.js",
+  "_inputNumber-de600de3.js": {
+    "file": "chunks/inputNumber-de600de3.js",
     "imports": [
       "_index-643b3d06.js",
       "_index.browser-85ea5a5b.js"
     ]
   },
-  "_lodash-26b3c147.js": {
-    "file": "chunks/lodash-26b3c147.js"
+  "_label-96ca931c.js": {
+    "file": "chunks/label-96ca931c.js",
+    "imports": [
+      "_index-643b3d06.js"
+    ]
+  },
+  "__commonjsHelpers-bc7114ed.js": {
+    "file": "chunks/_commonjsHelpers-bc7114ed.js"
+  },
+  "_shapes-08d68f77.js": {
+    "file": "chunks/shapes-08d68f77.js",
+    "imports": [
+      "__commonjsHelpers-bc7114ed.js"
+    ]
   }
 }
