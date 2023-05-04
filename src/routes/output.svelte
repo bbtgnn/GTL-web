@@ -13,7 +13,7 @@
 
 	//
 
-	let previewText = 'akd';
+	let previewText = '';
 	let previewFonts: Array<opentype.Font> = [];
 
 	let loading = false;
@@ -49,6 +49,7 @@
 	}
 
 	async function updatePreviewFonts(previewGlyphs: Array<GlyphInput>) {
+		if (previewGlyphs.length) return;
 		loading = true;
 		previewFonts = [];
 		try {
