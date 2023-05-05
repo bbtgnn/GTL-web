@@ -11,6 +11,8 @@
 	import InputText from '$lib/ui/inputText.svelte';
 	import Label from '$lib/ui/label.svelte';
 	import { previewText } from '$lib/stores';
+	import FontDownload from '$lib/partials/fontDownload.svelte';
+	import Button from '$lib/ui/button.svelte';
 
 	//
 
@@ -93,13 +95,19 @@
 		<div class="p-8 space-y-8">
 			{#if previewFonts.length}
 				{#each previewFonts as previewFont, i}
-					<FontDisplay
-						bind:font={previewFont}
-						bind:text={$previewText}
-						on:click={() => {
-							downloadFont($syntaxes[i]);
-						}}
-					/>
+					<div class="space-y-4">
+						<div class="flex flex-row flex-nowrap items-center space-x-8">
+							<h2 class="text-lg font-mono">{previewFont.names.fullName.en}</h2>
+							<Button on:click>↓ Download</Button>
+						</div>
+						<FontDisplay
+							bind:font={previewFont}
+							bind:text={$previewText}
+							on:click={() => {
+								downloadFont($syntaxes[i]);
+							}}
+						/>
+					</div>
 					<hr />
 				{/each}
 			{:else}
