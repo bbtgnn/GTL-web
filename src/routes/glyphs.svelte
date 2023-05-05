@@ -27,39 +27,40 @@
 
 <!--  -->
 
-<div class="h-full flex flex-row flex-nowrap items-stretch">
-	<!-- sidebar -->
-	<Sidebar>
-		<svelte:fragment slot="topArea">
-			<Button on:click={addGlyph}>+ Aggiungi glifo</Button>
-		</svelte:fragment>
-		<svelte:fragment slot="listTitle">Lista glifi</svelte:fragment>
-		<svelte:fragment slot="items">
-			{#each $glyphs as g (g.id)}
-				<SidebarTile selection={selectedGlyph} id={g.id}>
-					{g.name}
-				</SidebarTile>
-			{/each}
-		</svelte:fragment>
-	</Sidebar>
+<div class="flex flex-row flex-nowrap items-stretch overflow-hidden grow">
+	<div class="shrink-0 flex items-stretch">
+		<Sidebar>
+			<svelte:fragment slot="topArea">
+				<Button on:click={addGlyph}>+ Aggiungi glifo</Button>
+			</svelte:fragment>
+			<svelte:fragment slot="listTitle">Lista glifi</svelte:fragment>
+			<svelte:fragment slot="items">
+				{#each $glyphs as g (g.id)}
+					<SidebarTile selection={selectedGlyph} id={g.id}>
+						{g.name}
+					</SidebarTile>
+				{/each}
+			</svelte:fragment>
+		</Sidebar>
+	</div>
 
 	<!-- Glyph area -->
-	<div class="p-8 space-y-8">
+	<div class="p-8 space-y-8 grow flex flex-col items-stretch">
 		{#each $glyphs as g}
 			{#if g.id == $selectedGlyph}
-				<div>
+				<div class="shrink-0">
 					<p class="text-small font-mono text-slate-900 mb-2 text-sm">
 						Nome glifo
 					</p>
 					<InputText bind:value={g.name} />
 				</div>
 				<hr />
-				<div>
+				<div class="grow flex flex-col items-stretch">
 					<p class="text-small font-mono text-slate-900 mb-2 text-sm">
 						Struttura glifo
 					</p>
 					<textarea
-						class=" h-80 p-2 bg-slate-200 tracking-[0.75em] hover:bg-slate-300 font-mono focus:ring-4"
+						class="h-0 grow p-2 bg-slate-200 tracking-[0.75em] hover:bg-slate-300 font-mono focus:ring-4"
 						bind:value={g.structure}
 					/>
 				</div>

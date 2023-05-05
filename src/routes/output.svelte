@@ -79,30 +79,36 @@
 
 <!--  -->
 
-<div class="p-8 space-y-2">
-	<Label target="previewText">Preview text</Label>
-	<InputText name="previewText" bind:value={$previewText} />
-</div>
-
-{#if loading}
-	<p>loading</p>
-{:else}
-	<div class="p-8 space-y-8">
-		{#if previewFonts.length}
-			{#each previewFonts as previewFont, i}
-				<hr />
-				<FontDisplay
-					bind:font={previewFont}
-					bind:text={$previewText}
-					on:click={() => {
-						downloadFont($syntaxes[i]);
-					}}
-				/>
-			{/each}
-		{:else}
-			<p class="font-mono w-full border-2 border-slate-200 text-slate-300 p-12">
-				Crea glifi e sintassi per vedere qui i risultati!
-			</p>
-		{/if}
+<div class="grow flex flex-col items-stretch overflow-x-hidden overflow-y-auto">
+	<div
+		class="p-8 space-y-2 overflow-x-hidden shrink-0 sticky top-0 border-b border-b-gray-200 bg-white"
+	>
+		<Label target="previewText">Preview text</Label>
+		<InputText name="previewText" bind:value={$previewText} grow />
 	</div>
-{/if}
+
+	{#if loading}
+		<p>loading</p>
+	{:else}
+		<div class="p-8 space-y-8">
+			{#if previewFonts.length}
+				{#each previewFonts as previewFont, i}
+					<FontDisplay
+						bind:font={previewFont}
+						bind:text={$previewText}
+						on:click={() => {
+							downloadFont($syntaxes[i]);
+						}}
+					/>
+					<hr />
+				{/each}
+			{:else}
+				<p
+					class="font-mono w-full border-2 border-slate-200 text-slate-300 p-12"
+				>
+					Crea glifi e sintassi per vedere qui i risultati!
+				</p>
+			{/if}
+		</div>
+	{/if}
+</div>
