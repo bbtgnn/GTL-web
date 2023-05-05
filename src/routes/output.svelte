@@ -10,10 +10,10 @@
 
 	import InputText from '$lib/ui/inputText.svelte';
 	import Label from '$lib/ui/label.svelte';
+	import { previewText } from '$lib/stores';
 
 	//
 
-	let previewText = '';
 	let previewFonts: Array<opentype.Font> = [];
 
 	let loading = false;
@@ -65,7 +65,7 @@
 		loading = false;
 	}
 
-	$: updatePreviewFonts(getGlyphsByText(previewText));
+	$: updatePreviewFonts(getGlyphsByText($previewText));
 
 	//
 
@@ -81,7 +81,7 @@
 
 <div class="p-8 space-y-2">
 	<Label target="previewText">Preview text</Label>
-	<InputText name="previewText" bind:value={previewText} />
+	<InputText name="previewText" bind:value={$previewText} />
 </div>
 
 {#if loading}
@@ -93,7 +93,7 @@
 				<hr />
 				<FontDisplay
 					bind:font={previewFont}
-					bind:text={previewText}
+					bind:text={$previewText}
 					on:click={() => {
 						downloadFont($syntaxes[i]);
 					}}

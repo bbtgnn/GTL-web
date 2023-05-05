@@ -12,3 +12,4 @@ export const metrics = lsWritable<FontMetrics>('metrics', {
 
 export const selectedGlyph = writable('');
 export const selectedStyle = writable('');
+export const previewText = writable('Hello World!');
