@@ -6,12 +6,11 @@
 	export let font: opentype.Font;
 	export let text: string;
 	export let canvasWidth = 600;
-	export let canvasHeight = 200;
+	export let canvasHeight = 150;
 
 	function renderFont(el: HTMLCanvasElement) {
 		const ctx = el.getContext('2d') as CanvasRenderingContext2D;
-		console.log(font.descender);
-		const fontSize = (canvasHeight / 5) * 3;
+		const fontSize = canvasHeight;
 		const unit = fontSize / $metrics.height;
 		const y = canvasHeight - unit * $metrics.baseline;
 		font.draw(ctx, text, 0, y, fontSize, {
@@ -22,10 +21,15 @@
 
 <!--  -->
 
-<div>
+<div class="space-y-4">
 	<div class="flex flex-row flex-nowrap items-center space-x-8">
 		<h2 class="text-lg font-mono">{font.names.fullName.en}</h2>
 		<Button on:click>↓ Download</Button>
 	</div>
-	<canvas use:renderFont width={canvasWidth} height={canvasHeight} />
+	<canvas
+		class="bg-gray-100 p-10"
+		use:renderFont
+		width={canvasWidth}
+		height={canvasHeight}
+	/>
 </div>
