@@ -11,7 +11,6 @@
 	import InputText from '$lib/ui/inputText.svelte';
 	import Label from '$lib/ui/label.svelte';
 	import { previewText } from '$lib/stores';
-	import FontDownload from '$lib/partials/fontDownload.svelte';
 	import Button from '$lib/ui/button.svelte';
 
 	//
@@ -100,13 +99,7 @@
 							<h2 class="text-lg font-mono">{previewFont.names.fullName.en}</h2>
 							<Button on:click>↓ Download</Button>
 						</div>
-						<FontDisplay
-							bind:font={previewFont}
-							bind:text={$previewText}
-							on:click={() => {
-								downloadFont($syntaxes[i]);
-							}}
-						/>
+						<FontDisplay bind:font={previewFont} bind:text={$previewText} />
 					</div>
 					<hr />
 				{/each}
