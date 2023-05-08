@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-3fc5a65c.js",
+    "file": "start-2e7b517c.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -43,20 +43,16 @@
     ]
   },
   "src/routes/glyphs.svelte": {
-    "file": "pages/glyphs.svelte-94c4b83d.js",
+    "file": "pages/glyphs.svelte-85800a8b.js",
     "src": "src/routes/glyphs.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-80687ddf.js",
-      "_index-20ce0964.js",
-      "_index.browser-85ea5a5b.js",
-      "_inputText-89ed85c5.js",
-      "_sidebarTile-4ebb4043.js",
-      "_button-ead49fba.js",
-      "_fontGenerator-a25b831f.js",
-      "__commonjsHelpers-bc7114ed.js",
-      "_shapes-08d68f77.js",
+      "_index.browser-29f140db.js",
+      "_sidebarTile-bda6544f.js",
+      "_fontGenerator-c1ce1bcd.js",
+      "_shapes-f7969361.js",
       "_index-f5484668.js"
     ]
   },
@@ -71,76 +67,76 @@
     ]
   },
   "src/routes/metrics.svelte": {
-    "file": "pages/metrics.svelte-4c0ff292.js",
+    "file": "pages/metrics.svelte-4c61f708.js",
     "src": "src/routes/metrics.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-80687ddf.js",
-      "_index-20ce0964.js",
-      "_inputNumber-ce4e64fb.js",
+      "_index.browser-29f140db.js",
+      "_inputNumber-9bba2a06.js",
       "_label-7dc56e86.js",
-      "_index-f5484668.js",
-      "_index.browser-85ea5a5b.js"
+      "_index-f5484668.js"
     ]
   },
   "src/routes/output.svelte": {
-    "file": "pages/output.svelte-0115f946.js",
+    "file": "pages/output.svelte-35625270.js",
     "src": "src/routes/output.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-80687ddf.js",
-      "_index-20ce0964.js",
-      "_fontGenerator-a25b831f.js",
-      "_inputText-89ed85c5.js",
+      "_index.browser-29f140db.js",
+      "_fontGenerator-c1ce1bcd.js",
       "_label-7dc56e86.js",
-      "_button-ead49fba.js",
+      "_glyphsField-0c5c9544.js",
       "_index-f5484668.js",
-      "__commonjsHelpers-bc7114ed.js",
-      "_shapes-08d68f77.js",
-      "_index.browser-85ea5a5b.js"
+      "_shapes-f7969361.js"
     ]
   },
   "src/routes/settings.svelte": {
-    "file": "pages/settings.svelte-cb42c083.js",
+    "file": "pages/settings.svelte-cdb9f197.js",
     "src": "src/routes/settings.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-80687ddf.js",
-      "_index-20ce0964.js",
-      "_button-ead49fba.js",
-      "_index-f5484668.js"
+      "_index.browser-29f140db.js",
+      "_fontGenerator-c1ce1bcd.js",
+      "src/routes/syntax.svelte",
+      "_index-f5484668.js",
+      "_shapes-f7969361.js",
+      "_sidebarTile-bda6544f.js",
+      "_inputNumber-9bba2a06.js",
+      "_label-7dc56e86.js",
+      "_glyphsField-0c5c9544.js"
     ]
   },
   "src/routes/syntax.svelte": {
-    "file": "pages/syntax.svelte-c6f91b4d.js",
+    "file": "pages/syntax.svelte-359de6b6.js",
     "src": "src/routes/syntax.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-80687ddf.js",
-      "__commonjsHelpers-bc7114ed.js",
-      "_index-20ce0964.js",
-      "_index.browser-85ea5a5b.js",
-      "_inputText-89ed85c5.js",
-      "_inputNumber-ce4e64fb.js",
+      "_index-f5484668.js",
+      "_shapes-f7969361.js",
+      "_index.browser-29f140db.js",
+      "_sidebarTile-bda6544f.js",
+      "_fontGenerator-c1ce1bcd.js",
+      "_inputNumber-9bba2a06.js",
       "_label-7dc56e86.js",
-      "_sidebarTile-4ebb4043.js",
-      "_button-ead49fba.js",
-      "_index-f5484668.js"
+      "_glyphsField-0c5c9544.js"
     ]
   },
   "src/routes/test.svelte": {
-    "file": "pages/test.svelte-1379b442.js",
+    "file": "pages/test.svelte-7788d995.js",
     "src": "src/routes/test.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-80687ddf.js",
-      "_shapes-08d68f77.js",
-      "__commonjsHelpers-bc7114ed.js"
+      "_shapes-f7969361.js"
     ],
     "css": [
       "assets/pages/test.svelte-6d33d239.css"
@@ -158,64 +154,50 @@
   "_paths-396f020f.js": {
     "file": "chunks/paths-396f020f.js"
   },
-  "_index-20ce0964.js": {
-    "file": "chunks/index-20ce0964.js",
+  "_index.browser-29f140db.js": {
+    "file": "chunks/index.browser-29f140db.js",
     "imports": [
       "_index-f5484668.js",
       "_index-80687ddf.js"
     ]
   },
-  "_index.browser-85ea5a5b.js": {
-    "file": "chunks/index.browser-85ea5a5b.js"
-  },
-  "_inputText-89ed85c5.js": {
-    "file": "chunks/inputText-89ed85c5.js",
+  "_sidebarTile-bda6544f.js": {
+    "file": "chunks/sidebarTile-bda6544f.js",
     "imports": [
-      "_index-80687ddf.js",
-      "_index.browser-85ea5a5b.js"
-    ]
-  },
-  "_sidebarTile-4ebb4043.js": {
-    "file": "chunks/sidebarTile-4ebb4043.js",
-    "imports": [
+      "_shapes-f7969361.js",
       "_index-80687ddf.js"
     ]
   },
-  "_button-ead49fba.js": {
-    "file": "chunks/button-ead49fba.js",
-    "imports": [
-      "_index-80687ddf.js"
-    ]
-  },
-  "_fontGenerator-a25b831f.js": {
-    "file": "chunks/fontGenerator-a25b831f.js",
+  "_fontGenerator-c1ce1bcd.js": {
+    "file": "chunks/fontGenerator-c1ce1bcd.js",
     "imports": [
       "_index-80687ddf.js",
-      "_index-20ce0964.js",
-      "__commonjsHelpers-bc7114ed.js",
-      "_shapes-08d68f77.js"
+      "_index.browser-29f140db.js",
+      "_shapes-f7969361.js"
     ]
   },
-  "__commonjsHelpers-bc7114ed.js": {
-    "file": "chunks/_commonjsHelpers-bc7114ed.js"
+  "_shapes-f7969361.js": {
+    "file": "chunks/shapes-f7969361.js"
   },
-  "_shapes-08d68f77.js": {
-    "file": "chunks/shapes-08d68f77.js",
-    "imports": [
-      "__commonjsHelpers-bc7114ed.js"
-    ]
-  },
-  "_inputNumber-ce4e64fb.js": {
-    "file": "chunks/inputNumber-ce4e64fb.js",
+  "_inputNumber-9bba2a06.js": {
+    "file": "chunks/inputNumber-9bba2a06.js",
     "imports": [
       "_index-80687ddf.js",
-      "_index.browser-85ea5a5b.js"
+      "_index.browser-29f140db.js"
     ]
   },
   "_label-7dc56e86.js": {
     "file": "chunks/label-7dc56e86.js",
     "imports": [
       "_index-80687ddf.js"
+    ]
+  },
+  "_glyphsField-0c5c9544.js": {
+    "file": "chunks/glyphsField-0c5c9544.js",
+    "imports": [
+      "_index-80687ddf.js",
+      "_index.browser-29f140db.js",
+      "_fontGenerator-c1ce1bcd.js"
     ]
   }
 }
