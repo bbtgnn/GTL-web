@@ -1,11 +1,11 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-6bc75ad5.js",
+    "file": "start-3fc5a65c.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
-      "_index-17fa9bae.js",
-      "_index-c0ca21b6.js",
+      "_index-80687ddf.js",
+      "_index-f5484668.js",
       "_paths-396f020f.js"
     ],
     "dynamicImports": [
@@ -21,124 +21,124 @@
     ]
   },
   "src/routes/__layout.svelte": {
-    "file": "pages/__layout.svelte-3782f3c6.js",
+    "file": "pages/__layout.svelte-f62013cb.js",
     "src": "src/routes/__layout.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-17fa9bae.js",
+      "_index-80687ddf.js",
       "_paths-396f020f.js"
     ],
     "css": [
-      "assets/pages/__layout.svelte-97473d56.css"
+      "assets/pages/__layout.svelte-07eee714.css"
     ]
   },
   ".svelte-kit/runtime/components/error.svelte": {
-    "file": "error.svelte-bda4563b.js",
+    "file": "error.svelte-51923edd.js",
     "src": ".svelte-kit/runtime/components/error.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-17fa9bae.js"
+      "_index-80687ddf.js"
     ]
   },
   "src/routes/glyphs.svelte": {
-    "file": "pages/glyphs.svelte-907a577e.js",
+    "file": "pages/glyphs.svelte-94c4b83d.js",
     "src": "src/routes/glyphs.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-17fa9bae.js",
-      "_index-e27e342f.js",
+      "_index-80687ddf.js",
+      "_index-20ce0964.js",
       "_index.browser-85ea5a5b.js",
-      "_inputText-acec54c9.js",
-      "_sidebarTile-f1708fa1.js",
-      "_button-9fd88305.js",
-      "_createFont-2d013aa9.js",
-      "_index-c0ca21b6.js",
+      "_inputText-89ed85c5.js",
+      "_sidebarTile-4ebb4043.js",
+      "_button-ead49fba.js",
+      "_fontGenerator-a25b831f.js",
       "__commonjsHelpers-bc7114ed.js",
-      "_shapes-08d68f77.js"
+      "_shapes-08d68f77.js",
+      "_index-f5484668.js"
     ]
   },
   "src/routes/index.svelte": {
-    "file": "pages/index.svelte-06fe98a4.js",
+    "file": "pages/index.svelte-c668d024.js",
     "src": "src/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-17fa9bae.js",
+      "_index-80687ddf.js",
       "_paths-396f020f.js"
     ]
   },
   "src/routes/metrics.svelte": {
-    "file": "pages/metrics.svelte-42e761fe.js",
+    "file": "pages/metrics.svelte-4c0ff292.js",
     "src": "src/routes/metrics.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-17fa9bae.js",
-      "_index-e27e342f.js",
-      "_inputNumber-227e8173.js",
-      "_label-fe7b1647.js",
-      "_index-c0ca21b6.js",
+      "_index-80687ddf.js",
+      "_index-20ce0964.js",
+      "_inputNumber-ce4e64fb.js",
+      "_label-7dc56e86.js",
+      "_index-f5484668.js",
       "_index.browser-85ea5a5b.js"
     ]
   },
   "src/routes/output.svelte": {
-    "file": "pages/output.svelte-f392c809.js",
+    "file": "pages/output.svelte-0115f946.js",
     "src": "src/routes/output.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-17fa9bae.js",
-      "_index-e27e342f.js",
-      "_createFont-2d013aa9.js",
-      "_inputText-acec54c9.js",
-      "_label-fe7b1647.js",
-      "_button-9fd88305.js",
-      "_index-c0ca21b6.js",
+      "_index-80687ddf.js",
+      "_index-20ce0964.js",
+      "_fontGenerator-a25b831f.js",
+      "_inputText-89ed85c5.js",
+      "_label-7dc56e86.js",
+      "_button-ead49fba.js",
+      "_index-f5484668.js",
       "__commonjsHelpers-bc7114ed.js",
       "_shapes-08d68f77.js",
       "_index.browser-85ea5a5b.js"
     ]
   },
   "src/routes/settings.svelte": {
-    "file": "pages/settings.svelte-5eadd72c.js",
+    "file": "pages/settings.svelte-cb42c083.js",
     "src": "src/routes/settings.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-17fa9bae.js",
-      "_index-e27e342f.js",
-      "_button-9fd88305.js",
-      "_index-c0ca21b6.js"
+      "_index-80687ddf.js",
+      "_index-20ce0964.js",
+      "_button-ead49fba.js",
+      "_index-f5484668.js"
     ]
   },
   "src/routes/syntax.svelte": {
-    "file": "pages/syntax.svelte-78ba088f.js",
+    "file": "pages/syntax.svelte-c6f91b4d.js",
     "src": "src/routes/syntax.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-17fa9bae.js",
+      "_index-80687ddf.js",
       "__commonjsHelpers-bc7114ed.js",
-      "_index-e27e342f.js",
+      "_index-20ce0964.js",
       "_index.browser-85ea5a5b.js",
-      "_inputText-acec54c9.js",
-      "_inputNumber-227e8173.js",
-      "_label-fe7b1647.js",
-      "_sidebarTile-f1708fa1.js",
-      "_button-9fd88305.js",
-      "_index-c0ca21b6.js"
+      "_inputText-89ed85c5.js",
+      "_inputNumber-ce4e64fb.js",
+      "_label-7dc56e86.js",
+      "_sidebarTile-4ebb4043.js",
+      "_button-ead49fba.js",
+      "_index-f5484668.js"
     ]
   },
   "src/routes/test.svelte": {
-    "file": "pages/test.svelte-3ce8d0f8.js",
+    "file": "pages/test.svelte-1379b442.js",
     "src": "src/routes/test.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-17fa9bae.js",
+      "_index-80687ddf.js",
       "_shapes-08d68f77.js",
       "__commonjsHelpers-bc7114ed.js"
     ],
@@ -146,52 +146,52 @@
       "assets/pages/test.svelte-6d33d239.css"
     ]
   },
-  "_index-17fa9bae.js": {
-    "file": "chunks/index-17fa9bae.js"
+  "_index-80687ddf.js": {
+    "file": "chunks/index-80687ddf.js"
   },
-  "_index-c0ca21b6.js": {
-    "file": "chunks/index-c0ca21b6.js",
+  "_index-f5484668.js": {
+    "file": "chunks/index-f5484668.js",
     "imports": [
-      "_index-17fa9bae.js"
+      "_index-80687ddf.js"
     ]
   },
   "_paths-396f020f.js": {
     "file": "chunks/paths-396f020f.js"
   },
-  "_index-e27e342f.js": {
-    "file": "chunks/index-e27e342f.js",
+  "_index-20ce0964.js": {
+    "file": "chunks/index-20ce0964.js",
     "imports": [
-      "_index-c0ca21b6.js",
-      "_index-17fa9bae.js"
+      "_index-f5484668.js",
+      "_index-80687ddf.js"
     ]
   },
   "_index.browser-85ea5a5b.js": {
     "file": "chunks/index.browser-85ea5a5b.js"
   },
-  "_inputText-acec54c9.js": {
-    "file": "chunks/inputText-acec54c9.js",
+  "_inputText-89ed85c5.js": {
+    "file": "chunks/inputText-89ed85c5.js",
     "imports": [
-      "_index-17fa9bae.js",
+      "_index-80687ddf.js",
       "_index.browser-85ea5a5b.js"
     ]
   },
-  "_sidebarTile-f1708fa1.js": {
-    "file": "chunks/sidebarTile-f1708fa1.js",
+  "_sidebarTile-4ebb4043.js": {
+    "file": "chunks/sidebarTile-4ebb4043.js",
     "imports": [
-      "_index-17fa9bae.js"
+      "_index-80687ddf.js"
     ]
   },
-  "_button-9fd88305.js": {
-    "file": "chunks/button-9fd88305.js",
+  "_button-ead49fba.js": {
+    "file": "chunks/button-ead49fba.js",
     "imports": [
-      "_index-17fa9bae.js"
+      "_index-80687ddf.js"
     ]
   },
-  "_createFont-2d013aa9.js": {
-    "file": "chunks/createFont-2d013aa9.js",
+  "_fontGenerator-a25b831f.js": {
+    "file": "chunks/fontGenerator-a25b831f.js",
     "imports": [
-      "_index-17fa9bae.js",
-      "_index-e27e342f.js",
+      "_index-80687ddf.js",
+      "_index-20ce0964.js",
       "__commonjsHelpers-bc7114ed.js",
       "_shapes-08d68f77.js"
     ]
@@ -205,17 +205,17 @@
       "__commonjsHelpers-bc7114ed.js"
     ]
   },
-  "_inputNumber-227e8173.js": {
-    "file": "chunks/inputNumber-227e8173.js",
+  "_inputNumber-ce4e64fb.js": {
+    "file": "chunks/inputNumber-ce4e64fb.js",
     "imports": [
-      "_index-17fa9bae.js",
+      "_index-80687ddf.js",
       "_index.browser-85ea5a5b.js"
     ]
   },
-  "_label-fe7b1647.js": {
-    "file": "chunks/label-fe7b1647.js",
+  "_label-7dc56e86.js": {
+    "file": "chunks/label-7dc56e86.js",
     "imports": [
-      "_index-17fa9bae.js"
+      "_index-80687ddf.js"
     ]
   }
 }
