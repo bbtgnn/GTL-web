@@ -1,7 +1,12 @@
+<script lang="ts" context="module">
+	import { writable } from 'svelte/store';
+	export const currentSyntaxId = writable<string>('');
+</script>
+
 <script lang="ts">
 	import { createEmptySyntax, createEmptyRule } from '$lib/types';
 	import type { Syntax, Rule } from '$lib/types';
-	import { syntaxes, glyphs, selectedStyle } from '$lib/stores';
+	import { syntaxes, glyphs } from '$lib/stores';
 	import { nanoid } from 'nanoid';
 	import _ from 'lodash';
 
@@ -73,7 +78,7 @@
 
 		$syntaxes = [...$syntaxes, newSyntax];
 
-		$selectedStyle = newSyntax.id;
+		$currentSyntaxId = newSyntax.id;
 	}
 
 	// Shorthand function for the button
@@ -85,6 +90,9 @@
 	if (!$syntaxes.length) {
 		addSyntax('Regular');
 	}
+
+	let currentSyntax: Syntax | undefined;
+	$: currentSyntax = $syntaxes.find((s) => s.id == $currentSyntaxId);
 </script>
 
 <!--  -->
@@ -98,7 +106,7 @@
 		<svelte:fragment slot="listTitle">Lista stili</svelte:fragment>
 		<svelte:fragment slot="items">
 			{#each $syntaxes as s (s.id)}
-				<SidebarTile selection={selectedStyle} id={s.id}>
+				<SidebarTile selection={currentSyntaxId} id={s.id}>
 					{s.name}
 				</SidebarTile>
 			{/each}
@@ -107,17 +115,15 @@
 
 	<!-- syntax editor -->
 	<div class="p-8 space-y-8 overflow-y-auto">
-		{#each $syntaxes as s (s.id)}
-			{#if s.id == $selectedStyle}
-				<div class="flex flex-col mb-8">
-					<p class="text-small font-mono text-slate-900 mb-2 text-sm">
-						Nome stile
-					</p>
-					<InputText name="styleName" bind:value={s.name} />
-				</div>
-				<hr />
-				<SyntaxEditor bind:syntax={s} />
-			{/if}
-		{/each}
+		{#if currentSyntax}
+			<div class="flex flex-col mb-8">
+				<p class="text-small font-mono text-slate-900 mb-2 text-sm">
+					Nome stile
+				</p>
+				<InputText name="styleName" bind:value={currentSyntax.name} />
+			</div>
+			<hr />
+			<SyntaxEditor bind:syntax={currentSyntax} />
+		{/if}
 	</div>
 </div>
