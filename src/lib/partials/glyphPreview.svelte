@@ -1,16 +1,12 @@
 <script lang="ts">
 	import FontDisplay from '$lib/components/fontDisplay.svelte';
-	import type { Syntax } from '$lib/types/syntax';
 	import { syntaxes, selectedGlyph, glyphs, metrics } from '$lib/stores';
 	import type { GlyphInput } from '$lib/types';
 	import { generateFont } from '$lib/GTL/createFont';
 	import { getUnicodeNumber } from '$lib/GTL/unicode';
-	import { load } from 'opentype.js';
-	import Label from '$lib/ui/label.svelte';
+	import FontGenerator from './fontGenerator.svelte';
 
 	//
-
-	let loading = false;
 
 	let currentGlyph: GlyphInput | undefined;
 	$: if ($selectedGlyph)
@@ -27,47 +23,23 @@
 			return '';
 		}
 	}
-
-	let previewFonts: Array<opentype.Font> = [];
-	$: if (currentGlyph) createGlyphPreview(currentGlyph);
-
-	async function createGlyphPreview(currentGlyph: GlyphInput) {
-		if (!currentGlyph) return;
-		loading = true;
-		previewFonts = [];
-		try {
-			for (let syntax of $syntaxes) {
-				if (syntax && syntax.rules.length) {
-					const res = await generateFont(syntax, [currentGlyph], $metrics);
-					previewFonts = [...previewFonts, res];
-				}
-			}
-		} catch (e) {
-			console.log(e);
-		}
-		loading = false;
-	}
 </script>
 
 <div class="space-y-8">
 	<p class="text-small font-mono text-slate-900 text-sm">Anteprima</p>
 	{#if currentGlyph}
-		{#if loading}
-			<p>loading</p>
-		{:else if previewFonts.length && currentGlyphText}
-			{#each previewFonts as previewFont, i}
-				<div class="space-y-2">
-					<p class="text-small font-mono text-slate-900 text-sm">
-						{previewFont.names.fontSubfamily.en}
-					</p>
-					<FontDisplay
-						canvasWidth={300}
-						font={previewFont}
-						text={currentGlyphText}
-					/>
-				</div>
-			{/each}
-		{/if}
+		{#each $syntaxes as syntax}
+			<FontGenerator {syntax} glyphs={[currentGlyph]} let:font>
+				{#if font}
+					<div class="space-y-2">
+						<p class="text-small font-mono text-slate-900 text-sm">
+							{font.names.fontSubfamily.en}
+						</p>
+						<FontDisplay canvasWidth={300} {font} text={currentGlyphText} />
+					</div>
+				{/if}
+			</FontGenerator>
+		{/each}
 	{:else}
 		<p>No glyphs</p>
 	{/if}
