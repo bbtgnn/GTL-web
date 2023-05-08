@@ -1,13 +1,16 @@
 <script lang="ts">
-	import type { GlyphInput } from '$lib/types';
-	import { glyphs, selectedGlyph } from '$lib/stores';
+	import type { GlyphInput, Rule, Syntax } from '$lib/types';
+	import { glyphs, selectedGlyph, syntaxes } from '$lib/stores';
 	import { nanoid } from 'nanoid';
+	import _ from 'lodash';
 
 	import InputText from '$lib/ui/inputText.svelte';
 	import Sidebar from '$lib/ui/sidebar.svelte';
 	import SidebarTile from '$lib/ui/sidebarTile.svelte';
 	import Button from '$lib/ui/button.svelte';
 	import GlyphPreview from '$lib/partials/glyphPreview.svelte';
+
+	import { createEmptySyntax, createEmptyRule } from '$lib/types';
 
 	//
 
@@ -23,6 +26,56 @@
 		};
 		$glyphs = [...$glyphs, newGlyph];
 		$selectedGlyph = newGlyph.id;
+	}
+
+	//
+
+	function getUniqueSymbols(glyphs: Array<GlyphInput>): Array<string> {
+		const symbols = [];
+		for (const g of glyphs) {
+			const txt = g.structure.replace(/(\r\n|\n|\r)/gm, '');
+			if (txt) {
+				symbols.push(...txt.split(''));
+			}
+		}
+
+		// Unique symbols
+		return _.uniq(symbols);
+	}
+
+	function getRuleBySymbol(syntax: Syntax, s: string): Rule {
+		for (let rule of syntax.rules) {
+			if (rule.symbol == s) {
+				return rule;
+			}
+		}
+		throw new Error('missingSymbol');
+	}
+
+	function updateSyntaxSymbols(syntax: Syntax, symbols: Array<string>) {
+		// Getting all symbols in syntax
+		const syntaxSymbols = syntax.rules.map((r) => r.symbol);
+		// Checking for additions
+		for (let symbol of symbols) {
+			if (!syntaxSymbols.includes(symbol)) {
+				syntax.rules.push(createEmptyRule(symbol));
+			}
+		}
+		// Removing if a symbol goes away
+		for (let symbol of syntaxSymbols) {
+			if (!getUniqueSymbols($glyphs).includes(symbol)) {
+				const extraRule = getRuleBySymbol(syntax, symbol);
+				const index = syntax.rules.indexOf(extraRule);
+				syntax.rules.splice(index, 1);
+			}
+		}
+	}
+
+	$: {
+		const uniqueSymbols = getUniqueSymbols($glyphs);
+		for (let syntax of $syntaxes) {
+			updateSyntaxSymbols(syntax, uniqueSymbols);
+		}
 	}
 </script>
 

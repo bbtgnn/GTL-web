@@ -4,7 +4,11 @@
 </script>
 
 <script lang="ts">
-	import { createEmptySyntax, createEmptyRule } from '$lib/types';
+	import {
+		createEmptySyntax,
+		createEmptyRule,
+		type GlyphInput
+	} from '$lib/types';
 	import type { Syntax, Rule } from '$lib/types';
 	import { syntaxes, glyphs } from '$lib/stores';
 	import { nanoid } from 'nanoid';
@@ -17,22 +21,7 @@
 	import Button from '$lib/ui/button.svelte';
 	import SyntaxPreview from '$lib/partials/syntaxPreview.svelte';
 
-	/**
-	 * Getting unique symbols
-	 */
-
-	function getUniqueSymbols(): Array<string> {
-		const symbols = [];
-		for (const g of $glyphs) {
-			const txt = g.structure.replace(/(\r\n|\n|\r)/gm, '');
-			if (txt) {
-				symbols.push(...txt.split(''));
-			}
-		}
-
-		// Unique symbols
-		return _.uniq(symbols);
-	}
+	//
 
 	/**
 	 * Updating all the syntaxes if there are new symbols
@@ -42,14 +31,14 @@
 		// Getting all symbols in syntax
 		const syntaxSymbols = syntax.rules.map((r) => r.symbol);
 		// Checking for additions
-		for (let symbol of getUniqueSymbols()) {
+		for (let symbol of getUniqueSymbols($glyphs)) {
 			if (!syntaxSymbols.includes(symbol)) {
 				syntax.rules.push(createEmptyRule(symbol));
 			}
 		}
 		// Removing if a symbol goes away
 		for (let symbol of syntaxSymbols) {
-			if (!getUniqueSymbols().includes(symbol)) {
+			if (!getUniqueSymbols($glyphs).includes(symbol)) {
 				const extraRule = getRuleBySymbol(syntax, symbol);
 				const index = syntax.rules.indexOf(extraRule);
 				syntax.rules.splice(index, 1);
@@ -70,15 +59,27 @@
 	 * Adding syntaxes
 	 */
 
+	function getUniqueSymbols(glyphs: Array<GlyphInput>): Array<string> {
+		const symbols = [];
+		for (const g of glyphs) {
+			const txt = g.structure.replace(/(\r\n|\n|\r)/gm, '');
+			if (txt) {
+				symbols.push(...txt.split(''));
+			}
+		}
+
+		// Unique symbols
+		return _.uniq(symbols);
+	}
+
 	function addSyntax(name: string | null = null) {
 		const newSyntax = createEmptySyntax(
 			name ? name : nanoid(5),
 			nanoid(5),
-			getUniqueSymbols()
+			getUniqueSymbols($glyphs)
 		);
 
 		$syntaxes = [...$syntaxes, newSyntax];
-
 		$currentSyntaxId = newSyntax.id;
 	}
 
@@ -94,6 +95,9 @@
 
 	let currentSyntax: Syntax | undefined;
 	$: currentSyntax = $syntaxes.find((s) => s.id == $currentSyntaxId);
+
+	let currentSyntaxIndex: number | undefined;
+	$: if (currentSyntax) currentSyntaxIndex = $syntaxes.indexOf(currentSyntax);
 </script>
 
 <!--  -->
@@ -116,7 +120,7 @@
 
 	<!-- syntax editor -->
 	<div class="p-8 space-y-8 overflow-y-auto">
-		{#if currentSyntax}
+		{#if currentSyntax && currentSyntaxIndex !== undefined}
 			<div class="flex flex-col mb-8">
 				<p class="text-small font-mono text-slate-900 mb-2 text-sm">
 					Nome stile
@@ -124,7 +128,7 @@
 				<InputText name="styleName" bind:value={currentSyntax.name} />
 			</div>
 			<hr />
-			<SyntaxEditor bind:syntax={currentSyntax} />
+			<SyntaxEditor bind:syntax={$syntaxes[currentSyntaxIndex]} />
 		{/if}
 	</div>
 
