@@ -15,6 +15,7 @@
 	import Sidebar from '$lib/ui/sidebar.svelte';
 	import SidebarTile from '$lib/ui/sidebarTile.svelte';
 	import Button from '$lib/ui/button.svelte';
+	import SyntaxPreview from '$lib/partials/syntaxPreview.svelte';
 
 	/**
 	 * Getting unique symbols
@@ -124,6 +125,12 @@
 			</div>
 			<hr />
 			<SyntaxEditor bind:syntax={currentSyntax} />
+		{/if}
+	</div>
+
+	<div class="p-8 border border-l-gray-300 overflow-y-scroll">
+		{#if currentSyntax}
+			<SyntaxPreview syntax={currentSyntax} />
 		{/if}
 	</div>
 </div>

@@ -41,7 +41,7 @@
 		return [...new Set(glyphs)];
 	}
 
-	$: glyphs = getGlyphsByText($previewText);
+	$: glyphs = getGlyphsByText(text);
 </script>
 
 <!--  -->
