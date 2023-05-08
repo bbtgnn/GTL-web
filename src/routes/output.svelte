@@ -7,17 +7,12 @@
 	import { getUnicodeNumber } from '$lib/GTL/unicode';
 
 	import FontDisplay from '$lib/components/fontDisplay.svelte';
+	import FontGenerator from '$lib/partials/fontGenerator.svelte';
 
 	import InputText from '$lib/ui/inputText.svelte';
 	import Label from '$lib/ui/label.svelte';
 	import { previewText } from '$lib/stores';
 	import Button from '$lib/ui/button.svelte';
-
-	//
-
-	let previewFonts: Array<opentype.Font> = [];
-
-	let loading = false;
 
 	/**
 	 * Generating font previews
@@ -46,35 +41,17 @@
 				glyphs.push(g);
 			}
 		}
-		return glyphs;
+		return [...new Set(glyphs)];
 	}
 
-	async function updatePreviewFonts(previewGlyphs: Array<GlyphInput>) {
-		if (!previewGlyphs.length) return;
-		loading = true;
-		previewFonts = [];
-		try {
-			for (let syntax of $syntaxes) {
-				if (syntax && syntax.rules.length) {
-					const res = await generateFont(syntax, previewGlyphs, $metrics);
-					previewFonts = [...previewFonts, res];
-				}
-			}
-		} catch (e) {
-			console.log(e);
-		}
-		loading = false;
-	}
-
-	$: updatePreviewFonts(getGlyphsByText($previewText));
+	let previewGlyphs: Array<GlyphInput> = [];
+	$: previewGlyphs = getGlyphsByText($previewText);
 
 	//
 
 	async function downloadFont(s: Syntax) {
-		loading = true;
 		const font = await generateFont(s, $glyphs, $metrics);
 		font.download();
-		loading = false;
 	}
 </script>
 
@@ -88,28 +65,23 @@
 		<InputText name="previewText" bind:value={$previewText} grow />
 	</div>
 
-	{#if loading}
-		<p>loading</p>
-	{:else}
-		<div class="p-8 space-y-8">
-			{#if previewFonts.length}
-				{#each previewFonts as previewFont, i}
+	<div class="p-8 space-y-8">
+		{#each $syntaxes as syntax (syntax.name)}
+			<FontGenerator glyphs={previewGlyphs} {syntax} let:font>
+				{#if font}
 					<div class="space-y-4">
 						<div class="flex flex-row flex-nowrap items-center space-x-8">
-							<h2 class="text-lg font-mono">{previewFont.names.fullName.en}</h2>
-							<Button on:click>↓ Download</Button>
+							<h2 class="text-lg font-mono">{font.names.fullName.en}</h2>
+							<Button
+								on:click={() => {
+									downloadFont(syntax);
+								}}>↓ Download</Button
+							>
 						</div>
-						<FontDisplay bind:font={previewFont} bind:text={$previewText} />
+						<FontDisplay {font} bind:text={$previewText} />
 					</div>
-					<hr />
-				{/each}
-			{:else}
-				<p
-					class="font-mono w-full border-2 border-slate-200 text-slate-300 p-12"
-				>
-					Crea glifi e sintassi per vedere qui i risultati!
-				</p>
-			{/if}
-		</div>
-	{/if}
+				{/if}
+			</FontGenerator>
+		{/each}
+	</div>
 </div>
