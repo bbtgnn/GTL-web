@@ -1,14 +1,9 @@
 <script lang="ts">
-	import {
-		syntaxes,
-		metrics,
-		glyphs,
-		selectedGlyph,
-		selectedStyle
-	} from '$lib/stores';
+	import { syntaxes, metrics, glyphs, selectedGlyph } from '$lib/stores';
 	import Upload from '$lib/ui/upload.svelte';
 	import Button from '$lib/ui/button.svelte';
 	import Tooltip from '$lib/ui/tooltip.svelte';
+	import { currentSyntaxId } from './syntax.svelte';
 
 	/**
 	 * Clear project
@@ -59,7 +54,7 @@
 			$metrics = res['metrics'];
 			//
 			$selectedGlyph = '';
-			$selectedStyle = '';
+			$currentSyntaxId = '';
 			//
 			importTooltipOk = true;
 		} catch (e) {
