@@ -7,7 +7,8 @@
 		rectangleProps,
 		ellipseProps,
 		quarterProps,
-		svgProps
+		svgProps,
+		stringPropFixed
 	} from '$lib/types';
 
 	import InputPropBoolean from './inputPropBoolean.svelte';
@@ -15,7 +16,8 @@
 	import InputPropOrientation from './inputPropOrientation.svelte';
 	import Select, { type SelectOptions } from '$lib/ui/select.svelte';
 	import Label from '$lib/ui/label.svelte';
-	import InputPropString from './inputPropString.svelte';
+	import SvgUpload from '$lib/ui/svgUpload.svelte';
+	import InputPropFile from './inputPropFile.svelte';
 
 	//
 
@@ -87,6 +89,12 @@
 		<!-- Props -->
 		{#if rule.shape.kind != ShapeKind.Void}
 			<div class="space-y-4 pl-8">
+				{#if rule.shape.kind == ShapeKind.SVG}
+					<div class="block">
+						<Label target="">SVG Path</Label>
+						<InputPropFile bind:prop={rule.shape.props.path} />
+					</div>
+				{/if}
 				<!--  -->
 				<div class="block">
 					<Label target="scale_x">Scala orizzontale</Label>
@@ -122,13 +130,6 @@
 					<div class="block">
 						<Label target="orientamento">Orientamento</Label>
 						<InputPropOrientation bind:prop={rule.shape.props.orientation} />
-					</div>
-				{/if}
-				<!--  -->
-				{#if rule.shape.kind == ShapeKind.SVG}
-					<div class="block">
-						<Label target="">SVG Path</Label>
-						<InputPropString bind:prop={rule.shape.props.path} />
 					</div>
 				{/if}
 			</div>
