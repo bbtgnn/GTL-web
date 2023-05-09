@@ -1,11 +1,9 @@
 <script lang="ts">
 	import { glyphs as glyphsStore } from '$lib/stores';
 	import type { GlyphInput } from '$lib/types';
-
 	import { getUnicodeNumber } from '$lib/GTL/unicode';
 
 	import InputText from '$lib/ui/inputText.svelte';
-	import { previewText } from '$lib/stores';
 
 	/**
 	 * Generating font previews
@@ -13,6 +11,7 @@
 
 	export let text = '';
 	export let glyphs: Array<GlyphInput> = [];
+	export let validText = '';
 	export let name = 'previewText';
 
 	function getGlyphByChar(char: string) {
@@ -31,17 +30,29 @@
 	}
 
 	function getGlyphsByText(text: string) {
-		let glyphs: Array<GlyphInput> = [];
-		for (let c of text) {
-			const g = getGlyphByChar(c);
-			if (g) {
-				glyphs.push(g);
-			}
+		let foundGlyphs: Array<GlyphInput> = [];
+		let missingGlyphs: Array<string> = [];
+		for (let character of text) {
+			const glyph = getGlyphByChar(character);
+			if (glyph) foundGlyphs.push(glyph);
+			else missingGlyphs.push(character);
 		}
-		return [...new Set(glyphs)];
+		return { found: [...new Set(foundGlyphs)], missing: missingGlyphs };
 	}
 
-	$: glyphs = getGlyphsByText(text);
+	function cleanText(text: string, toRemove: string[]) {
+		let cleanedText = text;
+		for (let c of toRemove) {
+			cleanedText = cleanedText.replace(c, '');
+		}
+		return cleanedText;
+	}
+
+	$: {
+		const glyphSearch = getGlyphsByText(text);
+		glyphs = glyphSearch.found;
+		validText = cleanText(text, glyphSearch.missing);
+	}
 </script>
 
 <!--  -->
