@@ -15,6 +15,7 @@
 	//
 
 	let previewGlyphs: Array<GlyphInput> = [];
+	let validText = '';
 
 	async function downloadFont(s: Syntax) {
 		const font = await generateFont(s, $glyphs, $metrics);
@@ -33,6 +34,7 @@
 			name="previewText"
 			bind:text={$previewText}
 			bind:glyphs={previewGlyphs}
+			bind:validText
 		/>
 	</div>
 
@@ -49,7 +51,7 @@
 								}}>↓ Download</Button
 							>
 						</div>
-						<FontDisplay {font} bind:text={$previewText} />
+						<FontDisplay {font} bind:text={validText} />
 					</div>
 				{/if}
 			</FontGenerator>

@@ -13,6 +13,7 @@
 	export let syntax: Syntax;
 
 	let glyphs: Array<GlyphInput> = [];
+	let validText = '';
 </script>
 
 <div class="space-y-8">
@@ -24,13 +25,14 @@
 			name="previewText"
 			bind:text={$syntaxPreviewText}
 			bind:glyphs
+			bind:validText
 		/>
 	</div>
 
 	{#if glyphs.length && syntax}
 		<FontGenerator {syntax} {glyphs} let:font>
 			{#if font}
-				<FontDisplay {font} text={$syntaxPreviewText} />
+				<FontDisplay {font} text={validText} />
 			{/if}
 		</FontGenerator>
 	{/if}
