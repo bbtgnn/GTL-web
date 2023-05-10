@@ -20,6 +20,7 @@
 	import SidebarTile from '$lib/ui/sidebarTile.svelte';
 	import Button from '$lib/ui/button.svelte';
 	import SyntaxPreview from '$lib/partials/syntaxPreview.svelte';
+	import DeleteButton from '$lib/ui/deleteButton.svelte';
 
 	//
 
@@ -88,16 +89,16 @@
 		addSyntax();
 	}
 
-	// Creating default syntax (if missing)
-	if (!$syntaxes.length) {
-		addSyntax('Regular');
-	}
-
 	let currentSyntax: Syntax | undefined;
 	$: currentSyntax = $syntaxes.find((s) => s.id == $currentSyntaxId);
 
 	let currentSyntaxIndex: number | undefined;
 	$: if (currentSyntax) currentSyntaxIndex = $syntaxes.indexOf(currentSyntax);
+
+	function handleDelete() {
+		$syntaxes = $syntaxes.filter((s) => s.id != $currentSyntaxId);
+		if ($syntaxes[0]) $currentSyntaxId = $syntaxes[0].id;
+	}
 </script>
 
 <!--  -->
@@ -121,11 +122,14 @@
 	<!-- syntax editor -->
 	<div class="p-8 space-y-8 overflow-y-auto">
 		{#if currentSyntax && currentSyntaxIndex !== undefined}
-			<div class="flex flex-col mb-8">
-				<p class="text-small font-mono text-slate-900 mb-2 text-sm">
-					Nome stile
-				</p>
-				<InputText name="styleName" bind:value={currentSyntax.name} />
+			<div class="">
+				<div class="flex flex-col mb-8">
+					<p class="text-small font-mono text-slate-900 mb-2 text-sm">
+						Nome stile
+					</p>
+					<InputText name="styleName" bind:value={currentSyntax.name} />
+				</div>
+				<DeleteButton on:delete={handleDelete} />
 			</div>
 			<hr />
 			<SyntaxEditor bind:syntax={$syntaxes[currentSyntaxIndex]} />
