@@ -121,13 +121,16 @@
 
 	<!-- syntax editor -->
 	<div class="p-8 space-y-8 overflow-y-auto">
-		{#if currentSyntax && currentSyntaxIndex !== undefined}
+		{#if currentSyntaxIndex !== undefined}
 			<div class="">
 				<div class="flex flex-col mb-8">
 					<p class="text-small font-mono text-slate-900 mb-2 text-sm">
 						Nome stile
 					</p>
-					<InputText name="styleName" bind:value={currentSyntax.name} />
+          <InputText
+            name="styleName"
+            bind:value={$syntaxes[currentSyntaxIndex].name}
+          />
 				</div>
 				<DeleteButton on:delete={handleDelete} />
 			</div>
@@ -137,8 +140,8 @@
 	</div>
 
 	<div class="p-8 border border-l-gray-300 overflow-y-scroll">
-		{#if currentSyntax}
-			<SyntaxPreview syntax={currentSyntax} />
+		{#if currentSyntaxIndex !== undefined}
+			<SyntaxPreview syntax={$syntaxes[currentSyntaxIndex]} />
 		{/if}
 	</div>
 </div>

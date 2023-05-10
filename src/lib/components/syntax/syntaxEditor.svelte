@@ -11,7 +11,7 @@
 <div class="block space-y-12">
 	{#if syntax.rules.length}
 		<!-- Rule -->
-		{#each syntax.rules as rule (rule.symbol)}
+		{#each syntax.rules as rule (rule)}
 			<SyntaxRule bind:rule />
 		{/each}
 	{:else}
