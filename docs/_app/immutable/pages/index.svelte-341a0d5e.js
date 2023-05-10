@@ -1,1 +1,0 @@
-import{S as t,i as e,s as a}from"../chunks/index-4f5f6f58.js";import{b as o}from"../chunks/paths-396f020f.js";async function u(){return{status:302,redirect:`${o}/glyphs`}}class i extends t{constructor(s){super(),e(this,s,null,null,a,{})}}export{i as default,u as load};
