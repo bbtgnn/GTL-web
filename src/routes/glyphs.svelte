@@ -11,6 +11,7 @@
 	import GlyphPreview from '$lib/partials/glyphPreview.svelte';
 
 	import { createEmptySyntax, createEmptyRule } from '$lib/types';
+	import DeleteButton from '$lib/ui/deleteButton.svelte';
 
 	//
 
@@ -77,6 +78,11 @@
 			updateSyntaxSymbols(syntax, uniqueSymbols);
 		}
 	}
+
+	function handleDelete() {
+		$glyphs = $glyphs.filter((g) => g.id != $selectedGlyph);
+		$selectedGlyph = $glyphs[0].id;
+	}
 </script>
 
 <!--  -->
@@ -102,11 +108,14 @@
 	<div class="p-8 space-y-8 grow flex flex-col items-stretch">
 		{#each $glyphs as g}
 			{#if g.id == $selectedGlyph}
-				<div class="shrink-0">
-					<p class="text-small font-mono text-slate-900 mb-2 text-sm">
-						Nome glifo
-					</p>
-					<InputText bind:value={g.name} />
+				<div class="shrink-0 flex justify-between items-end">
+					<div>
+						<p class="text-small font-mono text-slate-900 mb-2 text-sm">
+							Nome glifo
+						</p>
+						<InputText bind:value={g.name} />
+					</div>
+					<DeleteButton on:delete={handleDelete} />
 				</div>
 				<hr />
 				<div class="grow flex flex-col items-stretch">
