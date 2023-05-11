@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-6dd7e198.js",
+    "file": "start-8a1f242c.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -43,15 +43,15 @@
     ]
   },
   "src/routes/glyphs.svelte": {
-    "file": "pages/glyphs.svelte-b167c156.js",
+    "file": "pages/glyphs.svelte-f85c0673.js",
     "src": "src/routes/glyphs.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-14642c17.js",
       "_index.browser-89930ef9.js",
-      "_deleteButton-b10f0627.js",
-      "_fontGenerator-50922cd2.js",
+      "_deleteButton-c21007ad.js",
+      "_fontGenerator-784899d0.js",
       "_shapes-f7969361.js",
       "_index-f0af3546.js"
     ]
@@ -80,40 +80,40 @@
     ]
   },
   "src/routes/output.svelte": {
-    "file": "pages/output.svelte-96074247.js",
+    "file": "pages/output.svelte-cd6abbe1.js",
     "src": "src/routes/output.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-14642c17.js",
       "_index.browser-89930ef9.js",
-      "_fontGenerator-50922cd2.js",
+      "_fontGenerator-784899d0.js",
       "_label-45dffe90.js",
-      "_glyphsField-a1f0ab15.js",
+      "_glyphsField-9d3956e7.js",
       "_index-f0af3546.js",
       "_shapes-f7969361.js"
     ]
   },
   "src/routes/settings.svelte": {
-    "file": "pages/settings.svelte-890e0caa.js",
+    "file": "pages/settings.svelte-88213ad8.js",
     "src": "src/routes/settings.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-14642c17.js",
       "_index.browser-89930ef9.js",
-      "_fontGenerator-50922cd2.js",
+      "_fontGenerator-784899d0.js",
       "src/routes/syntax.svelte",
       "_index-f0af3546.js",
       "_shapes-f7969361.js",
-      "_deleteButton-b10f0627.js",
+      "_deleteButton-c21007ad.js",
       "_inputNumber-f6a52da6.js",
       "_label-45dffe90.js",
-      "_glyphsField-a1f0ab15.js"
+      "_glyphsField-9d3956e7.js"
     ]
   },
   "src/routes/syntax.svelte": {
-    "file": "pages/syntax.svelte-8abba62c.js",
+    "file": "pages/syntax.svelte-38455b09.js",
     "src": "src/routes/syntax.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -122,11 +122,11 @@
       "_index-f0af3546.js",
       "_shapes-f7969361.js",
       "_index.browser-89930ef9.js",
-      "_deleteButton-b10f0627.js",
-      "_fontGenerator-50922cd2.js",
+      "_deleteButton-c21007ad.js",
+      "_fontGenerator-784899d0.js",
       "_inputNumber-f6a52da6.js",
       "_label-45dffe90.js",
-      "_glyphsField-a1f0ab15.js"
+      "_glyphsField-9d3956e7.js"
     ]
   },
   "src/routes/test.svelte": {
@@ -161,16 +161,16 @@
       "_index-14642c17.js"
     ]
   },
-  "_deleteButton-b10f0627.js": {
-    "file": "chunks/deleteButton-b10f0627.js",
+  "_deleteButton-c21007ad.js": {
+    "file": "chunks/deleteButton-c21007ad.js",
     "imports": [
       "_shapes-f7969361.js",
       "_index-14642c17.js",
-      "_fontGenerator-50922cd2.js"
+      "_fontGenerator-784899d0.js"
     ]
   },
-  "_fontGenerator-50922cd2.js": {
-    "file": "chunks/fontGenerator-50922cd2.js",
+  "_fontGenerator-784899d0.js": {
+    "file": "chunks/fontGenerator-784899d0.js",
     "imports": [
       "_index-14642c17.js",
       "_index.browser-89930ef9.js",
@@ -193,12 +193,12 @@
       "_index-14642c17.js"
     ]
   },
-  "_glyphsField-a1f0ab15.js": {
-    "file": "chunks/glyphsField-a1f0ab15.js",
+  "_glyphsField-9d3956e7.js": {
+    "file": "chunks/glyphsField-9d3956e7.js",
     "imports": [
       "_index-14642c17.js",
       "_index.browser-89930ef9.js",
-      "_fontGenerator-50922cd2.js"
+      "_fontGenerator-784899d0.js"
     ]
   }
 }

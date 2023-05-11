@@ -112,7 +112,7 @@ export async function generateFont(
 	metrics: FontMetrics
 ): Promise<opentype.Font> {
 	// Qui bisogna aggiungere la width presa dalla sintassi
-	const UPM = 1000;
+	const UPM = 16384;
 	const BASESQUARE = Math.round(UPM / metrics.height);
 
 	// Listing all the glyphs
