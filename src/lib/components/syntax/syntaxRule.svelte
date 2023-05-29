@@ -79,11 +79,7 @@
 		<!-- Shape -->
 		<div class="space-y-1">
 			<Label target="shape">Forma</Label>
-			<Select
-				options={shapeOptions}
-				bind:value={tempShape}
-				on:changed={changeShape}
-			/>
+			<Select options={shapeOptions} bind:value={tempShape} on:changed={changeShape} />
 		</div>
 
 		<!-- Props -->
@@ -91,9 +87,12 @@
 			<div class="space-y-4 pl-8">
 				{#if rule.shape.kind == ShapeKind.SVG}
 					<div class="block">
+						<Label target="">SVG Files</Label>
+						<OpenFolder />
+					</div>
+					<div class="block">
 						<Label target="">SVG Path</Label>
 						<InputPropFile bind:prop={rule.shape.props.path} />
-						<OpenFolder />
 					</div>
 				{/if}
 				<!--  -->
@@ -107,19 +106,13 @@
 				</div>
 				<div class="block">
 					<Label target="rotation">Rotazione</Label>
-					<InputPropNumber
-						defaults={angleDefaults}
-						bind:prop={rule.shape.props.rotation}
-					/>
+					<InputPropNumber defaults={angleDefaults} bind:prop={rule.shape.props.rotation} />
 				</div>
 				<!--  -->
 				{#if rule.shape.kind == ShapeKind.Quarter || rule.shape.kind == ShapeKind.Ellipse}
 					<div class="block">
 						<Label target="squaring">Squadratura</Label>
-						<InputPropNumber
-							defaults={squaringDefaults}
-							bind:prop={rule.shape.props.squaring}
-						/>
+						<InputPropNumber defaults={squaringDefaults} bind:prop={rule.shape.props.squaring} />
 					</div>
 					<div class="block">
 						<Label target="negative">Negativo</Label>
