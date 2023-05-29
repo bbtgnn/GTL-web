@@ -16,8 +16,8 @@
 	import InputPropOrientation from './inputPropOrientation.svelte';
 	import Select, { type SelectOptions } from '$lib/ui/select.svelte';
 	import Label from '$lib/ui/label.svelte';
-	import SvgUpload from '$lib/ui/svgUpload.svelte';
 	import InputPropFile from './inputPropFile.svelte';
+	import OpenFolder from '$lib/components/openFolder.svelte';
 
 	//
 
@@ -93,6 +93,7 @@
 					<div class="block">
 						<Label target="">SVG Path</Label>
 						<InputPropFile bind:prop={rule.shape.props.path} />
+						<OpenFolder />
 					</div>
 				{/if}
 				<!--  -->
