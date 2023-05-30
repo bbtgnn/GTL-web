@@ -17,7 +17,7 @@
 	import Select, { type SelectOptions } from '$lib/ui/select.svelte';
 	import Label from '$lib/ui/label.svelte';
 	import InputPropFile from './inputPropFile.svelte';
-	import OpenFolder from '$lib/components/openFolder.svelte';
+	import OpenDirectory from '$lib/components/openDirectory.svelte';
 
 	//
 
@@ -88,7 +88,11 @@
 				{#if rule.shape.kind == ShapeKind.SVG}
 					<div class="block">
 						<Label target="">SVG Files</Label>
-						<OpenFolder />
+						<OpenDirectory
+							on:directory={(d) => {
+								console.log(d);
+							}}
+						/>
 					</div>
 					<div class="block">
 						<Label target="">SVG Path</Label>
