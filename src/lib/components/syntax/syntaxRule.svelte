@@ -16,7 +16,6 @@
 	import InputPropOrientation from './inputPropOrientation.svelte';
 	import Select, { type SelectOptions } from '$lib/ui/select.svelte';
 	import Label from '$lib/ui/label.svelte';
-	import SvgUpload from '$lib/ui/svgUpload.svelte';
 	import InputPropFile from './inputPropFile.svelte';
 
 	//
@@ -79,11 +78,7 @@
 		<!-- Shape -->
 		<div class="space-y-1">
 			<Label target="shape">Forma</Label>
-			<Select
-				options={shapeOptions}
-				bind:value={tempShape}
-				on:changed={changeShape}
-			/>
+			<Select options={shapeOptions} bind:value={tempShape} on:changed={changeShape} />
 		</div>
 
 		<!-- Props -->
@@ -106,19 +101,13 @@
 				</div>
 				<div class="block">
 					<Label target="rotation">Rotazione</Label>
-					<InputPropNumber
-						defaults={angleDefaults}
-						bind:prop={rule.shape.props.rotation}
-					/>
+					<InputPropNumber defaults={angleDefaults} bind:prop={rule.shape.props.rotation} />
 				</div>
 				<!--  -->
 				{#if rule.shape.kind == ShapeKind.Quarter || rule.shape.kind == ShapeKind.Ellipse}
 					<div class="block">
 						<Label target="squaring">Squadratura</Label>
-						<InputPropNumber
-							defaults={squaringDefaults}
-							bind:prop={rule.shape.props.squaring}
-						/>
+						<InputPropNumber defaults={squaringDefaults} bind:prop={rule.shape.props.squaring} />
 					</div>
 					<div class="block">
 						<Label target="negative">Negativo</Label>

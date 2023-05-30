@@ -28,11 +28,7 @@ export function applyTransform(
 	path.rotate(data.rotation, center);
 }
 
-export function transform(
-	path: paper.Path,
-	props: BaseProps,
-	center = new paper.Point(0, 0)
-) {
+export function transform(path: paper.Path, props: BaseProps, center = new paper.Point(0, 0)) {
 	const scale_x = calcNumberProp(props.scale_x);
 	const scale_y = calcNumberProp(props.scale_y);
 	const rotation = calcNumberProp(props.rotation);
@@ -74,16 +70,10 @@ export type OrientationProp = {
 	orientation: Orientation;
 };
 
-export type QuarterProps = Partial<
-	SquaringProp & NegativeProp & OrientationProp
->;
+export type QuarterProps = Partial<SquaringProp & NegativeProp & OrientationProp>;
 
 export const quarter: Shape<QuarterProps> = async (box, props) => {
-	const {
-		negative = false,
-		squaring = 0.56,
-		orientation = Orientation.NE
-	} = props;
+	const { negative = false, squaring = 0.56, orientation = Orientation.NE } = props;
 	// Handles max point
 	const M: paper.Point = box.topRight;
 
@@ -183,15 +173,9 @@ enum PaperJSClass {
 function SVGItemToPathItems(item: paper.Item): Array<paper.PathItem> {
 	const pathItems: Array<paper.PathItem> = [];
 	if (item.clipMask) 'pass';
-	else if (
-		item.className == PaperJSClass.Path ||
-		item.className == PaperJSClass.CompoundPath
-	) {
+	else if (item.className == PaperJSClass.Path || item.className == PaperJSClass.CompoundPath) {
 		pathItems.push(item as paper.PathItem);
-	} else if (
-		item.className == PaperJSClass.Group ||
-		item.className == PaperJSClass.Layer
-	) {
+	} else if (item.className == PaperJSClass.Group || item.className == PaperJSClass.Layer) {
 		for (const child of item.children) {
 			pathItems.push(...SVGItemToPathItems(child));
 		}
