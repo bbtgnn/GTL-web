@@ -3,7 +3,9 @@ import {
 	calcOrientationProp,
 	calcNumberProp,
 	calcBooleanProp,
-	calcStringProp
+	calcStringProp,
+	ValueKind,
+	randomChoice
 } from '../types';
 import type { Rule, Syntax } from '../types';
 import {
@@ -16,7 +18,11 @@ import {
 	type SVGProps
 } from './shapes';
 
+import { get } from 'svelte/store';
+import { svgArchive } from '$lib/stores';
+
 import paper from 'paper';
+import { FileSystemItemKind } from '$lib/fileSystem';
 
 //
 
@@ -70,10 +76,7 @@ export function structureToArray(s: string): Array<Cell> {
 
 //
 
-export async function drawPath(
-	box: paper.Rectangle,
-	rule: Rule
-): Promise<Array<paper.PathItem>> {
+export async function drawPath(box: paper.Rectangle, rule: Rule): Promise<Array<paper.PathItem>> {
 	const paths: Array<paper.PathItem> = [];
 
 	if (rule.shape.kind == ShapeKind.Rectangle) {
@@ -102,9 +105,21 @@ export async function drawPath(
 	}
 	//
 	else if (rule.shape.kind == ShapeKind.SVG) {
-		const props: SVGProps = {
-			url: calcStringProp(rule.shape.props.path)
-		};
+		const props: SVGProps = { url: '' };
+		const value = calcStringProp(rule.shape.props.path);
+		if (rule.shape.props.path.value.kind == ValueKind.Fixed) {
+			props.url = value;
+		} else {
+			const svgArchiveValue = get(svgArchive).value;
+			for (const v of svgArchiveValue) {
+				if (v.name == value && v.kind == FileSystemItemKind.Directory) {
+					const randomValue = randomChoice(v.value);
+					if (randomValue.kind == FileSystemItemKind.FileDataUrl) {
+						props.url = randomValue.value;
+					}
+				}
+			}
+		}
 		paths.push(...(await svg(box, props)));
 	}
 	//
@@ -126,11 +141,7 @@ export function getRule(syntax: Syntax, symbol: string): Rule {
 
 //
 
-export function createBox(
-	cell: Cell,
-	baseSize: number,
-	widthRatio: number
-): paper.Rectangle {
+export function createBox(cell: Cell, baseSize: number, widthRatio: number): paper.Rectangle {
 	// Getting rectangle dimension
 	const w = baseSize * widthRatio;
 	const h = baseSize;
