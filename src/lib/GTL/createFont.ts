@@ -44,23 +44,34 @@ export async function generateGlyph(
 
 		// If rule is not void
 		if (rule.shape.kind != ShapeKind.Void) {
-			// Getting box and creating paths
 			const box = createBox(c, baseSize, widthRatio);
-			const boxPaths = await drawPath(box, rule);
 
-			// Transforming
-			const transform = calcTransform(rule.shape.props);
-			for (const p of boxPaths) {
-				applyTransform(p, transform, box.center);
+			// Calculating sub-boxes
+			const w = box.width / syntax.grid.columns;
+			const h = box.height / syntax.grid.rows;
+			const x = (col: number) => box.x + col * w;
+			const y = (row: number) => box.y + row * h;
+
+			for (let row = 0; row < syntax.grid.rows; row++) {
+				for (let col = 0; col < syntax.grid.columns; col++) {
+					const subBox = new paper.Rectangle({
+						x: x(col),
+						y: y(row),
+						width: w,
+						height: h
+					});
+					const subPaths = await drawPath(subBox, rule);
+					const transform = calcTransform(rule.shape.props);
+					for (const p of subPaths) {
+						applyTransform(p, transform, box.center);
+					}
+					// // Reorienting paths
+					// for (const p of boxPaths) {
+					// 	p.reorient(true, true);
+					// }
+					paths.push(...subPaths);
+				}
 			}
-
-			// Reorienting paths
-			for (const p of boxPaths) {
-				p.reorient(true, true);
-			}
-
-			// Saving path
-			paths.push(...boxPaths);
 		}
 	}
 

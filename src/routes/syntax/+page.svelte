@@ -4,11 +4,7 @@
 </script>
 
 <script lang="ts">
-	import {
-		createEmptySyntax,
-		createEmptyRule,
-		type GlyphInput
-	} from '$lib/types';
+	import { createEmptySyntax, createEmptyRule, type GlyphInput } from '$lib/types';
 	import type { Syntax, Rule } from '$lib/types';
 	import { syntaxes, glyphs } from '$lib/stores';
 	import { nanoid } from 'nanoid';
@@ -21,6 +17,7 @@
 	import Button from '$lib/ui/button.svelte';
 	import SyntaxPreview from '$lib/partials/syntaxPreview.svelte';
 	import DeleteButton from '$lib/ui/deleteButton.svelte';
+	import InputNumber from '$lib/ui/inputNumber.svelte';
 
 	//
 
@@ -122,15 +119,20 @@
 	<!-- syntax editor -->
 	<div class="p-8 space-y-8 overflow-y-auto">
 		{#if currentSyntaxIndex !== undefined}
-			<div class="">
-				<div class="flex flex-col mb-8">
-					<p class="text-small font-mono text-slate-900 mb-2 text-sm">
-						Nome stile
-					</p>
-          <InputText
-            name="styleName"
-            bind:value={$syntaxes[currentSyntaxIndex].name}
-          />
+			<div class="space-y-4">
+				<div class="flex flex-col">
+					<p class="text-small font-mono text-slate-900 mb-2 text-sm">Nome stile</p>
+					<InputText name="styleName" bind:value={$syntaxes[currentSyntaxIndex].name} />
+				</div>
+				<div class="flex gap-4">
+					<div>
+						<p class="text-small font-mono text-slate-900 mb-2 text-sm">Colonne</p>
+						<InputNumber bind:value={$syntaxes[currentSyntaxIndex].grid.columns} />
+					</div>
+					<div>
+						<p class="text-small font-mono text-slate-900 mb-2 text-sm">Righe</p>
+						<InputNumber bind:value={$syntaxes[currentSyntaxIndex].grid.rows} />
+					</div>
 				</div>
 				<DeleteButton on:delete={handleDelete} />
 			</div>

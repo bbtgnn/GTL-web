@@ -13,4 +13,8 @@ export type Syntax = {
 	id: string;
 	name: string;
 	rules: Array<Rule>;
+	grid: {
+		rows: number;
+		columns: number;
+	};
 };
