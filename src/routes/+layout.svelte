@@ -1,29 +1,49 @@
-<script lang="ts">
+<script lang='ts'>
+	// The ordering of these imports is critical to your app working properly
+	import '@skeletonlabs/skeleton/themes/theme-rocket.css';
+	// If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
+	import '@skeletonlabs/skeleton/styles/skeleton.css';
+	// Most of your app wide CSS should be put in this file
 	import '../app.postcss';
-
-	import '$lib/app.css';
-	import { base } from '$app/paths';
-
-	import NavLink from '$lib/ui/navLink.svelte';
-
-	const links = [
-		{ href: `${base}/glyphs`, text: 'Glifi' },
-		{ href: `${base}/syntax`, text: 'Sintassi' },
-		{ href: `${base}/metrics`, text: 'Metriche' },
-		{ href: `${base}/output`, text: 'Output' },
-		{ href: `${base}/settings`, text: 'Impostazioni' }
-	];
+	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
 </script>
 
-<!--  -->
-<div class="h-screen w-screen flex flex-col items-stretch overflow-hidden">
-	<nav class="flex flex-row flex-nowrap py-2 px-4 bg-slate-900 space-x-2 shrink-0">
-		{#each links as l}
-			<NavLink href={l.href}>{l.text}</NavLink>
-		{/each}
-	</nav>
-
-	<main class="h-0 grow overflow-hidden flex flex-row items-stretch">
-		<slot />
-	</main>
-</div>
+<!-- App Shell -->
+<AppShell>
+	<svelte:fragment slot="header">
+		<!-- App Bar -->
+		<AppBar>
+			<svelte:fragment slot="lead">
+				<strong class="text-xl uppercase">Skeleton</strong>
+			</svelte:fragment>
+			<svelte:fragment slot="trail">
+				<a
+					class="btn btn-sm variant-ghost-surface"
+					href="https://discord.gg/EXqV7W8MtY"
+					target="_blank"
+					rel="noreferrer"
+				>
+					Discord
+				</a>
+				<a
+					class="btn btn-sm variant-ghost-surface"
+					href="https://twitter.com/SkeletonUI"
+					target="_blank"
+					rel="noreferrer"
+				>
+					Twitter
+				</a>
+				<a
+					class="btn btn-sm variant-ghost-surface"
+					href="https://github.com/skeletonlabs/skeleton"
+					target="_blank"
+					rel="noreferrer"
+				>
+					GitHub
+				</a>
+			</svelte:fragment>
+		</AppBar>
+	</svelte:fragment>
+	<!-- Page Route Content -->
+	<slot />
+</AppShell>
