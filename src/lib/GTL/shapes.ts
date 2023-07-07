@@ -142,10 +142,11 @@ export const ellipse: Shape<EllipseProps> = async (box, props) => {
 
 export type SVGProps = {
 	url: string;
+	negative: boolean;
 };
 
 export const svg: Shape<SVGProps> = async (box, props) => {
-	const svgItem = await new Promise<paper.Item>((resolve) => {
+	const path = await new Promise<paper.Item>((resolve) => {
 		paper.project.importSVG(props.url, {
 			expandShapes: true, // <- Guarantee that children are paths
 			onLoad: (item: paper.Item) => {
@@ -153,8 +154,20 @@ export const svg: Shape<SVGProps> = async (box, props) => {
 			}
 		});
 	});
-	svgItem.fitBounds(box);
-	return SVGItemToPathItems(svgItem);
+	path.fitBounds(box);
+	path.scale(1, -1, box.center);
+
+	const pathItems = SVGItemToPathItems(path);
+	console.log(props);
+
+	if (!props.negative) return pathItems;
+	else {
+		let rect = new paper.Path.Rectangle(box) as paper.PathItem;
+		for (const items of pathItems) {
+			rect = rect.subtract(items);
+		}
+		return [rect];
+	}
 };
 
 enum PaperJSClass {

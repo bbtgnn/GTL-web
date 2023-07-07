@@ -1,9 +1,4 @@
-import type {
-	BaseProps,
-	CurveProps,
-	OrientationProp,
-	StringProp
-} from './props';
+import type { BaseProps, BooleanProp, CurveProps, OrientationProp, StringProp } from './props';
 
 /**
  * Shapes
@@ -50,6 +45,7 @@ export type QuarterShape = ShapeTemplate<ShapeKind.Quarter, QuarterProps>;
 
 export type SVGProps = BaseProps & {
 	path: StringProp;
+	negative: BooleanProp;
 };
 export type SVGShape = ShapeTemplate<ShapeKind.SVG, SVGProps>;
 
@@ -57,15 +53,5 @@ export type SVGShape = ShapeTemplate<ShapeKind.SVG, SVGProps>;
  * Utility union types
  */
 
-export type Props =
-	| VoidProps
-	| RectangleProps
-	| EllipseProps
-	| QuarterProps
-	| SVGProps;
-export type Shape =
-	| VoidShape
-	| RectangleShape
-	| EllipseShape
-	| QuarterShape
-	| SVGShape;
+export type Props = VoidProps | RectangleProps | EllipseProps | QuarterProps | SVGProps;
+export type Shape = VoidShape | RectangleShape | EllipseShape | QuarterShape | SVGShape;
