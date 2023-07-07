@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { P } from 'flowbite-svelte';
+	import { Button, P } from 'flowbite-svelte';
 	import Dropzone from 'svelte-file-dropzone/Dropzone.svelte';
 
 	export let selected: Array<string> = [];
@@ -21,9 +21,18 @@
 		const { acceptedFiles } = e.detail;
 		selected = await Promise.all(acceptedFiles.map(readFileAsDataUrl));
 	}
+
+	function removeSelected() {
+		selected = [];
+	}
 </script>
 
-<Dropzone on:drop={handleFilesSelect} accept={'image/svg+xml'} inputElement={null} />
-{#if selected.length > 0}
-	<P>Selected {selected.length} files</P>
-{/if}
+<div class="space-y-2">
+	<Dropzone on:drop={handleFilesSelect} accept={'image/svg+xml'} inputElement={null} />
+	{#if selected.length > 0}
+		<div class="flex items-center space-x-2">
+			<P>Selected {selected.length} files</P>
+			<Button on:click={removeSelected}>[x] Remove</Button>
+		</div>
+	{/if}
+</div>
