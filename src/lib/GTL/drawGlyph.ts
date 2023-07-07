@@ -3,9 +3,7 @@ import {
 	calcOrientationProp,
 	calcNumberProp,
 	calcBooleanProp,
-	calcStringProp,
-	ValueKind,
-	randomChoice
+	calcStringProp
 } from '../types';
 import type { Rule, Syntax } from '../types';
 import {
@@ -18,11 +16,7 @@ import {
 	type SVGProps
 } from './shapes';
 
-import { get } from 'svelte/store';
-import { svgArchive } from '$lib/stores';
-
 import paper from 'paper';
-import { FileSystemItemKind } from '$lib/fileSystem';
 
 //
 
