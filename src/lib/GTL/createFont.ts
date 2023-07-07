@@ -9,11 +9,7 @@ import {
 	getGlyphWidth
 } from './drawGlyph';
 import { calcTransform, applyTransform } from './shapes';
-import {
-	getAbsoluteSVGPath,
-	arrayToDirectives,
-	editPathFromDirectives
-} from './paperToOpentype';
+import { getAbsoluteSVGPath, arrayToDirectives, editPathFromDirectives } from './paperToOpentype';
 import paper from 'paper';
 import opentype from 'opentype.js';
 import { UNICODE } from './unicode';
@@ -99,10 +95,13 @@ export async function generateGlyph(
 
 //
 
-export interface FontMetrics extends Record<string, number> {
+export interface FontMetrics {
 	baseline: number;
 	height: number;
+	UPM: number;
 }
+
+export type FontMetricsKeys = keyof FontMetrics;
 
 //
 
@@ -112,8 +111,7 @@ export async function generateFont(
 	metrics: FontMetrics
 ): Promise<opentype.Font> {
 	// Qui bisogna aggiungere la width presa dalla sintassi
-	const UPM = 16384;
-	const BASESQUARE = Math.round(UPM / metrics.height);
+	const BASESQUARE = Math.round(metrics.UPM / metrics.height);
 
 	// Listing all the glyphs
 	const opentypeGlyphs = [];
@@ -128,16 +126,14 @@ export async function generateFont(
 	opentypeGlyphs.push(notdefGlyph);
 
 	for (const g of glyphs) {
-		opentypeGlyphs.push(
-			await generateGlyph(g, syntax, BASESQUARE, 1, metrics.baseline)
-		);
+		opentypeGlyphs.push(await generateGlyph(g, syntax, BASESQUARE, 1, metrics.baseline));
 	}
 
 	// Creating font
 	return new opentype.Font({
 		familyName: 'GTL',
 		styleName: syntax.name,
-		unitsPerEm: UPM,
+		unitsPerEm: metrics.UPM,
 		ascender: BASESQUARE * (metrics.height - metrics.baseline),
 		descender: -BASESQUARE * metrics.baseline,
 		glyphs: opentypeGlyphs

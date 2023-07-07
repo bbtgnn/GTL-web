@@ -83,9 +83,3 @@ export async function listAllFilesAndDirs(
 	}
 	return root;
 }
-
-// export async function openDirectory(): Promise<DirectoryItem | null> {
-// 	const directoryHandle = await askDirectory();
-// 	if (!directoryHandle) return null;
-// 	return await listAllFilesAndDirs(directoryHandle);
-// }

@@ -1,17 +1,9 @@
 <script lang="ts">
-	import { syntaxes, metrics, glyphs, selectedGlyph, svgArchive } from '$lib/stores';
+	import { syntaxes, metrics, glyphs, selectedGlyph } from '$lib/stores';
 	import Upload from '$lib/ui/upload.svelte';
 	import Button from '$lib/ui/button.svelte';
 	import Tooltip from '$lib/ui/tooltip.svelte';
 	import { currentSyntaxId } from '../syntax/+page.svelte';
-	import { load } from 'opentype.js';
-	import {
-		listAllFilesAndDirs,
-		type DirectoryItem,
-		askDirectory,
-		defaultDirectoryItem
-	} from '$lib/fileSystem';
-	import { Hr, Spinner } from 'flowbite-svelte';
 
 	/**
 	 * Clear project
@@ -25,7 +17,6 @@
 			height: 7,
 			baseline: 1
 		};
-		$svgArchive = defaultDirectoryItem;
 	}
 
 	/**
@@ -39,8 +30,7 @@
 				JSON.stringify({
 					glyphs: $glyphs,
 					syntaxes: $syntaxes,
-					metrics: $metrics,
-					svgArchive: $svgArchive
+					metrics: $metrics
 				})
 			);
 		let dlAnchorElem = document.createElement('a');
@@ -62,7 +52,6 @@
 			$syntaxes = res['syntaxes'];
 			$glyphs = res['glyphs'];
 			$metrics = res['metrics'];
-			$svgArchive = res['svgArchive'];
 			//
 			$selectedGlyph = '';
 			$currentSyntaxId = '';
@@ -80,26 +69,6 @@
 
 	function closeTooltipFail() {
 		importTooltipFail = false;
-	}
-
-	/* Load SVGS */
-	let loading = false;
-
-	async function uploadSvgs() {
-		loading = true;
-		const directoryHandle = await askDirectory();
-		if (!directoryHandle) return null;
-		const directory = await listAllFilesAndDirs(directoryHandle, true, ['.DS_Store']);
-		if (!directory) {
-			loading = false;
-			return;
-		}
-		$svgArchive = directory;
-		loading = false;
-	}
-
-	function clearSvgs() {
-		$svgArchive = defaultDirectoryItem;
 	}
 </script>
 
@@ -133,19 +102,5 @@
 				<Button on:click={closeTooltipFail}>X</Button>
 			</div>
 		</Tooltip>
-	</div>
-	<Hr />
-	<div class="flex flex-col grow">
-		<p class="font-mono">Cartella SVG</p>
-		<div class="flex space-x-2 items-center">
-			<Button on:click={uploadSvgs}>Carica SVG</Button>
-			{#if loading}
-				<Spinner />
-			{/if}
-			<Button on:click={clearSvgs}>Elimina SVG</Button>
-		</div>
-		<div class="h-0 grow overflow-y-auto p-4 bg-gray-100 mt-4">
-			<pre>{JSON.stringify($svgArchive, null, 2)}</pre>
-		</div>
 	</div>
 </div>
