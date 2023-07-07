@@ -1,19 +1,8 @@
-import type {
-	BooleanProp,
-	NumberProp,
-	OrientationProp,
-	StringProp
-} from './props';
+import type { BooleanProp, NumberProp, OrientationProp, StringProp } from './props';
 import { PropKind } from './props';
 import { ValueKind } from './values';
 import type { Orientation } from './values';
-import type {
-	RectangleProps,
-	EllipseProps,
-	QuarterProps,
-	VoidProps,
-	SVGProps
-} from './shapes';
+import type { RectangleProps, EllipseProps, QuarterProps, VoidProps, SVGProps } from './shapes';
 import { ShapeKind } from './shapes';
 import type { Rule, Syntax } from './syntax';
 
@@ -100,12 +89,16 @@ export function createEmptyRule(s: string): Rule {
 	};
 }
 
-export function createEmptySyntax(
-	name: string,
-	id: string,
-	symbols: Array<string>
-): Syntax {
-	return { name, id, rules: symbols.map((s) => createEmptyRule(s)) };
+export function createEmptySyntax(name: string, id: string, symbols: Array<string>): Syntax {
+	return {
+		name,
+		id,
+		rules: symbols.map((s) => createEmptyRule(s)),
+		grid: {
+			columns: 1,
+			rows: 1
+		}
+	};
 }
 
 /**
