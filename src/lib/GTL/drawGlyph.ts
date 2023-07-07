@@ -99,7 +99,10 @@ export async function drawPath(box: paper.Rectangle, rule: Rule): Promise<Array<
 	}
 	//
 	else if (rule.shape.kind == ShapeKind.SVG) {
-		const props: SVGProps = { url: calcStringProp(rule.shape.props.path) };
+		const props: SVGProps = {
+			url: calcStringProp(rule.shape.props.path),
+			negative: calcBooleanProp(rule.shape.props.negative)
+		};
 		paths.push(...(await svg(box, props)));
 	}
 	//

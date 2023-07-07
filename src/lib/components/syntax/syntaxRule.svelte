@@ -7,8 +7,7 @@
 		rectangleProps,
 		ellipseProps,
 		quarterProps,
-		svgProps,
-		stringPropFixed
+		svgProps
 	} from '$lib/types';
 
 	import InputPropBoolean from './inputPropBoolean.svelte';
@@ -88,6 +87,10 @@
 					<div class="block">
 						<Label target="">SVG Path</Label>
 						<InputPropFile bind:prop={rule.shape.props.path} />
+					</div>
+					<div class="block">
+						<Label target="negative">Negativo</Label>
+						<InputPropBoolean bind:prop={rule.shape.props.negative} />
 					</div>
 				{/if}
 				<!--  -->

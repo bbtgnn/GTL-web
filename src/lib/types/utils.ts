@@ -70,6 +70,7 @@ export const svgProps: SVGProps = {
 	scale_x: numberPropFixed(1),
 	scale_y: numberPropFixed(1),
 	rotation: numberPropFixed(0),
+	negative: booleanPropFixed(false),
 	path: stringPropFixed('')
 };
 
