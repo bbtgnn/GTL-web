@@ -23,7 +23,6 @@ const config = {
 
 		paths: {
 			base: dev ? '' : '/GTL-web'
-			// assets: dev ? '' : '/GTL-web/docs'
 		}
 	}
 };
