@@ -118,27 +118,29 @@
 
 	<!-- syntax editor -->
 	<div class="p-8 space-y-8 overflow-y-auto">
-		{#if currentSyntaxIndex !== undefined}
-			<div class="space-y-4">
-				<div class="flex flex-col">
-					<p class="text-small font-mono text-slate-900 mb-2 text-sm">Nome stile</p>
-					<InputText name="styleName" bind:value={$syntaxes[currentSyntaxIndex].name} />
-				</div>
-				<div class="flex gap-4">
-					<div>
-						<p class="text-small font-mono text-slate-900 mb-2 text-sm">Colonne</p>
-						<InputNumber bind:value={$syntaxes[currentSyntaxIndex].grid.columns} />
+		{#key currentSyntaxIndex}
+			{#if currentSyntaxIndex !== undefined}
+				<div class="space-y-4">
+					<div class="flex flex-col">
+						<p class="text-small font-mono text-slate-900 mb-2 text-sm">Nome stile</p>
+						<InputText name="styleName" bind:value={$syntaxes[currentSyntaxIndex].name} />
 					</div>
-					<div>
-						<p class="text-small font-mono text-slate-900 mb-2 text-sm">Righe</p>
-						<InputNumber bind:value={$syntaxes[currentSyntaxIndex].grid.rows} />
+					<div class="flex gap-4">
+						<div>
+							<p class="text-small font-mono text-slate-900 mb-2 text-sm">Colonne</p>
+							<InputNumber bind:value={$syntaxes[currentSyntaxIndex].grid.columns} />
+						</div>
+						<div>
+							<p class="text-small font-mono text-slate-900 mb-2 text-sm">Righe</p>
+							<InputNumber bind:value={$syntaxes[currentSyntaxIndex].grid.rows} />
+						</div>
 					</div>
+					<DeleteButton on:delete={handleDelete} />
 				</div>
-				<DeleteButton on:delete={handleDelete} />
-			</div>
-			<hr />
-			<SyntaxEditor bind:syntax={$syntaxes[currentSyntaxIndex]} />
-		{/if}
+				<hr />
+				<SyntaxEditor bind:syntax={$syntaxes[currentSyntaxIndex]} />
+			{/if}
+		{/key}
 	</div>
 
 	<div class="p-8 border border-l-gray-300 overflow-y-scroll">
