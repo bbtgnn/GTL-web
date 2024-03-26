@@ -144,8 +144,10 @@
 	</div>
 
 	<div class="p-8 border border-l-gray-300 overflow-y-scroll">
-		{#if currentSyntaxIndex !== undefined}
-			<SyntaxPreview syntax={$syntaxes[currentSyntaxIndex]} />
-		{/if}
+		{#key currentSyntaxIndex}
+			{#if currentSyntaxIndex !== undefined}
+				<SyntaxPreview syntax={$syntaxes[currentSyntaxIndex]} />
+			{/if}
+		{/key}
 	</div>
 </div>
