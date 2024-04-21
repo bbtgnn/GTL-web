@@ -23,7 +23,7 @@
 		{/each}
 	</nav>
 
-	<main class="h-0 grow overflow-hidden flex flex-row items-stretch">
+	<main class="h-0 grow overflow-hidden flex flex-row items-stretch font-mono">
 		<slot />
 	</main>
 </div>

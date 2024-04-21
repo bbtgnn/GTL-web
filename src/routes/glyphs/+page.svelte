@@ -10,24 +10,10 @@
 	import Button from '$lib/ui/button.svelte';
 	import GlyphPreview from '$lib/partials/glyphPreview.svelte';
 
-	import { createEmptySyntax, createEmptyRule } from '$lib/types';
+	import { createEmptyRule } from '$lib/types';
 	import DeleteButton from '$lib/ui/deleteButton.svelte';
-
-	//
-
-	if (!$glyphs.length) {
-		addGlyph();
-	}
-
-	function addGlyph() {
-		const newGlyph: GlyphInput = {
-			id: nanoid(5),
-			name: '[aggiungi nome]',
-			structure: ''
-		};
-		$glyphs = [...$glyphs, newGlyph];
-		$selectedGlyph = newGlyph.id;
-	}
+	import AddGlyphModal from './AddGlyphModal.svelte';
+	import { UNICODE, glyphStringFromName } from '$lib/GTL/unicode';
 
 	//
 
@@ -83,6 +69,10 @@
 		$glyphs = $glyphs.filter((g) => g.id != $selectedGlyph);
 		$selectedGlyph = $glyphs[0].id;
 	}
+
+	//
+
+	let isAddGlyphModalOpen = false;
 </script>
 
 <!--  -->
@@ -91,13 +81,24 @@
 	<div class="shrink-0 flex items-stretch">
 		<Sidebar>
 			<svelte:fragment slot="topArea">
-				<Button on:click={addGlyph}>+ Aggiungi glifo</Button>
+				<Button
+					on:click={() => {
+						isAddGlyphModalOpen = true;
+					}}>+ Aggiungi glifo</Button
+				>
 			</svelte:fragment>
 			<svelte:fragment slot="listTitle">Lista glifi</svelte:fragment>
 			<svelte:fragment slot="items">
 				{#each $glyphs as g (g.id)}
+					{@const glyphString = glyphStringFromName(g.name)}
+					{@const glyphName = UNICODE[g.name]}
 					<SidebarTile selection={selectedGlyph} id={g.id}>
-						{g.name}
+						{#if glyphString}
+							{glyphString}
+						{/if}
+						<span class="opacity-25">
+							– {g.name}
+						</span>
 					</SidebarTile>
 				{/each}
 			</svelte:fragment>
@@ -108,20 +109,29 @@
 	<div class="p-8 space-y-8 grow flex flex-col items-stretch">
 		{#each $glyphs as g}
 			{#if g.id == $selectedGlyph}
-				<div class="shrink-0 flex justify-between items-end">
-					<div>
-						<p class="text-small font-mono text-slate-900 mb-2 text-sm">
-							Nome glifo
-						</p>
-						<InputText bind:value={g.name} />
+				{@const glyphString = glyphStringFromName(g.name)}
+				{@const glyphName = UNICODE[g.name]}
+				<div class="shrink-0 flex justify-between items-center">
+					<div class="flex gap-4">
+						{#if glyphString}
+							<div class="w-12 h-12 flex items-center justify-center border-black text-xl border">
+								<p>{glyphString}</p>
+							</div>
+						{/if}
+						<div class="text-gray-400">
+							<p>{g.name}</p>
+							{#if glyphName}
+								<p>
+									{glyphName}
+								</p>
+							{/if}
+						</div>
 					</div>
 					<DeleteButton on:delete={handleDelete} />
 				</div>
 				<hr />
 				<div class="grow flex flex-col items-stretch">
-					<p class="text-small font-mono text-slate-900 mb-2 text-sm">
-						Struttura glifo
-					</p>
+					<p class="text-small font-mono text-slate-900 mb-2 text-sm">Struttura glifo</p>
 					<textarea
 						class="h-0 grow p-2 bg-slate-200 tracking-[0.75em] hover:bg-slate-300 font-mono focus:ring-4"
 						bind:value={g.structure}
@@ -135,3 +145,7 @@
 		<GlyphPreview />
 	</div>
 </div>
+
+<!--  -->
+
+<AddGlyphModal bind:open={isAddGlyphModalOpen} />

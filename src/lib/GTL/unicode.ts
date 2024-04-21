@@ -6,6 +6,20 @@ export function getUnicodeNumber(name: string) {
 	}
 }
 
+export function findCharInUnicodeList(char: string) {
+	return Object.entries(UNICODE).find((unicodeEntry) => {
+		return char.charCodeAt(0) === parseInt(unicodeEntry[1], 16);
+	});
+}
+
+export function glyphStringFromName(glyphName: string): string | undefined {
+	try {
+		return String.fromCharCode(getUnicodeNumber(glyphName));
+	} catch (e) {
+		return undefined;
+	}
+}
+
 //
 
 export const UNICODE: Record<string, string> = {
