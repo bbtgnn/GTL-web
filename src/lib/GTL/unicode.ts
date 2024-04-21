@@ -6,6 +6,12 @@ export function getUnicodeNumber(name: string) {
 	}
 }
 
+export function findCharInUnicodeList(char: string) {
+	return Object.entries(UNICODE).find((unicodeEntry) => {
+		return char.charCodeAt(0) === parseInt(unicodeEntry[1], 16);
+	});
+}
+
 //
 
 export const UNICODE: Record<string, string> = {
