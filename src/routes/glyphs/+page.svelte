@@ -90,8 +90,15 @@
 			<svelte:fragment slot="listTitle">Lista glifi</svelte:fragment>
 			<svelte:fragment slot="items">
 				{#each $glyphs as g (g.id)}
+					{@const glyphString = glyphStringFromName(g.name)}
+					{@const glyphName = UNICODE[g.name]}
 					<SidebarTile selection={selectedGlyph} id={g.id}>
-						{g.name}
+						{#if glyphString}
+							{glyphString}
+						{/if}
+						<span class="opacity-25">
+							– {g.name}
+						</span>
 					</SidebarTile>
 				{/each}
 			</svelte:fragment>
