@@ -12,6 +12,14 @@ export function findCharInUnicodeList(char: string) {
 	});
 }
 
+export function glyphStringFromName(glyphName: string): string | undefined {
+	try {
+		return String.fromCharCode(getUnicodeNumber(glyphName));
+	} catch (e) {
+		return undefined;
+	}
+}
+
 //
 
 export const UNICODE: Record<string, string> = {
