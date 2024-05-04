@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { syntaxes, metrics, glyphs, selectedGlyph } from '$lib/stores';
+	import { syntaxes, metrics, glyphs, selectedGlyph, defaultMetrics } from '$lib/stores';
 	import Upload from '$lib/ui/upload.svelte';
 	import Button from '$lib/ui/button.svelte';
 	import Tooltip from '$lib/ui/tooltip.svelte';
@@ -13,10 +13,7 @@
 		exportFont();
 		$syntaxes = [];
 		$glyphs = [];
-		$metrics = {
-			height: 7,
-			baseline: 1
-		};
+		$metrics = defaultMetrics;
 	}
 
 	/**
