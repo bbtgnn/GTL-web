@@ -2,15 +2,13 @@
 	import FontDisplay from '$lib/components/fontDisplay.svelte';
 	import { syntaxes, selectedGlyph, glyphs, metrics } from '$lib/stores';
 	import type { GlyphInput } from '$lib/types';
-	import { generateFont } from '$lib/GTL/createFont';
 	import { getUnicodeNumber } from '$lib/GTL/unicode';
 	import FontGenerator from './fontGenerator.svelte';
 
 	//
 
 	let currentGlyph: GlyphInput | undefined;
-	$: if ($selectedGlyph)
-		currentGlyph = $glyphs.find((g) => g.id === $selectedGlyph);
+	$: if ($selectedGlyph) currentGlyph = $glyphs.find((g) => g.id === $selectedGlyph);
 
 	let currentGlyphText: string;
 	$: if (currentGlyph) currentGlyphText = getCharFromGlyph(currentGlyph);
