@@ -13,7 +13,7 @@
 	import { createEmptyRule } from '$lib/types';
 	import DeleteButton from '$lib/ui/deleteButton.svelte';
 	import AddGlyphModal from './AddGlyphModal.svelte';
-	import { UNICODE, glyphStringFromName } from '$lib/GTL/unicode';
+	import { UNICODE, getUnicodeNumber, glyphStringFromName } from '$lib/GTL/unicode';
 
 	//
 
@@ -70,6 +70,14 @@
 		$selectedGlyph = $glyphs[0].id;
 	}
 
+	function sortGlyphs(glyphs: GlyphInput[]): GlyphInput[] {
+		return glyphs.sort((a, b) => {
+			const aUnicode = getUnicodeNumber(a.name);
+			const bUnicode = getUnicodeNumber(b.name);
+			return aUnicode - bUnicode;
+		});
+	}
+
 	//
 
 	let isAddGlyphModalOpen = false;
@@ -89,9 +97,8 @@
 			</svelte:fragment>
 			<svelte:fragment slot="listTitle">Lista glifi</svelte:fragment>
 			<svelte:fragment slot="items">
-				{#each $glyphs as g (g.id)}
+				{#each sortGlyphs($glyphs) as g (g.id)}
 					{@const glyphString = glyphStringFromName(g.name)}
-					{@const glyphName = UNICODE[g.name]}
 					<SidebarTile selection={selectedGlyph} id={g.id}>
 						{#if glyphString}
 							{glyphString}
