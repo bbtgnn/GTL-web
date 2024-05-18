@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button, P } from 'flowbite-svelte';
-	import Dropzone from 'svelte-file-dropzone/Dropzone.svelte';
+	import Dropzone from 'svelte-file-dropzone';
 
 	export let selected: Array<string> = [];
 

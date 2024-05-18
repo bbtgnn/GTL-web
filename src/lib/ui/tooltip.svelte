@@ -20,7 +20,7 @@
 
 {#if visible}
 	<div
-		out:fade
+		out:fade|global
 		class="p-4"
 		class:bg-red-300={state == 'negative'}
 		class:bg-gold-300={state == 'neutral'}
