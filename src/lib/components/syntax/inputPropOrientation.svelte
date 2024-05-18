@@ -1,21 +1,22 @@
 <script lang="ts">
 	import {
 		ValueKind,
-		type Orientation,
+		Orientation,
 		type OrientationValueKind,
 		type OrientationProp
 	} from '$lib/types';
 	import type { OrientationData } from '$lib/types';
 	import Select, { type SelectOptions } from '$lib/ui/select.svelte';
 	import InputArray from '$lib/ui/inputArray.svelte';
-	import Label from '$lib/ui/label.svelte';
 
 	//
 
+	const { NE, NW, SE, SW } = Orientation;
+
 	export let prop: OrientationProp;
 	export let defaults: Record<OrientationValueKind, OrientationData> = {
-		fixed: 'NE',
-		choice: { options: ['NE', 'NW'] }
+		fixed: NE,
+		choice: { options: [NE, NW] }
 	};
 
 	//
@@ -50,10 +51,10 @@
 	];
 
 	const orientationOptions: SelectOptions<Orientation> = [
-		{ label: 'NW', value: 'NW' },
-		{ label: 'NE', value: 'NE' },
-		{ label: 'SW', value: 'SW' },
-		{ label: 'SE', value: 'SE' }
+		{ label: 'NW', value: NW },
+		{ label: 'NE', value: NE },
+		{ label: 'SW', value: SW },
+		{ label: 'SE', value: SE }
 	];
 </script>
 
@@ -61,11 +62,7 @@
 
 {#if prop}
 	<div class="flex flex-row space-x-4">
-		<Select
-			options={modesOptions}
-			bind:value={tempKind}
-			on:changed={changePropKindSelect}
-		/>
+		<Select options={modesOptions} bind:value={tempKind} on:changed={changePropKindSelect} />
 
 		<div class="flex flex-row space-x-2">
 			{#if prop.value.kind == 'fixed'}
