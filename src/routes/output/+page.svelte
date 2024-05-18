@@ -4,7 +4,7 @@
 
 	import { generateFont } from '$lib/GTL/createFont';
 
-	import FontDisplay from '$lib/components/fontDisplay.svelte';
+	import FontDisplay from '$lib/partials/fontDisplay.svelte';
 	import FontGenerator from '$lib/partials/fontGenerator.svelte';
 
 	import Label from '$lib/ui/label.svelte';
@@ -25,9 +25,9 @@
 
 <!--  -->
 
-<div class="grow flex flex-col items-stretch overflow-x-hidden overflow-y-auto">
+<div class="flex grow flex-col items-stretch overflow-y-auto overflow-x-hidden">
 	<div
-		class="p-8 space-y-2 overflow-x-hidden shrink-0 sticky top-0 border-b border-b-gray-200 bg-white"
+		class="sticky top-0 shrink-0 space-y-2 overflow-x-hidden border-b border-b-gray-200 bg-white p-8"
 	>
 		<Label target="previewText">Preview text</Label>
 		<GlyphsField
@@ -38,13 +38,13 @@
 		/>
 	</div>
 
-	<div class="p-8 space-y-8">
+	<div class="space-y-8 p-8">
 		{#each $syntaxes as syntax (syntax.name)}
 			<FontGenerator glyphs={previewGlyphs} {syntax} let:font>
 				{#if font}
 					<div class="space-y-4">
 						<div class="flex flex-row flex-nowrap items-center space-x-8">
-							<h2 class="text-lg font-mono">{font.names.fullName.en}</h2>
+							<h2 class="font-mono text-lg">{font.names.fullName.en}</h2>
 							<Button
 								on:click={() => {
 									downloadFont(syntax);

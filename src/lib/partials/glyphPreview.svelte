@@ -1,5 +1,5 @@
 <script lang="ts">
-	import FontDisplay from '$lib/components/fontDisplay.svelte';
+	import FontDisplay from '$lib/partials/fontDisplay.svelte';
 	import { syntaxes, selectedGlyph, glyphs, metrics } from '$lib/stores';
 	import type { GlyphInput } from '$lib/types';
 	import { getUnicodeNumber } from '$lib/GTL/unicode';
@@ -24,13 +24,13 @@
 </script>
 
 <div class="space-y-8">
-	<p class="text-small font-mono text-slate-900 text-sm">Anteprima</p>
+	<p class="text-small font-mono text-sm text-slate-900">Anteprima</p>
 	{#if currentGlyph}
 		{#each $syntaxes as syntax}
 			<FontGenerator {syntax} glyphs={[currentGlyph]} let:font>
 				{#if font}
 					<div class="space-y-2">
-						<p class="text-small font-mono text-slate-900 text-sm">
+						<p class="text-small font-mono text-sm text-slate-900">
 							{font.names.fontSubfamily.en}
 						</p>
 						<FontDisplay canvasWidth={300} {font} text={currentGlyphText} />

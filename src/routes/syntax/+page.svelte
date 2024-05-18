@@ -10,7 +10,7 @@
 	import { nanoid } from 'nanoid';
 	import _ from 'lodash';
 
-	import SyntaxEditor from '$lib/components/syntax/syntaxEditor.svelte';
+	import SyntaxEditor from '$lib/partials/syntax/syntaxEditor.svelte';
 	import InputText from '$lib/ui/inputText.svelte';
 	import Sidebar from '$lib/ui/sidebar.svelte';
 	import SidebarTile from '$lib/ui/sidebarTile.svelte';
@@ -100,7 +100,7 @@
 
 <!--  -->
 
-<div class="h-full flex flex-row flex-nowrap items-stretch">
+<div class="flex h-full flex-row flex-nowrap items-stretch">
 	<!-- sidebar -->
 	<Sidebar>
 		<svelte:fragment slot="topArea">
@@ -117,21 +117,21 @@
 	</Sidebar>
 
 	<!-- syntax editor -->
-	<div class="p-8 space-y-8 overflow-y-auto">
+	<div class="space-y-8 overflow-y-auto p-8">
 		{#key currentSyntaxIndex}
 			{#if currentSyntaxIndex !== undefined}
 				<div class="space-y-4">
 					<div class="flex flex-col">
-						<p class="text-small font-mono text-slate-900 mb-2 text-sm">Nome stile</p>
+						<p class="text-small mb-2 font-mono text-sm text-slate-900">Nome stile</p>
 						<InputText name="styleName" bind:value={$syntaxes[currentSyntaxIndex].name} />
 					</div>
 					<div class="flex gap-4">
 						<div>
-							<p class="text-small font-mono text-slate-900 mb-2 text-sm">Colonne</p>
+							<p class="text-small mb-2 font-mono text-sm text-slate-900">Colonne</p>
 							<InputNumber bind:value={$syntaxes[currentSyntaxIndex].grid.columns} />
 						</div>
 						<div>
-							<p class="text-small font-mono text-slate-900 mb-2 text-sm">Righe</p>
+							<p class="text-small mb-2 font-mono text-sm text-slate-900">Righe</p>
 							<InputNumber bind:value={$syntaxes[currentSyntaxIndex].grid.rows} />
 						</div>
 					</div>
@@ -143,7 +143,7 @@
 		{/key}
 	</div>
 
-	<div class="p-8 border border-l-gray-300 overflow-y-scroll">
+	<div class="overflow-y-scroll border border-l-gray-300 p-8">
 		{#key currentSyntaxIndex}
 			{#if currentSyntaxIndex !== undefined}
 				<SyntaxPreview syntax={$syntaxes[currentSyntaxIndex]} />
