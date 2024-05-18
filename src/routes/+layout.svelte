@@ -33,7 +33,9 @@
 	<nav class="space-x-2 border-b px-4 py-2">
 		{#each links as link}
 			{@const active = isActive(link.href, $page)}
-			<Button href={link.href} variant={active ? 'default' : 'outline'}>{link.text}</Button>
+			<Button href={link.href} variant={active ? 'secondary' : 'outline'} class="!border">
+				{link.text}
+			</Button>
 		{/each}
 	</nav>
 

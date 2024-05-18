@@ -23,7 +23,7 @@
 <Button
 	on:click={select}
 	class="block w-full overflow-hidden whitespace-nowrap text-left"
-	variant={active ? 'default' : 'outline'}
+	variant={active ? 'secondary' : 'outline'}
 >
 	<slot />
 </Button>

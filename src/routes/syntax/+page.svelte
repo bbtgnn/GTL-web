@@ -14,10 +14,14 @@
 	import InputText from '$lib/ui/inputText.svelte';
 	import Sidebar from '$lib/ui/sidebar.svelte';
 	import SidebarButton from '$lib/ui/sidebarButton.svelte';
-	import Button from '$lib/ui/button.svelte';
 	import SyntaxPreview from '$lib/partials/syntaxPreview.svelte';
 	import DeleteButton from '$lib/ui/deleteButton.svelte';
 	import InputNumber from '$lib/ui/inputNumber.svelte';
+	import ScrollArea from '$lib/components/ui/scroll-area/scroll-area.svelte';
+	import { Button } from '$lib/components/ui/button';
+	import { Separator } from '$lib/components/ui/separator';
+	import Plus from 'lucide-svelte/icons/plus';
+	import Icon from '$lib/ui/icon.svelte';
 
 	//
 
@@ -103,17 +107,22 @@
 <div class="flex h-full flex-row flex-nowrap items-stretch">
 	<!-- sidebar -->
 	<Sidebar>
-		<svelte:fragment slot="topArea">
-			<Button on:click={addSyntaxBtn}>+ Aggiungi stile</Button>
-		</svelte:fragment>
-		<svelte:fragment slot="listTitle">Lista stili</svelte:fragment>
-		<svelte:fragment slot="items">
-			{#each $syntaxes as s (s.id)}
-				<SidebarButton selection={currentSyntaxId} id={s.id}>
-					{s.name}
-				</SidebarButton>
-			{/each}
-		</svelte:fragment>
+		<Button on:click={addSyntaxBtn}>
+			<Icon src={Plus} mr />
+			Aggiungi stile
+		</Button>
+
+		<Separator />
+
+		<ScrollArea>
+			<div class="space-y-1">
+				{#each $syntaxes as s (s.id)}
+					<SidebarButton selection={currentSyntaxId} value={s.id}>
+						{s.name}
+					</SidebarButton>
+				{/each}
+			</div>
+		</ScrollArea>
 	</Sidebar>
 
 	<!-- syntax editor -->
@@ -135,7 +144,14 @@
 							<InputNumber bind:value={$syntaxes[currentSyntaxIndex].grid.rows} />
 						</div>
 					</div>
-					<DeleteButton on:delete={handleDelete} />
+					<DeleteButton on:delete={handleDelete}>
+						<svelte:fragment slot="title">
+							Elimina sintassi: {$syntaxes[currentSyntaxIndex].name}
+						</svelte:fragment>
+						<svelte:fragment slot="description">
+							Sei sicuro? L'azione non è reversibile!
+						</svelte:fragment>
+					</DeleteButton>
 				</div>
 				<hr />
 				<SyntaxEditor bind:syntax={$syntaxes[currentSyntaxIndex]} />

@@ -5,6 +5,7 @@
 	import { getUnicodeNumber } from '$lib/GTL/unicode';
 	import FontGenerator from './fontGenerator.svelte';
 	import ScrollArea from '$lib/components/ui/scroll-area/scroll-area.svelte';
+	import Sidebar from '$lib/ui/sidebar.svelte';
 
 	//
 
@@ -24,24 +25,26 @@
 	}
 </script>
 
-<div class="space-y-8 border-l p-8 pt-4">
+<Sidebar position="right" class="w-fit gap-8 px-8">
 	<p class="title-sm">Anteprima</p>
 	{#if currentGlyph}
 		<ScrollArea>
-			{#each $syntaxes as syntax}
-				<FontGenerator {syntax} glyphs={[currentGlyph]} let:font>
-					{#if font}
-						<div class="space-y-2">
-							<p class="text-sm font-medium capitalize tracking-wide">
-								{font.names.fontSubfamily.en}
-							</p>
-							<FontDisplay canvasWidth={300} {font} text={currentGlyphText} />
-						</div>
-					{/if}
-				</FontGenerator>
-			{/each}
+			<div class="space-y-8">
+				{#each $syntaxes as syntax}
+					<FontGenerator {syntax} glyphs={[currentGlyph]} let:font>
+						{#if font}
+							<div class="space-y-2">
+								<p class="text-sm font-medium capitalize tracking-wide">
+									{font.names.fontSubfamily.en}
+								</p>
+								<FontDisplay canvasWidth={300} {font} text={currentGlyphText} />
+							</div>
+						{/if}
+					</FontGenerator>
+				{/each}
+			</div>
 		</ScrollArea>
 	{:else}
 		<p>Glifo non trovato</p>
 	{/if}
-</div>
+</Sidebar>
