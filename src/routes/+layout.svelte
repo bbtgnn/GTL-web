@@ -1,29 +1,43 @@
 <script lang="ts">
 	import '../app.postcss';
 
-	import '$lib/app.css';
+	//
+
 	import { base } from '$app/paths';
+	import { page } from '$app/stores';
+	import Button from '$lib/components/ui/button/button.svelte';
+	import type { Page } from '@sveltejs/kit';
 
-	import NavLink from '$lib/ui/navLink.svelte';
+	//
 
-	const links = [
+	type Link = {
+		href: string;
+		text: string;
+	};
+
+	const links: Link[] = [
 		{ href: `${base}/glyphs`, text: 'Glifi' },
 		{ href: `${base}/syntax`, text: 'Sintassi' },
 		{ href: `${base}/metrics`, text: 'Metriche' },
 		{ href: `${base}/output`, text: 'Output' },
 		{ href: `${base}/settings`, text: 'Impostazioni' }
 	];
+
+	function isActive(path: string, page: Page) {
+		return page.url.pathname === path;
+	}
 </script>
 
 <!--  -->
-<div class="h-screen w-screen flex flex-col items-stretch overflow-hidden">
-	<nav class="flex flex-row flex-nowrap py-2 px-4 bg-slate-900 space-x-2 shrink-0">
-		{#each links as l}
-			<NavLink href={l.href}>{l.text}</NavLink>
+<div class="flex h-screen w-screen flex-col items-stretch overflow-hidden">
+	<nav class="space-x-2 border-b px-4 py-2">
+		{#each links as link}
+			{@const active = isActive(link.href, $page)}
+			<Button href={link.href} variant={active ? 'default' : 'outline'}>{link.text}</Button>
 		{/each}
 	</nav>
 
-	<main class="h-0 grow overflow-hidden flex flex-row items-stretch font-mono">
+	<main class="flex h-0 grow flex-row items-stretch overflow-hidden">
 		<slot />
 	</main>
 </div>

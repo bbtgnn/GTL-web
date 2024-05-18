@@ -21,7 +21,7 @@
 </script>
 
 <canvas
-	class="bg-gray-100 p-10"
+	class="rounded-lg bg-slate-50 p-10"
 	use:renderFont
 	width={canvasWidth}
 	height={canvasHeight}

@@ -4,11 +4,12 @@
 	import type { GlyphInput } from '$lib/types';
 	import { getUnicodeNumber } from '$lib/GTL/unicode';
 	import FontGenerator from './fontGenerator.svelte';
+	import ScrollArea from '$lib/components/ui/scroll-area/scroll-area.svelte';
 
 	//
 
 	let currentGlyph: GlyphInput | undefined;
-	$: if ($selectedGlyph) currentGlyph = $glyphs.find((g) => g.id === $selectedGlyph);
+	$: currentGlyph = $glyphs.find((g) => g.id === $selectedGlyph);
 
 	let currentGlyphText: string;
 	$: if (currentGlyph) currentGlyphText = getCharFromGlyph(currentGlyph);
@@ -23,22 +24,24 @@
 	}
 </script>
 
-<div class="space-y-8">
-	<p class="text-small font-mono text-sm text-slate-900">Anteprima</p>
+<div class="space-y-8 border-l p-8 pt-4">
+	<p class="title-sm">Anteprima</p>
 	{#if currentGlyph}
-		{#each $syntaxes as syntax}
-			<FontGenerator {syntax} glyphs={[currentGlyph]} let:font>
-				{#if font}
-					<div class="space-y-2">
-						<p class="text-small font-mono text-sm text-slate-900">
-							{font.names.fontSubfamily.en}
-						</p>
-						<FontDisplay canvasWidth={300} {font} text={currentGlyphText} />
-					</div>
-				{/if}
-			</FontGenerator>
-		{/each}
+		<ScrollArea>
+			{#each $syntaxes as syntax}
+				<FontGenerator {syntax} glyphs={[currentGlyph]} let:font>
+					{#if font}
+						<div class="space-y-2">
+							<p class="text-sm font-medium capitalize tracking-wide">
+								{font.names.fontSubfamily.en}
+							</p>
+							<FontDisplay canvasWidth={300} {font} text={currentGlyphText} />
+						</div>
+					{/if}
+				</FontGenerator>
+			{/each}
+		</ScrollArea>
 	{:else}
-		<p>No glyphs</p>
+		<p>Glifo non trovato</p>
 	{/if}
 </div>

@@ -1,10 +1,13 @@
 <script lang="ts">
-	import { UNICODE, findCharInUnicodeList } from '$lib/GTL/unicode';
+	import { findCharInUnicodeList } from '$lib/GTL/unicode';
 	import { glyphs, selectedGlyph } from '$lib/stores';
 	import type { GlyphInput } from '$lib/types';
-	import { Modal } from 'flowbite-svelte';
+	import * as Dialog from '$lib/components/ui/dialog';
 	import { nanoid } from 'nanoid';
-	import Button from '$lib/ui/button.svelte';
+	import { Button } from '$lib/components/ui/button';
+	import { Input } from '$lib/components/ui/input';
+	import Icon from '$lib/ui/icon.svelte';
+	import Plus from 'lucide-svelte/icons/plus';
 
 	export let open = false;
 
@@ -40,26 +43,29 @@
 	}
 </script>
 
-<Modal outsideclose class="!rounded-none-none !font-mono" bind:open title="Aggiungi glifo">
-	<div class="flex items-stretch gap-4 font-mono">
-		<input
-			class="border hover:border-blue-600 px-4"
-			bind:value={char}
-			maxlength="1"
-			minlength="1"
-			size="1"
-		/>
+<Dialog.Root bind:open>
+	<Dialog.Content class="max-w-[700px]">
+		<Dialog.Header>
+			<Dialog.Title>Aggiungi glifo</Dialog.Title>
+		</Dialog.Header>
 
-		<div class="grow bg-gray-100 flex items-center px-4">
-			{#if glyphAlreadyExists}
-				<p>Questo glifo è già aggiunto</p>
-			{:else if foundGlyph}
-				<p>{foundGlyph[0]} – {foundGlyph[1]}</p>
-			{:else}
-				<p>Nessun glifo trovato</p>
-			{/if}
+		<div class="flex items-stretch gap-4 pt-4">
+			<Input class="w-12 text-center" maxlength={1} minlength={1} size={1} bind:value={char} />
+
+			<div class="flex grow items-center rounded-lg bg-slate-100 px-4">
+				{#if glyphAlreadyExists}
+					<p>Questo glifo è già stato aggiunto</p>
+				{:else if foundGlyph}
+					<p>{foundGlyph[0]} – {foundGlyph[1]}</p>
+				{:else}
+					<p>Nessun glifo trovato</p>
+				{/if}
+			</div>
+
+			<Button disabled={!canAdd} on:click={addGlyph}>
+				<Icon src={Plus} />
+				Aggiungi glifo
+			</Button>
 		</div>
-
-		<Button disabled={!canAdd} on:click={addGlyph}>+ Aggiungi glifo</Button>
-	</div>
-</Modal>
+	</Dialog.Content>
+</Dialog.Root>

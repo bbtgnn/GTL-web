@@ -13,7 +13,7 @@
 	import SyntaxEditor from '$lib/partials/syntax/syntaxEditor.svelte';
 	import InputText from '$lib/ui/inputText.svelte';
 	import Sidebar from '$lib/ui/sidebar.svelte';
-	import SidebarTile from '$lib/ui/sidebarTile.svelte';
+	import SidebarButton from '$lib/ui/sidebarButton.svelte';
 	import Button from '$lib/ui/button.svelte';
 	import SyntaxPreview from '$lib/partials/syntaxPreview.svelte';
 	import DeleteButton from '$lib/ui/deleteButton.svelte';
@@ -109,9 +109,9 @@
 		<svelte:fragment slot="listTitle">Lista stili</svelte:fragment>
 		<svelte:fragment slot="items">
 			{#each $syntaxes as s (s.id)}
-				<SidebarTile selection={currentSyntaxId} id={s.id}>
+				<SidebarButton selection={currentSyntaxId} id={s.id}>
 					{s.name}
-				</SidebarTile>
+				</SidebarButton>
 			{/each}
 		</svelte:fragment>
 	</Sidebar>

@@ -1,19 +1,24 @@
 <script lang="ts">
 	import type { GlyphInput, Rule, Syntax } from '$lib/types';
 	import { glyphs, selectedGlyph, syntaxes } from '$lib/stores';
-	import { nanoid } from 'nanoid';
 	import _ from 'lodash';
 
-	import InputText from '$lib/ui/inputText.svelte';
 	import Sidebar from '$lib/ui/sidebar.svelte';
-	import SidebarTile from '$lib/ui/sidebarTile.svelte';
-	import Button from '$lib/ui/button.svelte';
+	import SidebarButton from '$lib/ui/sidebarButton.svelte';
 	import GlyphPreview from '$lib/partials/glyphPreview.svelte';
 
 	import { createEmptyRule } from '$lib/types';
 	import DeleteButton from '$lib/ui/deleteButton.svelte';
 	import AddGlyphModal from './AddGlyphModal.svelte';
 	import { UNICODE, getUnicodeNumber, glyphStringFromName } from '$lib/GTL/unicode';
+	import ScrollArea from '$lib/components/ui/scroll-area/scroll-area.svelte';
+	import Separator from '$lib/components/ui/separator/separator.svelte';
+	import { Button } from '$lib/components/ui/button';
+	import Icon from '$lib/ui/icon.svelte';
+	import Plus from 'lucide-svelte/icons/plus';
+
+	import { createToggleStore } from '$lib/ui/utils';
+	import GlyphEditor from '$lib/partials/glyphEditor.svelte';
 
 	//
 
@@ -80,79 +85,88 @@
 
 	//
 
-	let isAddGlyphModalOpen = false;
+	let addGlyphModal = createToggleStore(false);
 </script>
 
 <!--  -->
 
-<div class="flex flex-row flex-nowrap items-stretch overflow-hidden grow">
-	<div class="shrink-0 flex items-stretch">
-		<Sidebar>
-			<svelte:fragment slot="topArea">
-				<Button
-					on:click={() => {
-						isAddGlyphModalOpen = true;
-					}}>+ Aggiungi glifo</Button
-				>
-			</svelte:fragment>
-			<svelte:fragment slot="listTitle">Lista glifi</svelte:fragment>
-			<svelte:fragment slot="items">
-				{#each sortGlyphs($glyphs) as g (g.id)}
-					{@const glyphString = glyphStringFromName(g.name)}
-					<SidebarTile selection={selectedGlyph} id={g.id}>
-						{#if glyphString}
-							{glyphString}
-						{/if}
-						<span class="opacity-25">
-							– {g.name}
-						</span>
-					</SidebarTile>
-				{/each}
-			</svelte:fragment>
-		</Sidebar>
-	</div>
+<Sidebar>
+	<p class="title-sm">Lista glifi</p>
 
-	<!-- Glyph area -->
-	<div class="p-8 space-y-8 grow flex flex-col items-stretch">
-		{#each $glyphs as g}
-			{#if g.id == $selectedGlyph}
+	<Button variant="default" class="shrink-0" on:click={addGlyphModal.on}>
+		<Icon src={Plus} mr /> Aggiungi glifo
+	</Button>
+
+	<Separator />
+
+	<ScrollArea>
+		<div class="space-y-1">
+			{#each sortGlyphs($glyphs) as g}
 				{@const glyphString = glyphStringFromName(g.name)}
-				{@const glyphName = UNICODE[g.name]}
-				<div class="shrink-0 flex justify-between items-center">
-					<div class="flex gap-4">
+				<SidebarButton selection={selectedGlyph} value={g.id}>
+					<p>
 						{#if glyphString}
-							<div class="w-12 h-12 flex items-center justify-center border-black text-xl border">
-								<p>{glyphString}</p>
-							</div>
+							<span class="">
+								{glyphString}
+							</span>
 						{/if}
-						<div class="text-gray-400">
-							<p>{g.name}</p>
-							{#if glyphName}
-								<p>
-									{glyphName}
-								</p>
+						{#if g.name != glyphString}
+							{#if glyphString}
+								<span class="my-3 opacity-15">–</span>
 							{/if}
-						</div>
-					</div>
-					<DeleteButton on:delete={handleDelete} />
-				</div>
-				<hr />
-				<div class="grow flex flex-col items-stretch">
-					<p class="text-small font-mono text-slate-900 mb-2 text-sm">Struttura glifo</p>
-					<textarea
-						class="h-0 grow p-2 bg-slate-200 tracking-[0.75em] hover:bg-slate-300 font-mono focus:ring-4"
-						bind:value={g.structure}
-					/>
-				</div>
-			{/if}
-		{/each}
-	</div>
+							<span class="opacity-15">
+								{g.name}
+							</span>
+						{/if}
+					</p>
+				</SidebarButton>
+			{/each}
+		</div>
+	</ScrollArea>
+</Sidebar>
 
-	<div class="p-8 border border-l-gray-300 overflow-y-scroll">
-		<GlyphPreview />
-	</div>
+<!-- Glyph area -->
+<div class="flex w-0 grow flex-col items-stretch space-y-6 p-8 pt-4">
+	{#each $glyphs as g}
+		{#if g.id == $selectedGlyph}
+			{@const glyphString = glyphStringFromName(g.name)}
+			{@const glyphName = UNICODE[g.name]}
+
+			<div class="flex shrink-0 items-center justify-between">
+				<div class="flex gap-4">
+					{#if glyphString}
+						<div
+							class="flex h-12 w-12 items-center justify-center rounded-md bg-slate-50 font-mono text-xl"
+						>
+							<p>{glyphString}</p>
+						</div>
+					{/if}
+					<div class="text-md text-slate-400">
+						<p>{g.name}</p>
+						{#if glyphName}
+							<p class="font-mono">
+								{glyphName}
+							</p>
+						{/if}
+					</div>
+				</div>
+
+				<DeleteButton on:delete={handleDelete}>
+					<svelte:fragment slot="title">
+						Elimina il glifo {glyphString} ({glyphName})
+					</svelte:fragment>
+					<svelte:fragment slot="description">
+						Sei sicuro? L'azione non è reversibile
+					</svelte:fragment>
+				</DeleteButton>
+			</div>
+			<div class="flex grow flex-col items-stretch">
+				<GlyphEditor bind:glyph={g.structure}></GlyphEditor>
+			</div>
+		{/if}
+	{/each}
 </div>
 
-<!--  -->
+<GlyphPreview />
 
-<AddGlyphModal bind:open={isAddGlyphModalOpen} />
+<AddGlyphModal bind:open={$addGlyphModal} />
